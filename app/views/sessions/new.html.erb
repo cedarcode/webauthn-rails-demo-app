@@ -1,1 +1,3 @@
-<button>Sign in with your device</button>
+<%= form_tag :sessions, remote: true do %>
+  <%= submit_tag :submit %>
+<% end %>
