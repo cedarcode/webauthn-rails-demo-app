@@ -14,13 +14,12 @@ class SessionsController < ApplicationController
   end
 
   def callback
-    valid = WebAuthn.valid?(
-      original_challenge: session[:challenge],
+    attestation_response = WebAuthn::AuthenticatorAttestationResponse.new(
       attestation_object: params[:response][:attestationObject],
-      client_data_bin: params[:response][:clientDataJSON]
+      client_data_json: params[:response][:clientDataJSON]
     )
 
-    if valid
+    if attestation_response.valid?(session[:challenge])
       render json: { status: "ok" }, status: :ok
     else
       render json: { status: "forbidden"}, status: :forbidden
