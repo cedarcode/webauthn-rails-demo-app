@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
       client_data_json: params[:response][:clientDataJSON]
     )
 
-    if attestation_response.valid?(session[:challenge])
+    if attestation_response.valid?(session[:challenge], request.base_url)
       render json: { status: "ok" }, status: :ok
     else
       render json: { status: "forbidden"}, status: :forbidden
