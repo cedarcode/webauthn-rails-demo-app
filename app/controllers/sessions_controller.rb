@@ -6,6 +6,7 @@ class SessionsController < ApplicationController
 
   def create
     credential_creation_options = WebAuthn.credential_creation_options
+    credential_creation_options[:attestation] = "direct"
 
     session[:challenge] = credential_creation_options[:challenge]
 
