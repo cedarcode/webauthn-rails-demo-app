@@ -1,3 +1,7 @@
-<%= form_tag :sessions, remote: true do %>
-  <%= submit_tag :submit %>
+<%= form_with scope: :session, url: sessions_path, id: "new-session" do |form| %>
+  <div>
+    Email: <%= form.text_field :email %>
+  </div>
+
+  <%= form.submit :submit %>
 <% end %>
