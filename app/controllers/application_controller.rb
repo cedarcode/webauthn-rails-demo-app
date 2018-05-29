@@ -14,10 +14,4 @@ class ApplicationController < ActionController::Base
         User.find_by(id: session[:user_id])
       end
   end
-
-  def enforce_current_user
-    if !current_user.present?
-      redirect_to new_session_path
-    end
-  end
 end
