@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
 
     if user.credential.present?
       credential_options = WebAuthn.credential_request_options
-
+      credential_options[:allowCredentials] << { id: user.credential, type: "public-key" }
     else
       credential_options = WebAuthn.credential_creation_options
       credential_options[:user][:id] = Base64.urlsafe_encode64(session_params[:email])
@@ -44,7 +44,7 @@ class SessionsController < ApplicationController
     if user
       if auth_response.valid?(user.current_challenge, request.base_url)
         if params[:response][:attestationObject].present?
-          user.update!(credential: Base64.encode64(auth_response.credential_id))
+          user.update!(credential: Base64.encode64(auth_response.credential.id))
         end
 
         sign_in(user)
