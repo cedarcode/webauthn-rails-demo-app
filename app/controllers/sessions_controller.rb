@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
 
     if user.credential_id.present?
       credential_options = WebAuthn.credential_request_options
-      credential_options[:allowCredentials] << { id: user.credential, type: "public-key" }
+      credential_options[:allowCredentials] << { id: user.credential_id, type: "public-key" }
     else
       credential_options = WebAuthn.credential_creation_options
       credential_options[:user][:id] = Base64.urlsafe_encode64(session_params[:email])
