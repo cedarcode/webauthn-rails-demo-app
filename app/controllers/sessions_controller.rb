@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       credential_options[:allowCredentials] << { id: user.credential_id, type: "public-key" }
     else
       credential_options = WebAuthn.credential_creation_options
-      credential_options[:user][:id] = Base64.urlsafe_encode64(session_params[:email])
+      credential_options[:user][:id] = Base64.strict_encode64(session_params[:email])
       credential_options[:user][:name] = session_params[:email]
       credential_options[:user][:displayName] = session_params[:email]
     end
@@ -54,9 +54,9 @@ class SessionsController < ApplicationController
     else
       auth_response = WebAuthn::AuthenticatorAssertionResponse.new(
         client_data_json: params[:response][:clientDataJSON],
-        authenticator_data: params[:response][:authenticatorData],
+        authenticator_data: Base64.strict_decode64(params[:response][:authenticatorData]),
         #user_handle: params[:response][:userHandle],
-        signature: params[:response][:signature]
+        signature: Base64.strict_decode64(params[:response][:signature])
       )
 
       user = User.where(email: session[:email]).take
