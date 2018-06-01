@@ -30,34 +30,52 @@ class SessionsController < ApplicationController
         attestation_object: params[:response][:attestationObject],
         client_data_json: params[:response][:clientDataJSON]
       )
+
+      user = User.where(email: session[:email]).take
+
+      if user
+        if auth_response.valid?(user.current_challenge, request.base_url)
+          if params[:response][:attestationObject].present?
+            user.update!(
+              credential_id: Base64.strict_encode64(auth_response.credential.id),
+              credential_public_key: Base64.strict_encode64(auth_response.credential.public_key)
+            )
+          end
+
+          sign_in(user)
+
+          render json: { status: "ok" }, status: :ok
+        else
+          render json: { status: "forbidden"}, status: :forbidden
+        end
+      else
+        raise "user #{session[:email]} never initiated sign up"
+      end
     else
       auth_response = WebAuthn::AuthenticatorAssertionResponse.new(
         client_data_json: params[:response][:clientDataJSON],
         authenticator_data: params[:response][:authenticatorData],
-        user_handle: params[:response][:userHandle],
+        #user_handle: params[:response][:userHandle],
         signature: params[:response][:signature]
       )
-    end
 
-    user = User.where(email: session[:email]).take
+      user = User.where(email: session[:email]).take
 
-    if user
-      if auth_response.valid?(user.current_challenge, request.base_url)
-        if params[:response][:attestationObject].present?
-          user.update!(
-            credential_id: Base64.strict_encode64(auth_response.credential.id),
-            credential_public_key: Base64.strict_encode64(auth_response.credential.public_key)
-          )
+      if user
+        if auth_response.valid?(
+            user.current_challenge,
+            request.base_url,
+            credential_public_key: Base64.strict_decode64(user.credential_public_key)
+        )
+          sign_in(user)
+
+          render json: { status: "ok" }, status: :ok
+        else
+          render json: { status: "forbidden"}, status: :forbidden
         end
-
-        sign_in(user)
-
-        render json: { status: "ok" }, status: :ok
       else
-        render json: { status: "forbidden"}, status: :forbidden
+        raise "user #{session[:email]} never initiated sign up"
       end
-    else
-      raise "user #{session[:email]} never initiated sign up"
     end
   end
 
