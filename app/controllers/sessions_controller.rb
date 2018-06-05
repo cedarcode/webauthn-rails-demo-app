@@ -15,6 +15,7 @@ class SessionsController < ApplicationController
       credential_options[:user][:displayName] = session_params[:email]
     end
 
+    credential_options[:challenge] = bin_to_str(credential_options[:challenge])
     user.update!(current_challenge: credential_options[:challenge])
 
     session[:email] = session_params[:email]
@@ -27,14 +28,14 @@ class SessionsController < ApplicationController
   def callback
     if params[:response][:attestationObject].present?
       auth_response = WebAuthn::AuthenticatorAttestationResponse.new(
-        attestation_object: params[:response][:attestationObject],
-        client_data_json: params[:response][:clientDataJSON]
+        attestation_object: str_to_bin(params[:response][:attestationObject]),
+        client_data_json: str_to_bin(params[:response][:clientDataJSON])
       )
 
       user = User.where(email: session[:email]).take
 
       if user
-        if auth_response.valid?(user.current_challenge, request.base_url)
+        if auth_response.valid?(str_to_bin(user.current_challenge), request.base_url)
           if params[:response][:attestationObject].present?
             user.update!(
               credential_id: Base64.strict_encode64(auth_response.credential.id),
@@ -53,17 +54,17 @@ class SessionsController < ApplicationController
       end
     else
       auth_response = WebAuthn::AuthenticatorAssertionResponse.new(
-        client_data_json: params[:response][:clientDataJSON],
-        authenticator_data: Base64.strict_decode64(params[:response][:authenticatorData]),
+        client_data_json: str_to_bin(params[:response][:clientDataJSON]),
+        authenticator_data: str_to_bin(params[:response][:authenticatorData]),
         #user_handle: params[:response][:userHandle],
-        signature: Base64.strict_decode64(params[:response][:signature])
+        signature: str_to_bin(params[:response][:signature])
       )
 
       user = User.where(email: session[:email]).take
 
       if user
         if auth_response.valid?(
-            user.current_challenge,
+            str_to_bin(user.current_challenge),
             request.base_url,
             credential_public_key: Base64.strict_decode64(user.credential_public_key)
         )
@@ -80,6 +81,14 @@ class SessionsController < ApplicationController
   end
 
   private
+
+  def str_to_bin(str)
+    Base64.strict_decode64(str)
+  end
+
+  def bin_to_str(bin)
+    Base64.strict_encode64(bin)
+  end
 
   def session_params
     params.require(:session).permit(:email)
