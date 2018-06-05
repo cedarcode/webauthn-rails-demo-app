@@ -10,14 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_28_192606) do
+ActiveRecord::Schema.define(version: 2018_05_29_223646) do
 
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "current_challenge"
-    t.string "credential"
+    t.string "credential_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "credential_public_key"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

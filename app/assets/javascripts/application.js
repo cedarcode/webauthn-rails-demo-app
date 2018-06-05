@@ -33,38 +33,70 @@ document.addEventListener("DOMContentLoaded", function(event) {
     sessionForm.addEventListener("ajax:success", function(event) {
       [data, status, xhr] = event.detail;
       console.log(data);
-      var credentialCreationOptions = data;
+      var credentialOptions = data;
 
-      credentialCreationOptions["challenge"] = strToBin(credentialCreationOptions["challenge"]);
-      credentialCreationOptions["user"]["id"] = strToBin(credentialCreationOptions["user"]["id"]);
+      credentialOptions["challenge"] = strToBin(credentialOptions["challenge"]);
 
-      navigator.credentials.create({ "publicKey": credentialCreationOptions }).then(function(attestation) {
-        console.log("Success");
+      if (credentialOptions["user"]) {
+        credentialOptions["user"]["id"] = strToBin(credentialOptions["user"]["id"]);
 
-        fetch("/callback", {
-          method: "POST",
-          body: JSON.stringify({
-            id: attestation.id,
-            response: {
-              clientDataJSON: binToStr(attestation.response.clientDataJSON),
-              attestationObject: binToStr(attestation.response.attestationObject)
-            }
-          }),
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-            "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
-          },
-          credentials: 'same-origin'
-        }).then(function() {
-          window.location.replace("/")
-        });
-      }).catch(function(error) {
-        console.log("Failure");
-        console.log(error);
-      });
+        create(credentialOptions);
+      } else {
+        credentialOptions["allowCredentials"][0]["id"] = strToBin(credentialOptions["allowCredentials"][0]["id"]);
 
-      console.log("Creating new public key credential...");
+        get(credentialOptions);
+      }
     });
   }
 });
+
+function create(credentialOptions) {
+  navigator.credentials.create({ "publicKey": credentialOptions }).then(function(attestation) {
+    callback({
+      id: attestation.id,
+      response: {
+        clientDataJSON: binToStr(attestation.response.clientDataJSON),
+        attestationObject: binToStr(attestation.response.attestationObject)
+      }
+    });
+  }).catch(function(error) {
+    console.log(error);
+  });
+
+  console.log("Creating new public key credential...");
+}
+
+function get(credentialOptions) {
+  navigator.credentials.get({ "publicKey": credentialOptions }).then(function(credential) {
+    var assertionResponse = credential.response;
+
+    callback({
+      id: credential.id,
+      response: {
+        clientDataJSON: binToStr(assertionResponse.clientDataJSON),
+        signature: binToStr(assertionResponse.signature),
+        userHandle: binToStr(assertionResponse.userHandle),
+        authenticatorData: binToStr(assertionResponse.authenticatorData)
+      }
+    });
+  }).catch(function(error) {
+    console.log(error);
+  });
+
+  console.log("Getting public key credential...");
+}
+
+function callback(body) {
+  fetch("/callback", {
+    method: "POST",
+    body: JSON.stringify(body),
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+    },
+    credentials: 'same-origin'
+  }).then(function() {
+    window.location.replace("/")
+  });
+}

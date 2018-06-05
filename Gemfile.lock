@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/cedarcode/webauthn-ruby
+  revision: e913647966184d1f36afee9d000088666183370d
+  specs:
+    webauthn (0.1.0)
+      cbor (~> 0.5.9.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -183,8 +190,6 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
-    webauthn (0.1.0)
-      cbor (~> 0.5.9.2)
     websocket-driver (0.7.0)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.3)
@@ -213,10 +218,10 @@ DEPENDENCIES
   tzinfo-data
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
-  webauthn (= 0.1.0)
+  webauthn!
 
 RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.1
+   1.16.2
