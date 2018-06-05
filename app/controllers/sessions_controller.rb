@@ -54,6 +54,7 @@ class SessionsController < ApplicationController
       end
     else
       auth_response = WebAuthn::AuthenticatorAssertionResponse.new(
+        credential_id: str_to_bin(params[:id]),
         client_data_json: str_to_bin(params[:response][:clientDataJSON]),
         authenticator_data: str_to_bin(params[:response][:authenticatorData]),
         #user_handle: params[:response][:userHandle],
@@ -63,10 +64,13 @@ class SessionsController < ApplicationController
       user = User.where(email: session[:email]).take
 
       if user
+        allowed_credentials = [Base64.strict_decode64(user.credential_id)]
+
         if auth_response.valid?(
             str_to_bin(user.current_challenge),
             request.base_url,
-            credential_public_key: Base64.strict_decode64(user.credential_public_key)
+            credential_public_key: Base64.strict_decode64(user.credential_public_key),
+            allowed_credentials: allowed_credentials
         )
           sign_in(user)
 

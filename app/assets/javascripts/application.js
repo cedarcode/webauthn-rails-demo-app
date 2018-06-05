@@ -71,7 +71,7 @@ function get(credentialOptions) {
     var assertionResponse = credential.response;
 
     callback({
-      id: credential.id,
+      id: binToStr(credential.rawId),
       response: {
         clientDataJSON: binToStr(assertionResponse.clientDataJSON),
         signature: binToStr(assertionResponse.signature),
