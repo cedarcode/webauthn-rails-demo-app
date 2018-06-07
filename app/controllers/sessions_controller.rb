@@ -64,13 +64,15 @@ class SessionsController < ApplicationController
       user = User.where(email: session[:email]).take
 
       if user
-        allowed_credentials = [Base64.strict_decode64(user.credential_id)]
+        allowed_credential = {
+          id: Base64.strict_decode64(user.credential_id),
+          public_key: Base64.strict_decode64(user.credential_public_key)
+        }
 
         if auth_response.valid?(
             str_to_bin(user.current_challenge),
             request.base_url,
-            credential_public_key: Base64.strict_decode64(user.credential_public_key),
-            allowed_credentials: allowed_credentials
+            allowed_credential: allowed_credential
         )
           sign_in(user)
 
