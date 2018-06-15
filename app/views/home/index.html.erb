@@ -3,9 +3,11 @@
 </p>
 
 <p>
-  Your credential id is: <%= current_user.credential_id %>
+  Your credentials are:
 </p>
 
-<p>
-  Your credential public key is: <%= current_user.credential_public_key %>
-</p>
+<% current_user.credentials.each do |cred| %>
+  <p> Credential ID: <%= cred.raw_id %> </p>
+  <p> Credential public key: <%= cred.public_key %></p>
+  <br/>
+<% end %>

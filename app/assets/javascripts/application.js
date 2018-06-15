@@ -42,7 +42,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
         create(credentialOptions);
       } else {
-        credentialOptions["allowCredentials"][0]["id"] = strToBin(credentialOptions["allowCredentials"][0]["id"]);
+
+        credentialOptions["allowCredentials"].forEach(function(cred, i){
+          cred["id"] = strToBin(cred["id"]);
+        })
 
         get(credentialOptions);
       }

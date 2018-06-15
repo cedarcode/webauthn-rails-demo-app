@@ -3,5 +3,11 @@
     Email: <%= form.text_field :email %>
   </div>
 
+  <%- if current_user && current_user.credentials.any? %>
+    <div>
+      Add another credential for this user: <%= form.check_box :add_credential %>
+    </div>
+  <% end%>
+
   <%= form.submit :submit %>
 <% end %>
