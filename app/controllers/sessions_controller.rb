@@ -21,7 +21,6 @@ class SessionsController < ApplicationController
     user.update!(current_challenge: credential_options[:challenge])
 
     session[:email] = session_params[:email]
-    session[:add_credential] = session_params[:add_credential]
 
     respond_to do |format|
       format.json { render json: credential_options }
