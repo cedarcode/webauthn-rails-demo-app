@@ -1,3 +1,3 @@
 class Credential < ApplicationRecord
-  validates :raw_id, :public_key, presence: true
+  validates :external_id, :public_key, presence: true
 end

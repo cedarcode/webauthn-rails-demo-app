@@ -13,7 +13,7 @@
 ActiveRecord::Schema.define(version: 2018_06_12_192702) do
 
   create_table "credentials", force: :cascade do |t|
-    t.string "raw_id"
+    t.string "external_id"
     t.string "public_key"
     t.integer "user_id"
     t.datetime "created_at", null: false

@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     if user.credentials.any? && session_params[:add_credential] != "1"
       credential_options = WebAuthn.credential_request_options
       credential_options[:allowCredentials] = user.credentials.map do |cred|
-        { id: cred.raw_id, type: "public-key" }
+        { id: cred.external_id, type: "public-key" }
       end
     else
       credential_options = WebAuthn.credential_creation_options
@@ -41,7 +41,7 @@ class SessionsController < ApplicationController
         if auth_response.valid?(str_to_bin(user.current_challenge), request.base_url)
           if params[:response][:attestationObject].present?
             credential = user.credentials.find_or_initialize_by(
-              raw_id: Base64.strict_encode64(auth_response.credential.id)
+              external_id: Base64.strict_encode64(auth_response.credential.id)
             )
 
             credential.update!(public_key: Base64.strict_encode64(auth_response.credential.public_key))
@@ -70,7 +70,7 @@ class SessionsController < ApplicationController
       if user
         allowed_credentials = user.credentials.map do |cred|
           {
-            id: Base64.strict_decode64(cred.raw_id),
+            id: Base64.strict_decode64(cred.external_id),
             public_key: Base64.strict_decode64(cred.public_key)
           }
         end

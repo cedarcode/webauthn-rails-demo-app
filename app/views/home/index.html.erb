@@ -7,7 +7,7 @@
 </p>
 
 <% current_user.credentials.each do |cred| %>
-  <p> Credential ID: <%= cred.raw_id %> </p>
+  <p> Credential ID: <%= cred.external_id %> </p>
   <p> Credential public key: <%= cred.public_key %></p>
   <br/>
 <% end %>
