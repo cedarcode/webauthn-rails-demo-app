@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
   def create
     user = User.where(email: session_params[:email]).first_or_create!
 
-    if user.credentials.any? && session_params[:add_credential] != "1"
+    if user.credentials.any?
       credential_options = WebAuthn.credential_request_options
       credential_options[:allowCredentials] = user.credentials.map do |cred|
         { id: cred.external_id, type: "public-key" }
@@ -93,15 +93,7 @@ class SessionsController < ApplicationController
 
   private
 
-  def str_to_bin(str)
-    Base64.strict_decode64(str)
-  end
-
-  def bin_to_str(bin)
-    Base64.strict_encode64(bin)
-  end
-
   def session_params
-    params.require(:session).permit(:email, :add_credential)
+    params.require(:session).permit(:email)
   end
 end

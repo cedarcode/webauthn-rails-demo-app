@@ -26,36 +26,24 @@ function strToBin(str) {
   return Uint8Array.from(atob(str), c => c.charCodeAt(0));
 }
 
-document.addEventListener("DOMContentLoaded", function(event) {
-  var sessionForm = document.querySelector("#new-session")
+function callback(url, body) {
+  fetch(url, {
+    method: "POST",
+    body: JSON.stringify(body),
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+    },
+    credentials: 'same-origin'
+  }).then(function() {
+    window.location.replace("/")
+  });
+}
 
-  if (sessionForm) {
-    sessionForm.addEventListener("ajax:success", function(event) {
-      [data, status, xhr] = event.detail;
-      console.log(data);
-      var credentialOptions = data;
-
-      credentialOptions["challenge"] = strToBin(credentialOptions["challenge"]);
-
-      if (credentialOptions["user"]) {
-        credentialOptions["user"]["id"] = strToBin(credentialOptions["user"]["id"]);
-
-        create(credentialOptions);
-      } else {
-
-        credentialOptions["allowCredentials"].forEach(function(cred, i){
-          cred["id"] = strToBin(cred["id"]);
-        })
-
-        get(credentialOptions);
-      }
-    });
-  }
-});
-
-function create(credentialOptions) {
+function create(callbackUrl, credentialOptions) {
   navigator.credentials.create({ "publicKey": credentialOptions }).then(function(attestation) {
-    callback({
+    callback(callbackUrl, {
       id: attestation.id,
       response: {
         clientDataJSON: binToStr(attestation.response.clientDataJSON),
@@ -73,7 +61,7 @@ function get(credentialOptions) {
   navigator.credentials.get({ "publicKey": credentialOptions }).then(function(credential) {
     var assertionResponse = credential.response;
 
-    callback({
+    callback("/callback", {
       id: binToStr(credential.rawId),
       response: {
         clientDataJSON: binToStr(assertionResponse.clientDataJSON),
@@ -87,19 +75,4 @@ function get(credentialOptions) {
   });
 
   console.log("Getting public key credential...");
-}
-
-function callback(body) {
-  fetch("/callback", {
-    method: "POST",
-    body: JSON.stringify(body),
-    headers: {
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
-    },
-    credentials: 'same-origin'
-  }).then(function() {
-    window.location.replace("/")
-  });
 }

@@ -2,6 +2,12 @@
   Hi <%= current_user.email %>, you're signed in!
 </p>
 
+<%- if current_user && current_user.credentials.any? %>
+  <div id="add-credential">
+    <%= link_to "Add another credential for this user", user_credentials_path(current_user), method: :post, remote: true %>
+  </div>
+<% end%>
+
 <p>
   Your credentials are:
 </p>
