@@ -14,4 +14,12 @@ class ApplicationController < ActionController::Base
         User.find_by(id: session[:user_id])
       end
   end
+
+  def str_to_bin(str)
+    Base64.strict_decode64(str)
+  end
+
+  def bin_to_str(bin)
+    Base64.strict_encode64(bin)
+  end
 end

@@ -5,9 +5,11 @@ class SessionsController < ApplicationController
   def create
     user = User.where(email: session_params[:email]).first_or_create!
 
-    if user.credential_id.present?
+    if user.credentials.any?
       credential_options = WebAuthn.credential_request_options
-      credential_options[:allowCredentials] << { id: user.credential_id, type: "public-key" }
+      credential_options[:allowCredentials] = user.credentials.map do |cred|
+        { id: cred.external_id, type: "public-key" }
+      end
     else
       credential_options = WebAuthn.credential_creation_options
       credential_options[:user][:id] = Base64.strict_encode64(session_params[:email])
@@ -37,10 +39,11 @@ class SessionsController < ApplicationController
       if user
         if auth_response.valid?(str_to_bin(user.current_challenge), request.base_url)
           if params[:response][:attestationObject].present?
-            user.update!(
-              credential_id: Base64.strict_encode64(auth_response.credential.id),
-              credential_public_key: Base64.strict_encode64(auth_response.credential.public_key)
+            credential = user.credentials.find_or_initialize_by(
+              external_id: Base64.strict_encode64(auth_response.credential.id)
             )
+
+            credential.update!(public_key: Base64.strict_encode64(auth_response.credential.public_key))
           end
 
           sign_in(user)
@@ -64,15 +67,17 @@ class SessionsController < ApplicationController
       user = User.where(email: session[:email]).take
 
       if user
-        allowed_credential = {
-          id: Base64.strict_decode64(user.credential_id),
-          public_key: Base64.strict_decode64(user.credential_public_key)
-        }
+        allowed_credentials = user.credentials.map do |cred|
+          {
+            id: Base64.strict_decode64(cred.external_id),
+            public_key: Base64.strict_decode64(cred.public_key)
+          }
+        end
 
         if auth_response.valid?(
             str_to_bin(user.current_challenge),
             request.base_url,
-            allowed_credential: allowed_credential
+            allowed_credentials: allowed_credentials
         )
           sign_in(user)
 
@@ -87,14 +92,6 @@ class SessionsController < ApplicationController
   end
 
   private
-
-  def str_to_bin(str)
-    Base64.strict_decode64(str)
-  end
-
-  def bin_to_str(bin)
-    Base64.strict_encode64(bin)
-  end
 
   def session_params
     params.require(:session).permit(:email)
