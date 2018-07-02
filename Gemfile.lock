@@ -1,9 +1,10 @@
 GIT
   remote: https://github.com/cedarcode/webauthn-ruby
-  revision: d045517f5004cac21dd7d0a3fd86c3b321c34162
+  revision: 2fc952e0d1594969548656b0874ddbd8d0cca065
   specs:
-    webauthn (0.1.0)
+    webauthn (0.2.0)
       cbor (~> 0.5.9.2)
+      cose (~> 0.1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -80,6 +81,8 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
+    cose (0.1.0)
+      cbor (~> 0.5.9.2)
     crass (1.0.4)
     erubi (1.7.1)
     execjs (2.7.0)
