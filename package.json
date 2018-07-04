@@ -1,5 +1,7 @@
 {
   "name": "webauthn-app",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "@material/textfield": "^0.37.0"
+  }
 }

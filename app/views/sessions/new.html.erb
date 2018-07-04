@@ -1,6 +1,6 @@
 <%= form_with scope: :session, url: sessions_path, id: "new-session" do |form| %>
-  <div>
-    Email: <%= form.text_field :email %>
+  <div class="mdc-text-field mdc-text-field--fullwidth">
+    <%= form.text_field :email, class: "mdc-text-field__input", placeholder: "Email" %>
   </div>
 
   <%= form.submit :submit %>
