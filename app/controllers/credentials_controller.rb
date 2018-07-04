@@ -10,6 +10,8 @@ class CredentialsController < ApplicationController
     credential_options[:challenge] = bin_to_str(credential_options[:challenge])
     user.update!(current_challenge: credential_options[:challenge])
 
+    session[:nickname] = credential_params[:nickname]
+
     respond_to do |format|
       format.json { render json: credential_options.merge(user_id: user.id) }
     end
@@ -27,7 +29,10 @@ class CredentialsController < ApplicationController
           external_id: Base64.strict_encode64(auth_response.credential.id)
         )
 
-        credential.update!(public_key: Base64.strict_encode64(auth_response.credential.public_key))
+        credential.update!(
+          nickname: session[:nickname],
+          public_key: Base64.strict_encode64(auth_response.credential.public_key)
+        )
       end
 
       render json: { status: "ok" }, status: :ok
@@ -38,5 +43,9 @@ class CredentialsController < ApplicationController
 
   def user
     @user ||= User.find_by(id: params[:user_id])
+  end
+
+  def credential_params
+    params.require(:credential).permit(:nickname)
   end
 end

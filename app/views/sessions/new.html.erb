@@ -4,7 +4,13 @@
     <label class="mdc-floating-label" for="my-text-field">Email</label>
   </div>
 
+  <div class="mdc-text-field mdc-text-field--box">
+    <%= form.text_field :nickname, class: "mdc-text-field__input"%>
+    <label class="mdc-floating-label" for="my-text-field">Nickname</label>
+  </div>
+
   <div>
     <%= form.submit :submit, class: "mdc-button" %>
   </div>
+
 <% end %>

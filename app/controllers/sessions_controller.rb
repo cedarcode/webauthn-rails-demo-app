@@ -22,7 +22,10 @@ class SessionsController < ApplicationController
     credential_options[:challenge] = bin_to_str(credential_options[:challenge])
     user.update!(current_challenge: credential_options[:challenge])
 
-    session[:email] = session_params[:email]
+    session.merge!(
+      email: session_params[:email],
+      nickname: session_params[:nickname]
+    )
 
     respond_to do |format|
       format.json { render json: credential_options }
@@ -45,7 +48,10 @@ class SessionsController < ApplicationController
               external_id: Base64.strict_encode64(auth_response.credential.id)
             )
 
-            credential.update!(public_key: Base64.strict_encode64(auth_response.credential.public_key))
+            credential.update!(
+              nickname: session[:nickname],
+              public_key: Base64.strict_encode64(auth_response.credential.public_key)
+            )
           end
 
           sign_in(user)
@@ -102,6 +108,6 @@ class SessionsController < ApplicationController
   private
 
   def session_params
-    params.require(:session).permit(:email)
+    params.require(:session).permit(:email, :nickname)
   end
 end
