@@ -15,9 +15,11 @@
  */
 
 $mdc-theme-primary: #212121;
+$mdc-theme-background: #f5f5f6;
 
 @import "@material/button/mdc-button";
 @import "@material/textfield/mdc-text-field";
+@import "@material/theme/mdc-theme";
 @import "@material/top-app-bar/mdc-top-app-bar";
 
 body {
