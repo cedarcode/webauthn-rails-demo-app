@@ -16,3 +16,12 @@
 
 @import "@material/button/mdc-button";
 @import "@material/textfield/mdc-text-field";
+@import "@material/top-app-bar/mdc-top-app-bar";
+
+body {
+  margin: 0;
+}
+
+.page-content {
+  margin: 0 16px 16px 16px;
+}
