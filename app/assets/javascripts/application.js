@@ -17,7 +17,9 @@
 //= require_tree .
 
 document.addEventListener("DOMContentLoaded", function(event) {
-  const textField = new window.mdc.textfield.MDCTextField(document.querySelector('.mdc-text-field'));
+  document.querySelectorAll(".mdc-text-field").forEach(function(textfield) {
+    new window.mdc.textfield.MDCTextField(textfield);
+  });
 });
 
 function binToStr(bin) {
