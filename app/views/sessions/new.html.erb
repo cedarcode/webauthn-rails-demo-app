@@ -1,20 +1,19 @@
 <%= form_with scope: :session, url: session_path, id: "new-session" do |form| %>
   <div>
-    <div class="mdc-text-field mdc-text-field--box">
+    <div class="mdc-text-field mdc-text-field--fullwidth">
       <%= form.email_field :email, class: "mdc-text-field__input", autofocus: true %>
-      <label class="mdc-floating-label" for="my-text-field">Email</label>
+      <label class="mdc-floating-label" for="session_email">Email</label>
     </div>
   </div>
 
   <div>
-    <div class="mdc-text-field mdc-text-field--box">
+    <div class="mdc-text-field mdc-text-field--fullwidth">
       <%= form.text_field :nickname, class: "mdc-text-field__input"%>
-      <label class="mdc-floating-label" for="my-text-field">Nickname</label>
+      <label class="mdc-floating-label" for="session_nickname">Credential nickname</label>
     </div>
   </div>
 
-  <div>
+  <div class="center">
     <%= form.submit :submit, class: "mdc-button" %>
   </div>
-
 <% end %>
