@@ -22,7 +22,19 @@
         <% if current_user %>
           <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
             <%= truncate(current_user.email, length: 12) %>
-            <a href="#" class="material-icons mdc-top-app-bar__action-item">account_circle</a>
+
+            <div class="mdc-menu-anchor">
+              <button class="material-icons mdc-top-app-bar__action-item js-menu-opener">account_circle</button>
+
+              <div class="mdc-menu js-menu" tabindex="-1">
+                <div class="mdc-menu__items mdc-list">
+                  <%= link_to session_path, class: "mdc-list-item", method: :delete do %>
+                    <span class="mdc-list-item__graphic material-icons">launch</span>
+
+                    Sign out
+                  <% end %>
+                </div>
+              </div>
           </section>
         <% end %>
       </div>

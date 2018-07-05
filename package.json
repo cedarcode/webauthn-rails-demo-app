@@ -7,6 +7,7 @@
   "dependencies": {
     "@material/button": "^0.37.0",
     "@material/list": "^0.37.0",
+    "@material/menu": "^0.36.1",
     "@material/textfield": "^0.37.0",
     "@material/top-app-bar": "^0.37.0"
   }
