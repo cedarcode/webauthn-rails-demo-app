@@ -37,6 +37,6 @@ class CredentialsController < ApplicationController
   end
 
   def user
-    @user ||= User.find_by(params[:user_id])
+    @user ||= User.find_by(id: params[:user_id])
   end
 end
