@@ -1,13 +1,11 @@
 <%- if current_user && current_user.credentials.any? %>
   <div id="add-credential">
     <%= form_with scope: :credential, url: user_credentials_path(current_user), remote: true do |form| %>
-      Add credential
-
-      <div>
-        Nickname: <%= form.text_field :nickname %>
+      <div class="mdc-text-field mdc-text-field--box">
+        <%= form.text_field :nickname, class: "mdc-text-field__input"%>
+        <label class="mdc-floating-label" for="my-text-field">Nickname</label>
       </div>
-
-      <%= form.submit :add, class: "mdc-button" %>
+      <%= form.submit "Add Credential", class: "mdc-button" %>
     <% end %>
   </div>
 <% end %>
