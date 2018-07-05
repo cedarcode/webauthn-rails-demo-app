@@ -44,6 +44,16 @@
     "@material/base" "^0.35.0"
     "@material/theme" "^0.35.0"
 
+"@material/list@^0.37.0":
+  version "0.37.0"
+  resolved "https://registry.yarnpkg.com/@material/list/-/list-0.37.0.tgz#7a4ba196a03baf0b03574d5e44e0c80214ba0094"
+  dependencies:
+    "@material/base" "^0.35.0"
+    "@material/ripple" "^0.37.0"
+    "@material/rtl" "^0.36.0"
+    "@material/theme" "^0.35.0"
+    "@material/typography" "^0.35.0"
+
 "@material/notched-outline@^0.35.0":
   version "0.35.0"
   resolved "https://registry.yarnpkg.com/@material/notched-outline/-/notched-outline-0.35.0.tgz#df821f007ea84bf6d67859a2b7bcf5c44a248911"
