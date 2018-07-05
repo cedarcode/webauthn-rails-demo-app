@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CredentialsController < ApplicationController
   def create
     credential_options = WebAuthn.credential_creation_options
@@ -30,7 +32,7 @@ class CredentialsController < ApplicationController
 
       render json: { status: "ok" }, status: :ok
     else
-      render json: { status: "forbidden"}, status: :forbidden
+      render json: { status: "forbidden" }, status: :forbidden
     end
   end
 
