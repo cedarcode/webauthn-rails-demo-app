@@ -12,8 +12,13 @@
 //
 //= require rails-ujs
 //= require activestorage
+//= require material-components-web
 //= require turbolinks
 //= require_tree .
+
+document.addEventListener("DOMContentLoaded", function(event) {
+  const textField = new window.mdc.textfield.MDCTextField(document.querySelector('.mdc-text-field'));
+});
 
 function binToStr(bin) {
   return btoa(new Uint8Array(bin).reduce(

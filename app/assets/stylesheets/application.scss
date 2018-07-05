@@ -13,3 +13,19 @@
  *= require_tree .
  *= require_self
  */
+
+$mdc-theme-primary: #212121;
+$mdc-theme-background: #f5f5f6;
+
+@import "@material/button/mdc-button";
+@import "@material/textfield/mdc-text-field";
+@import "@material/theme/mdc-theme";
+@import "@material/top-app-bar/mdc-top-app-bar";
+
+body {
+  margin: 0;
+}
+
+.page-content {
+  margin: 0 16px 16px 16px;
+}

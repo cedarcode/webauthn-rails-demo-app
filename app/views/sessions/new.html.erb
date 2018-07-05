@@ -1,7 +1,10 @@
 <%= form_with scope: :session, url: sessions_path, id: "new-session" do |form| %>
-  <div>
-    Email: <%= form.text_field :email %>
+  <div class="mdc-text-field mdc-text-field--box">
+    <%= form.text_field :email, class: "mdc-text-field__input", autofocus: true %>
+    <label class="mdc-floating-label" for="my-text-field">Email</label>
   </div>
 
-  <%= form.submit :submit %>
+  <div>
+    <%= form.submit :submit, class: "mdc-button" %>
+  </div>
 <% end %>

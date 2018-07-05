@@ -1,5 +1,9 @@
 {
   "name": "webauthn-app",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "@material/button": "^0.37.0",
+    "@material/textfield": "^0.37.0",
+    "@material/top-app-bar": "^0.37.0"
+  }
 }
