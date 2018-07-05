@@ -4,7 +4,7 @@
 
 <%- if current_user && current_user.credentials.any? %>
   <div id="add-credential">
-    <%= link_to "Add another credential for this user", user_credentials_path(current_user), method: :post, remote: true %>
+    <%= link_to "Add credential", user_credentials_path(current_user), method: :post, remote: true, class: "mdc-button" %>
   </div>
 <% end%>
 
