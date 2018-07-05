@@ -10,6 +10,10 @@ class ApplicationController < ActionController::Base
     user.update!(current_challenge: nil)
   end
 
+  def sign_out
+    session[:user_id] = nil
+  end
+
   def current_user
     @current_user ||=
       if session[:user_id]
