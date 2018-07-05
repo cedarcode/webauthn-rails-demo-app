@@ -16,14 +16,22 @@
     <header class="mdc-top-app-bar">
       <div class="mdc-top-app-bar__row">
         <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-          <a href="#" class="material-icons mdc-top-app-bar__navigation-icon">menu</a>
           <span class="mdc-top-app-bar__title">WebAuthn App</span>
         </section>
+
+        <% if current_user %>
+          <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+            <%= truncate(current_user.email, length: 12) %>
+            <a href="#" class="material-icons mdc-top-app-bar__action-item">account_circle</a>
+          </section>
+        <% end %>
       </div>
     </header>
 
-    <div class="page-content mdc-top-app-bar--fixed-adjust">
-      <%= yield %>
+    <div class="mdc-top-app-bar--fixed-adjust">
+      <div class="page-content">
+        <%= yield %>
+      </div>
     </div>
   </body>
 </html>
