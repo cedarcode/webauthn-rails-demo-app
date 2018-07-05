@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SessionsController < ApplicationController
   def new
   end
@@ -50,7 +52,7 @@ class SessionsController < ApplicationController
 
           render json: { status: "ok" }, status: :ok
         else
-          render json: { status: "forbidden"}, status: :forbidden
+          render json: { status: "forbidden" }, status: :forbidden
         end
       else
         raise "user #{session[:email]} never initiated sign up"
@@ -60,7 +62,7 @@ class SessionsController < ApplicationController
         credential_id: str_to_bin(params[:id]),
         client_data_json: str_to_bin(params[:response][:clientDataJSON]),
         authenticator_data: str_to_bin(params[:response][:authenticatorData]),
-        #user_handle: params[:response][:userHandle],
+        # user_handle: params[:response][:userHandle],
         signature: str_to_bin(params[:response][:signature])
       )
 
@@ -75,15 +77,15 @@ class SessionsController < ApplicationController
         end
 
         if auth_response.valid?(
-            str_to_bin(user.current_challenge),
-            request.base_url,
-            allowed_credentials: allowed_credentials
+          str_to_bin(user.current_challenge),
+          request.base_url,
+          allowed_credentials: allowed_credentials
         )
           sign_in(user)
 
           render json: { status: "ok" }, status: :ok
         else
-          render json: { status: "forbidden"}, status: :forbidden
+          render json: { status: "forbidden" }, status: :forbidden
         end
       else
         raise "user #{session[:email]} never initiated sign up"
