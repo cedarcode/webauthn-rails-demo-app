@@ -26,23 +26,20 @@ $mdc-theme-background: #f5f5f6;
 
 body {
   margin: 0;
+}
 
-  .page-content {
-    position: fixed;
-    right: 0;
-    left: 0;
-    margin-left: auto;
-    margin-right: auto;
-    width: 90%;
-    max-width: 600px;
+.page-content {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 600px;
+}
 
-    .center {
-      display: flex;
+.center {
+  display: flex;
 
-      input {
-        margin-left: auto;
-        margin-right: auto;
-      }
-    }
-  }
+}
+
+.center  input {
+  margin-left: auto;
+  margin-right: auto;
 }
