@@ -85,6 +85,10 @@ GEM
     cose (0.1.0)
       cbor (~> 0.5.9.2)
     crass (1.0.4)
+    dotenv (2.5.0)
+    dotenv-rails (2.5.0)
+      dotenv (= 2.5.0)
+      railties (>= 3.2, < 6.0)
     erubi (1.7.1)
     execjs (2.7.0)
     ffi (1.9.23)
@@ -157,6 +161,8 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
+    rollbar (2.16.2)
+      multi_json
     rubocop (0.57.2)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
@@ -223,11 +229,13 @@ DEPENDENCIES
   capybara (>= 2.15, < 4.0)
   chromedriver-helper
   coffee-rails (~> 4.2)
+  dotenv-rails
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   pg (>= 0.18, < 2.0)
   puma (~> 3.11)
   rails (~> 5.2.0)
+  rollbar (~> 2.16)
   rubocop (~> 0.57.2)
   sass-rails (~> 5.0)
   selenium-webdriver
