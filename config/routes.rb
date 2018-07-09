@@ -11,5 +11,5 @@ Rails.application.routes.draw do
   end
 
   post "callback", to: "sessions#callback"
-  root to: "home#index"
+  root to: "welcome#index"
 end

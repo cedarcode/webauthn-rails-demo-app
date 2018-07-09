@@ -1,0 +1,12 @@
+<% @page_title = "What is WebAuthn?" %>
+
+<p class="mdc-typography--body1">
+  <strong>WebAuthn</strong> (Web Authentication) is an effort by <%= link_to "W3C", "https://en.wikipedia.org/wiki/World_Wide_Web_Consortium" %> with input from the <%= link_to "FIDO Alliance", "https://en.wikipedia.org/wiki/FIDO_Alliance" %>, to enable for <strong>fast</strong> and <strong>secure web logins</strong>.
+</p>
+
+<p class="mdc-typography--body1">
+  One of it's most exciting features is the possibility to easily support <strong>passwordless</strong> logins.
+</p>
+
+<%= link_to "Try it out", new_session_path, class: "mdc-button mdc-button--raised" %>
+<%= link_to "Read more", "https://en.wikipedia.org/wiki/WebAuthn", class: "mdc-button mdc-card__action mdc-card__action--button", target: "_blank" %>

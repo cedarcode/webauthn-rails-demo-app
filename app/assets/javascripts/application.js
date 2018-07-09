@@ -16,7 +16,7 @@
 //= require turbolinks
 //= require_tree .
 
-document.addEventListener("DOMContentLoaded", function(event) {
+document.addEventListener("turbolinks:load", function(event) {
   document.querySelectorAll(".mdc-text-field").forEach(function(textfield) {
     new window.mdc.textfield.MDCTextField(textfield);
   });
