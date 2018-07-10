@@ -17,6 +17,12 @@
   </head>
 
   <body class="mdc-theme--background">
+    <% if (message = unsupported_browser_message) %>
+      <p>
+        <%= message %>
+      </p>
+    <% end %>
+
     <header class="mdc-top-app-bar">
       <div class="mdc-top-app-bar__row">
         <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">

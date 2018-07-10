@@ -66,4 +66,5 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "rollbar", "~> 2.16"
+gem "useragent", "~> 0.16.10"
 gem "webauthn", git: "https://github.com/cedarcode/webauthn-ruby"
