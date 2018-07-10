@@ -8,6 +8,7 @@
   <% current_user.credentials.each do |credential| %>
     <li class="mdc-list-item">
       <span class="mdc-list-item__graphic material-icons">vpn_key</span>
+
       <span class="mdc-list-item__text">
         <%= credential.external_id %>
 
@@ -15,6 +16,10 @@
           <%= credential.public_key %>
         </span>
       </span>
+
+      <% if current_user.can_delete_credentials? %>
+        <%= link_to "delete", credential, method: :delete, class: "mdc-list-item__meta material-icons" %>
+      <% end %>
     </li>
   <% end %>
 </ul>

@@ -36,6 +36,14 @@ class CredentialsController < ApplicationController
     end
   end
 
+  def destroy
+    if current_user && current_user.can_delete_credentials?
+      current_user.credentials.destroy(params[:id])
+    end
+
+    redirect_to root_path
+  end
+
   def user
     @user ||= User.find_by(id: params[:user_id])
   end
