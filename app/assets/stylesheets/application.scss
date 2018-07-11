@@ -36,10 +36,17 @@ body {
 
 .center {
   display: flex;
-
 }
 
-.center  input {
+.center input {
   margin-left: auto;
   margin-right: auto;
+}
+
+#new-session {
+  padding: 0px 20px;
+}
+
+#new-session .mdc-text-field {
+  margin: 10px 0px;
 }
