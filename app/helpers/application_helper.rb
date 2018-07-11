@@ -19,7 +19,8 @@ module ApplicationHelper
     elsif user_agent.browser == "Edge"
       "Microsoft Edge isn't supported for this demo, we're sorry. #{supported_browsers_message}."
     else
-      "#{user_agent.platform} #{user_agent.browser} #{user_agent.version} doesn't support WebAuthn API yet. #{supported_browsers_message}."
+      "#{user_agent.platform} #{user_agent.browser} #{user_agent.version} doesn't support WebAuthn API yet.
+      #{supported_browsers_message}."
     end
   end
 end
