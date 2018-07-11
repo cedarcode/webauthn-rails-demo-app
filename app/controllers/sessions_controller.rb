@@ -45,7 +45,10 @@ class SessionsController < ApplicationController
               external_id: Base64.strict_encode64(auth_response.credential.id)
             )
 
-            credential.update!(public_key: Base64.strict_encode64(auth_response.credential.public_key))
+            credential.update!(
+              nickname: params[:credential_nickname],
+              public_key: Base64.strict_encode64(auth_response.credential.public_key)
+            )
           end
 
           sign_in(user)

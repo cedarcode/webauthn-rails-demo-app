@@ -11,8 +11,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
       if (credentialOptions["user"]) {
         credentialOptions["user"]["id"] = strToBin(credentialOptions["user"]["id"]);
+        credential_nickname = document.querySelector("#new-session input[name='session[nickname]']").value;
+        callback_url = `/callback?credential_nickname=${credential_nickname}`
 
-        create("/callback", credentialOptions);
+        create(encodeURI(callback_url), credentialOptions);
       } else {
 
         credentialOptions["allowCredentials"].forEach(function(cred, i){

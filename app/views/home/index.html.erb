@@ -1,18 +1,24 @@
 <%- if current_user && current_user.credentials.any? %>
   <div id="add-credential">
-    <%= link_to "Add credential", user_credentials_path(current_user), method: :post, remote: true, class: "mdc-button" %>
+    <%= form_with scope: :credential, url: user_credentials_path(current_user), remote: true do |form| %>
+      <div class="mdc-text-field mdc-text-field--box">
+        <%= form.text_field :nickname, class: "mdc-text-field__input"%>
+        <label class="mdc-floating-label" for="my-text-field">Nickname</label>
+      </div>
+      <%= form.submit "Add Credential", class: "mdc-button" %>
+    <% end %>
   </div>
-<% end%>
+<% end %>
 
 <ul class="mdc-list mdc-list--two-line">
   <% current_user.credentials.each do |credential| %>
     <li class="mdc-list-item">
       <span class="mdc-list-item__graphic material-icons">vpn_key</span>
       <span class="mdc-list-item__text">
-        <%= credential.external_id %>
+        <%= credential.nickname %>
 
         <span class="mdc-list-item__secondary-text">
-          <%= credential.public_key %>
+          <%= credential.external_id %>
         </span>
       </span>
     </li>
