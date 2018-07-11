@@ -3,15 +3,15 @@
 class CredentialsController < ApplicationController
   def create
     credential_options = WebAuthn.credential_creation_options
-    credential_options[:user][:id] = Base64.strict_encode64(user.email)
-    credential_options[:user][:name] = user.email
-    credential_options[:user][:displayName] = user.email
+    credential_options[:user][:id] = Base64.strict_encode64(current_user.email)
+    credential_options[:user][:name] = current_user.email
+    credential_options[:user][:displayName] = current_user.email
 
     credential_options[:challenge] = bin_to_str(credential_options[:challenge])
-    user.update!(current_challenge: credential_options[:challenge])
+    current_user.update!(current_challenge: credential_options[:challenge])
 
     respond_to do |format|
-      format.json { render json: credential_options.merge(user_id: user.id) }
+      format.json { render json: credential_options.merge(user_id: current_user.id) }
     end
   end
 
@@ -21,9 +21,9 @@ class CredentialsController < ApplicationController
       client_data_json: str_to_bin(params[:response][:clientDataJSON])
     )
 
-    if auth_response.valid?(str_to_bin(user.current_challenge), request.base_url)
+    if auth_response.valid?(str_to_bin(current_user.current_challenge), request.base_url)
       if params[:response][:attestationObject].present?
-        credential = user.credentials.find_or_initialize_by(
+        credential = current_user.credentials.find_or_initialize_by(
           external_id: Base64.strict_encode64(auth_response.credential.id)
         )
 
@@ -45,9 +45,5 @@ class CredentialsController < ApplicationController
     end
 
     redirect_to root_path
-  end
-
-  def user
-    @user ||= User.find_by(id: params[:user_id])
   end
 end
