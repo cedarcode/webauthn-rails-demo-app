@@ -20,9 +20,12 @@
 
   <body class="mdc-theme--background">
     <% if (message = unsupported_browser_message) %>
-      <p>
-        <%= message %>
-      </p>
+      <div class="mdc-list mdc-list--two-line">
+        <div class="mdc-list-item">
+          <span class="mdc-list-item__graphic material-icons">warning</span>
+          <span class="mdc-typography--body2"><%= message %></span>
+        </div>
+      </div>
     <% end %>
 
     <header class="mdc-top-app-bar">
