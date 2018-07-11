@@ -36,4 +36,5 @@ group :test do
 end
 
 gem "rollbar", "~> 2.16"
+gem "useragent", "~> 0.16.10"
 gem "webauthn", git: "https://github.com/cedarcode/webauthn-ruby"
