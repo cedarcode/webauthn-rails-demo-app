@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function(event) {
+document.addEventListener("turbolinks:load", function(event) {
   var sessionForm = document.querySelector("#new-session")
 
   if (sessionForm) {

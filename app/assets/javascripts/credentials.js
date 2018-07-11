@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function(event) {
+document.addEventListener("turbolinks:load", function(event) {
   var addCredential = document.querySelector("#add-credential")
 
   if (addCredential) {
