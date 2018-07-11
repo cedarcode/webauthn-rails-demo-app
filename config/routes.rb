@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :credentials, only: [:destroy]
+
   post "callback", to: "sessions#callback"
   root to: "home#index"
 end
