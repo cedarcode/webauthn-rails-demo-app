@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/cedarcode/webauthn-ruby
-  revision: 2fc952e0d1594969548656b0874ddbd8d0cca065
+  revision: 84967e21925350f33c18a578349879b6fd8155e6
   specs:
     webauthn (0.2.0)
       cbor (~> 0.5.9.2)
@@ -57,7 +57,7 @@ GEM
     arel (9.0.0)
     ast (2.4.0)
     bindex (0.5.0)
-    bootsnap (1.3.0)
+    bootsnap (1.3.1)
       msgpack (~> 1.0)
     builder (3.2.3)
     byebug (10.0.2)
@@ -114,7 +114,7 @@ GEM
     parallel (1.12.1)
     parser (2.5.1.2)
       ast (~> 2.4.0)
-    pg (0.21.0)
+    pg (1.0.0)
     powerpack (0.1.2)
     public_suffix (3.0.2)
     puma (3.11.4)
@@ -150,7 +150,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
-    rollbar (2.16.2)
+    rollbar (2.16.3)
       multi_json
     rubocop (0.57.2)
       jaro_winkler (~> 1.5.1)
