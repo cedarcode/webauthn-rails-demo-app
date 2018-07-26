@@ -19,7 +19,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem "dotenv-rails"
-  gem 'rubocop', '~> 0.57.2', require: false
+  gem 'rubocop', '~> 0.58.1', require: false
 end
 
 group :development do
