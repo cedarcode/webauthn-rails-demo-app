@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/cedarcode/webauthn-ruby
-  revision: 84967e21925350f33c18a578349879b6fd8155e6
+  revision: c519fe936e6c9de8b25e8f107684a3d17dfa9cc1
   specs:
-    webauthn (0.2.0)
+    webauthn (1.0.0)
       cbor (~> 0.5.9.2)
       cose (~> 0.1.0)
 
@@ -238,4 +238,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.3
+   1.16.4
