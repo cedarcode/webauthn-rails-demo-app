@@ -2,7 +2,7 @@
   "name": "webauthn-app",
   "private": true,
   "engines": {
-    "yarn": "1.7.0"
+    "yarn": ">=1.7.0"
   },
   "dependencies": {
     "@material/button": "^0.37.0",
