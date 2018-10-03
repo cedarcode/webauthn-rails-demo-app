@@ -2,6 +2,8 @@
 
 Application demonstrating a WebAuthn login built with Ruby on Rails.
 
+[![Travis](https://img.shields.io/travis/cedarcode/webauthn-rails-demo-app/master.svg?style=flat-square)](https://travis-ci.org/cedarcode/webauthn-rails-demo-app)
+
 ## Want to try it?
 
 ### Option 1 — Visit the hosted version
