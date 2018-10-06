@@ -1,7 +1,7 @@
 <%= form_with scope: :session, url: session_path, id: "new-session" do |form| %>
   <div>
     <div class="mdc-text-field mdc-text-field--fullwidth">
-      <%= form.text_field :username, class: "mdc-text-field__input", placeholder: "Username", autofocus: true %>
+      <%= form.text_field :username, class: "mdc-text-field__input", placeholder: "Username", autofocus: true, autocapitalize: "none" %>
     </div>
   </div>
 
