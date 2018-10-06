@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.where(email: session_params[:email]).first_or_create!
+    user = User.where(username: session_params[:username]).first_or_create!
 
     if user.credentials.any?
       credential_options = WebAuthn.credential_request_options
@@ -14,15 +14,15 @@ class SessionsController < ApplicationController
       end
     else
       credential_options = WebAuthn.credential_creation_options
-      credential_options[:user][:id] = Base64.strict_encode64(session_params[:email])
-      credential_options[:user][:name] = session_params[:email]
-      credential_options[:user][:displayName] = session_params[:email]
+      credential_options[:user][:id] = Base64.strict_encode64(session_params[:username])
+      credential_options[:user][:name] = session_params[:username]
+      credential_options[:user][:displayName] = session_params[:username]
     end
 
     credential_options[:challenge] = bin_to_str(credential_options[:challenge])
     user.update!(current_challenge: credential_options[:challenge])
 
-    session[:email] = session_params[:email]
+    session[:username] = session_params[:username]
 
     respond_to do |format|
       format.json { render json: credential_options }
@@ -36,7 +36,7 @@ class SessionsController < ApplicationController
         client_data_json: str_to_bin(params[:response][:clientDataJSON])
       )
 
-      user = User.where(email: session[:email]).take
+      user = User.where(username: session[:username]).take
 
       if user
         if auth_response.valid?(str_to_bin(user.current_challenge), request.base_url)
@@ -58,7 +58,7 @@ class SessionsController < ApplicationController
           render json: { status: "forbidden" }, status: :forbidden
         end
       else
-        raise "user #{session[:email]} never initiated sign up"
+        raise "user #{session[:username]} never initiated sign up"
       end
     else
       auth_response = WebAuthn::AuthenticatorAssertionResponse.new(
@@ -69,7 +69,7 @@ class SessionsController < ApplicationController
         signature: str_to_bin(params[:response][:signature])
       )
 
-      user = User.where(email: session[:email]).take
+      user = User.where(username: session[:username]).take
 
       if user
         allowed_credentials = user.credentials.map do |cred|
@@ -91,7 +91,7 @@ class SessionsController < ApplicationController
           render json: { status: "forbidden" }, status: :forbidden
         end
       else
-        raise "user #{session[:email]} never initiated sign up"
+        raise "user #{session[:username]} never initiated sign up"
       end
     end
   end
@@ -105,6 +105,6 @@ class SessionsController < ApplicationController
   private
 
   def session_params
-    params.require(:session).permit(:email)
+    params.require(:session).permit(:username)
   end
 end
