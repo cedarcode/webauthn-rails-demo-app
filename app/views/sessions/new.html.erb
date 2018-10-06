@@ -1,3 +1,12 @@
+<% if (message = unsupported_browser_message) %>
+  <div class="mdc-list mdc-list--two-line">
+    <div class="mdc-list-item">
+      <span class="mdc-list-item__graphic material-icons">warning</span>
+      <span class="mdc-typography--body2"><%= message %></span>
+    </div>
+  </div>
+<% end %>
+
 <%= form_with scope: :session, url: session_path, id: "new-session" do |form| %>
   <div>
     <div class="mdc-text-field mdc-text-field--fullwidth">
