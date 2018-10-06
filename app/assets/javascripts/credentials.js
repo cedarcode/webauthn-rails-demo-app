@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
       credentialOptions["challenge"] = strToBin(credentialOptions["challenge"]);
       credentialOptions["user"]["id"] = strToBin(credentialOptions["user"]["id"]);
+      credentialOptions["authenticatorSelection"]["userVerification"] = "preferred";
       credential_nickname = document.querySelector("#add-credential input[name='credential[nickname]']").value;
       callback_url = `/credentials/callback?credential_nickname=${credential_nickname}`
 
