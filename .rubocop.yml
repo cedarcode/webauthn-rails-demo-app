@@ -1,6 +1,12 @@
+inherit_mode:
+  merge:
+    - Exclude
+
 AllCops:
   TargetRubyVersion: 2.5
   DisabledByDefault: true
+  Exclude:
+    - "db/schema.rb"
 
 Bundler:
   Enabled: true

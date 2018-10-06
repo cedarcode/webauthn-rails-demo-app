@@ -3,9 +3,9 @@
 class CredentialsController < ApplicationController
   def create
     credential_options = WebAuthn.credential_creation_options
-    credential_options[:user][:id] = Base64.strict_encode64(current_user.email)
-    credential_options[:user][:name] = current_user.email
-    credential_options[:user][:displayName] = current_user.email
+    credential_options[:user][:id] = Base64.strict_encode64(current_user.username)
+    credential_options[:user][:name] = current_user.username
+    credential_options[:user][:displayName] = current_user.username
 
     credential_options[:challenge] = bin_to_str(credential_options[:challenge])
     current_user.update!(current_challenge: credential_options[:challenge])

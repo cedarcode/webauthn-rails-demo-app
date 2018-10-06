@@ -10,7 +10,7 @@ Application demonstrating a WebAuthn login built with Ruby on Rails.
 
 * Visit https://webauthn.herokuapp.com
 * Try loggin in with
-  * an email;
+  * a username;
   * a [WebAuthn compatible authenticator](https://github.com/cedarcode/webauthn-ruby#a-conforming-authenticator).
 
 
