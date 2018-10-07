@@ -16,12 +16,29 @@ Application demonstrating a WebAuthn login built with Ruby on Rails.
 
 ### Option 2 — Run it locally
 
+#### Prerequisites
+
+* Ruby
+* yarn (or npm)
+* PostgreSQL
+
+#### Setup
+
 ```
+$ git clone https://github.com/cedarcode/webauthn-rails-demo-app
+$ cd webauthn-rails-demo-app/
 $ bundle install
 $ yarn install (or npm install)
 $ bundle exec rake db:setup
+```
+
+#### Running
+
+```
 $ bundle exec rails s
 ```
+
+Now you can visit http://localhost:3000 to play with the demo site.
 
 ## Development
 
