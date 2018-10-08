@@ -200,7 +200,7 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
-    webauthn (1.1.0)
+    webauthn (1.2.0)
       cbor (~> 0.5.9.2)
       cose (~> 0.1.0)
     websocket-driver (0.7.0)
@@ -231,7 +231,7 @@ DEPENDENCIES
   turbolinks (~> 5)
   useragent (~> 0.16.10)
   web-console (>= 3.3.0)
-  webauthn (~> 1.1)
+  webauthn (~> 1.2)
 
 RUBY VERSION
    ruby 2.5.1p57
