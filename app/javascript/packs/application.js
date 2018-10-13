@@ -22,23 +22,6 @@ const application = Application.start()
 const context = require.context("controllers", true, /.js$/)
 application.load(definitionsFromContext(context))
 
-import { MDCMenu, Corner as MDCMenu_Corner } from '@material/menu';
-
-document.addEventListener("DOMContentLoaded", function(event) {
-  let menuElement = document.querySelector(".js-menu");
-  let menuOpenerElement = document.querySelector(".js-menu-opener");
-
-  if (menuElement && menuOpenerElement) {
-    let menu = new MDCMenu(menuElement);
-
-    menuOpenerElement.addEventListener('click', function(event) {
-      menu.open = !menu.open;
-    });
-
-    menu.setAnchorCorner(MDCMenu_Corner.BOTTOM_START);
-  }
-});
-
 // Originally in sessions.js
 document.addEventListener("DOMContentLoaded", function(event) {
   var sessionForm = document.querySelector("#new-session")

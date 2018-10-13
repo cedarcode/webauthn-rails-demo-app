@@ -28,10 +28,10 @@
         <% if current_user %>
           <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
 
-            <div class="mdc-menu-anchor">
-              <button class="material-icons mdc-top-app-bar__action-item js-menu-opener">account_circle</button>
+            <div class="mdc-menu-anchor" data-controller="menu">
+              <button class="material-icons mdc-top-app-bar__action-item" data-action="menu#open">account_circle</button>
 
-              <div class="mdc-menu js-menu" tabindex="-1">
+              <div class="mdc-menu" tabindex="-1" data-target="menu.openable">
                 <div class="mdc-menu__items mdc-list">
                   <div class="mdc-list-item">
                     <%= current_user.username %>
