@@ -12,7 +12,6 @@
 //
 //= require rails-ujs
 //= require material-components-web
-//= require turbolinks
 //= require_tree .
 
 document.addEventListener("DOMContentLoaded", function(event) {

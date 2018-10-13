@@ -11,7 +11,8 @@
     "@material/textfield": "^0.37.0",
     "@material/top-app-bar": "^0.37.0",
     "@material/typography": "^0.35.0",
-    "@rails/webpacker": "3.5"
+    "@rails/webpacker": "3.5",
+    "turbolinks": "^5.2.0"
   },
   "devDependencies": {
     "webpack-dev-server": "2.11.2"
