@@ -11,3 +11,6 @@ console.log('Hello World from Webpacker')
 
 var Turbolinks = require("turbolinks")
 Turbolinks.start()
+
+import Rails from 'rails-ujs';
+Rails.start()
