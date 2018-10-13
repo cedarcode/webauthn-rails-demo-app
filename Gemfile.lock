@@ -49,7 +49,7 @@ GEM
     arel (9.0.0)
     ast (2.4.0)
     bindex (0.5.0)
-    bootsnap (1.3.1)
+    bootsnap (1.3.2)
       msgpack (~> 1.0)
     builder (3.2.3)
     byebug (10.0.2)
@@ -92,7 +92,7 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.7.0)
       mini_mime (>= 0.1.1)
-    marcel (0.3.2)
+    marcel (0.3.3)
       mimemagic (~> 0.3.2)
     method_source (0.9.0)
     mimemagic (0.3.2)
@@ -107,7 +107,7 @@ GEM
     parallel (1.12.1)
     parser (2.5.1.2)
       ast (~> 2.4.0)
-    pg (1.0.0)
+    pg (1.1.3)
     powerpack (0.1.2)
     public_suffix (3.0.3)
     puma (3.12.0)
@@ -143,9 +143,9 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
-    rollbar (2.16.4)
+    rollbar (2.18.0)
       multi_json
-    rubocop (0.58.2)
+    rubocop (0.59.2)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
       parser (>= 2.5, != 2.5.1.1)
@@ -171,9 +171,9 @@ GEM
       sprockets (> 2.11)
       sprockets-rails
       tilt
-    selenium-webdriver (3.14.0)
+    selenium-webdriver (3.14.1)
       childprocess (~> 0.5)
-      rubyzip (~> 1.2)
+      rubyzip (~> 1.2, >= 1.2.2)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -225,7 +225,7 @@ DEPENDENCIES
   puma (~> 3.11)
   rails (~> 5.2.0)
   rollbar (~> 2.16)
-  rubocop (~> 0.58.1)
+  rubocop (~> 0.59.2)
   sassc-rails (~> 1.3)
   selenium-webdriver
   spring
@@ -239,4 +239,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.5
+   1.16.6
