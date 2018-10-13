@@ -164,6 +164,30 @@
     webpack "^3.12.0"
     webpack-manifest-plugin "^1.3.2"
 
+"@stimulus/core@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@stimulus/core/-/core-1.1.0.tgz#0fe7f5bf555aa2a31b4576f2b3389fd192a27138"
+  integrity sha512-tBQkrijjk8p3ZAhMMu2u87kXbTeBLPWiemoZqmb62krUt/IofQMFrbbiSzPAkkVqlv3kwjs0bmlO3H4fWE9HBQ==
+  dependencies:
+    "@stimulus/mutation-observers" "^1.1.0"
+
+"@stimulus/multimap@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@stimulus/multimap/-/multimap-1.1.0.tgz#f373ff72feab4218b2a9ae00866acc47d5032f5e"
+  integrity sha512-LoAyUhHX5b8/gVXHVMKUXT8vZnXSyJAWs1sopQZNBWDs34zSpWF5tqclf0T3TNg3aCbQlWaHnYv3lickpbrNEQ==
+
+"@stimulus/mutation-observers@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@stimulus/mutation-observers/-/mutation-observers-1.1.0.tgz#8744d8b37302baeffcdd9123021c55084fb82beb"
+  integrity sha512-Tr0bmJEFqAm3o0mJPZcCLurlW+lp8gohFeUQNbkjj9bmCGygQKuWr1b3dwyJgG94qRuzo66QdKkvp04tp1o7lw==
+  dependencies:
+    "@stimulus/multimap" "^1.1.0"
+
+"@stimulus/webpack-helpers@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@stimulus/webpack-helpers/-/webpack-helpers-1.1.0.tgz#17f00ea6eaa38b490ba84fec6f6c436c604a4a85"
+  integrity sha512-trzloYQ7RBZcYIbB5hLLgYvC7MHJkj1avPFIrEFCd2t7WCFhH5wQApyzAZAS+BtjvFwHp0o1o7Rp1OceRgjOCw==
+
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
@@ -6203,6 +6227,14 @@ stdout-stream@^1.4.0:
   integrity sha512-j4emi03KXqJWcIeF8eIXkjMFN1Cmb8gUlDYGeBALLPo5qdyTfA9bOtl8m33lRoC+vFMkP3gl0WsDr6+gzxbbTA==
   dependencies:
     readable-stream "^2.0.1"
+
+stimulus@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/stimulus/-/stimulus-1.1.0.tgz#d313e59bc0085eec5e072a401e0fb2c5fb0a0301"
+  integrity sha512-H5B/jYGoKHW7KZCdkxsjml16wMp9ubHh/Db2ewcMWIV5Y4LOGKqYOKsNDs650DidKdGht8CBTtF7jAodIOHZMA==
+  dependencies:
+    "@stimulus/core" "^1.1.0"
+    "@stimulus/webpack-helpers" "^1.1.0"
 
 stream-browserify@^2.0.1:
   version "2.0.1"
