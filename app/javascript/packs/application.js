@@ -23,13 +23,8 @@ const context = require.context("controllers", true, /.js$/)
 application.load(definitionsFromContext(context))
 
 import { MDCMenu, Corner as MDCMenu_Corner } from '@material/menu';
-import { MDCTextField } from '@material/textfield';
 
 document.addEventListener("DOMContentLoaded", function(event) {
-  document.querySelectorAll(".mdc-text-field").forEach(function(textfield) {
-    new MDCTextField(textfield);
-  });
-
   let menuElement = document.querySelector(".js-menu");
   let menuOpenerElement = document.querySelector(".js-menu-opener");
 

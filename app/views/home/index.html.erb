@@ -1,7 +1,7 @@
 <%- if current_user && current_user.credentials.any? %>
   <div id="add-credential">
     <%= form_with scope: :credential, url: credentials_path, remote: true do |form| %>
-      <div class="mdc-text-field mdc-text-field--box">
+      <div class="mdc-text-field mdc-text-field--box" data-controller="textfield">
         <%= form.text_field :nickname, class: "mdc-text-field__input"%>
         <label class="mdc-floating-label" for="my-text-field">Nickname</label>
       </div>
