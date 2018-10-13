@@ -10,27 +10,7 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require material-components-web
 //= require_tree .
-
-document.addEventListener("DOMContentLoaded", function(event) {
-  document.querySelectorAll(".mdc-text-field").forEach(function(textfield) {
-    new window.mdc.textfield.MDCTextField(textfield);
-  });
-
-  let menuElement = document.querySelector(".js-menu");
-  let menuOpenerElement = document.querySelector(".js-menu-opener");
-
-  if (menuElement && menuOpenerElement) {
-    let menu = new window.mdc.menu.MDCMenu(menuElement);
-
-    menuOpenerElement.addEventListener('click', function(event) {
-      menu.open = !menu.open;
-    });
-
-    menu.setAnchorCorner(window.mdc.menu.Corner.BOTTOM_START);
-  }
-});
 
 function binToStr(bin) {
   return btoa(new Uint8Array(bin).reduce(

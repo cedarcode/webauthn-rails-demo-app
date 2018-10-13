@@ -14,3 +14,25 @@ Turbolinks.start()
 
 import Rails from 'rails-ujs';
 Rails.start()
+
+import { MDCMenu, Corner as MDCMenu_Corner } from '@material/menu';
+import { MDCTextField } from '@material/textfield';
+
+document.addEventListener("DOMContentLoaded", function(event) {
+  document.querySelectorAll(".mdc-text-field").forEach(function(textfield) {
+    new MDCTextField(textfield);
+  });
+
+  let menuElement = document.querySelector(".js-menu");
+  let menuOpenerElement = document.querySelector(".js-menu-opener");
+
+  if (menuElement && menuOpenerElement) {
+    let menu = new MDCMenu(menuElement);
+
+    menuOpenerElement.addEventListener('click', function(event) {
+      menu.open = !menu.open;
+    });
+
+    menu.setAnchorCorner(MDCMenu_Corner.BOTTOM_START);
+  }
+});
