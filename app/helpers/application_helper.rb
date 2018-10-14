@@ -5,7 +5,9 @@ module ApplicationHelper
 
   TESTED_BROWSERS = [
     Browser.new("Firefox", "60", false),
-    Browser.new("Chrome", "67", false)
+    Browser.new("Chrome", "67", false),
+    Browser.new("Chrome", "70", true),
+    Browser.new("Edge", "18", false),
   ].freeze
 
   def unsupported_browser_message
