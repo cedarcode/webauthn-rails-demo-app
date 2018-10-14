@@ -27,8 +27,6 @@ Rails.application.configure do
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Compress JavaScripts and CSS.
-  # TODO: Re-enable uglifier after https://github.com/lautis/uglifier/issues/132
-  # is fixed
   # config.assets.js_compressor = :uglifier
   # config.assets.css_compressor = :sass
 
