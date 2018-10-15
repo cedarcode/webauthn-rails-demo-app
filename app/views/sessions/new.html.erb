@@ -7,7 +7,7 @@
   </div>
 <% end %>
 
-<%= form_with scope: :session, url: session_path, id: "new-session" do |form| %>
+<%= form_with scope: :session, url: session_path, id: "new-session", data: { controller: "new-session", action: "ajax:success->new-session#create" } do |form| %>
   <div>
     <div class="mdc-text-field mdc-text-field--fullwidth">
       <%= form.text_field :username, class: "mdc-text-field__input", placeholder: "Username", autofocus: true, autocapitalize: "none" %>

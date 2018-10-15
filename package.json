@@ -13,6 +13,7 @@
     "@material/typography": "^0.35.0",
     "@rails/webpacker": "3.5",
     "rails-ujs": "^5.2.1",
+    "stimulus": "^1.1.0",
     "turbolinks": "^5.2.0"
   },
   "devDependencies": {
