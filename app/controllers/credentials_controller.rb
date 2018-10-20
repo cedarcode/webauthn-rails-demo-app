@@ -40,7 +40,7 @@ class CredentialsController < ApplicationController
   end
 
   def destroy
-    if current_user && current_user.can_delete_credentials?
+    if current_user&.can_delete_credentials?
       current_user.credentials.destroy(params[:id])
     end
 
