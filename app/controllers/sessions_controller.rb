@@ -24,10 +24,10 @@ class SessionsController < ApplicationController
 
   def callback
     auth_response = WebAuthn::AuthenticatorAssertionResponse.new(
-        credential_id: str_to_bin(params[:id]),
-        client_data_json: str_to_bin(params[:response][:clientDataJSON]),
-        authenticator_data: str_to_bin(params[:response][:authenticatorData]),
-        signature: str_to_bin(params[:response][:signature])
+      credential_id: str_to_bin(params[:id]),
+      client_data_json: str_to_bin(params[:response][:clientDataJSON]),
+      authenticator_data: str_to_bin(params[:response][:authenticatorData]),
+      signature: str_to_bin(params[:response][:signature])
     )
 
     user = User.find_by(username: session[:username])
@@ -36,15 +36,15 @@ class SessionsController < ApplicationController
 
     allowed_credentials = user.credentials.map do |cred|
       {
-          id: Base64.strict_decode64(cred.external_id),
-          public_key: Base64.strict_decode64(cred.public_key)
+        id: Base64.strict_decode64(cred.external_id),
+        public_key: Base64.strict_decode64(cred.public_key)
       }
     end
 
     render json: { status: "forbidden" }, status: :forbidden unless auth_response.valid?(
-        str_to_bin(user.current_challenge),
-        request.base_url,
-        allowed_credentials: allowed_credentials
+      str_to_bin(user.current_challenge),
+      request.base_url,
+      allowed_credentials: allowed_credentials
     )
 
     sign_in(user)

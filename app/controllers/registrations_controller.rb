@@ -32,7 +32,8 @@ class RegistrationsController < ApplicationController
 
     raise "user #{session[:username]} never initiated sign up" unless user
 
-    render json: { status: "forbidden" }, status: :forbidden unless auth_response.valid?(str_to_bin(user.current_challenge), request.base_url)
+    render json: { status: "forbidden" },
+           status: :forbidden unless auth_response.valid?(str_to_bin(user.current_challenge), request.base_url)
 
     if params[:response][:attestationObject].present?
       credential = user.credentials.find_or_initialize_by(
