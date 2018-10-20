@@ -8,11 +8,12 @@ ruby '2.5.2'
 gem 'rails', '~> 5.2.0'
 gem "webauthn", "~> 1.3"
 
+gem 'bootsnap', '>= 1.1.0', require: false
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
+gem "rollbar", "~> 2.16"
 gem 'sassc-rails', '~> 1.3'
-
-gem 'bootsnap', '>= 1.1.0', require: false
+gem "useragent", "~> 0.16.10"
 gem 'webpacker', '~> 3.5'
 
 group :development, :test do
@@ -33,6 +34,3 @@ group :test do
   gem 'chromedriver-helper'
   gem 'selenium-webdriver'
 end
-
-gem "rollbar", "~> 2.16"
-gem "useragent", "~> 0.16.10"
