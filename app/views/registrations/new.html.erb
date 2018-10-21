@@ -1,18 +1,10 @@
-<% if (message = unsupported_browser_message) %>
-    <div class="mdc-list mdc-list--two-line">
-      <div class="mdc-list-item">
-        <span class="mdc-list-item__graphic material-icons">warning</span>
-        <span class="mdc-typography--body2"><%= message %></span>
-      </div>
-    </div>
-<% end %>
+<%= render partial: 'application/unsupported_browser' %>
 
-
-<div class="mdc-card signin-card">
+<div class="mdc-card app-card">
   <div class="mdc-card__primary-action mdc-ripple-upgraded mdc-ripple-upgraded--foreground-activation" tabindex="0">
-    <div class="signin-card__primary"><h2 class="signin-card__title mdc-typography--headline6">Register</h2>
-      <div class="signin-card__secondary mdc-typography--body2">
-        <%= form_with scope: :registration, url: registrations_path, id: "new-session", data: {controller: "new-registration", action: "ajax:success->new-registration#create"} do |form| %>
+    <div class="app-card__primary"><h2 class="app-card__title mdc-typography--headline6">Register</h2>
+      <div class="app-card__secondary mdc-typography--body2">
+        <%= form_with scope: :registration, url: registration_path, id: "new-registration", data: {controller: "new-registration", action: "ajax:success->new-registration#create"} do |form| %>
             <div>
               <div class="mdc-text-field mdc-text-field--fullwidth">
                 <%= form.text_field :username, class: "mdc-text-field__input", placeholder: "Username", autofocus: true, autocapitalize: "none" %>

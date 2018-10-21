@@ -1,16 +1,9 @@
-<% if (message = unsupported_browser_message) %>
-    <div class="mdc-list mdc-list--two-line">
-      <div class="mdc-list-item">
-        <span class="mdc-list-item__graphic material-icons">warning</span>
-        <span class="mdc-typography--body2"><%= message %></span>
-      </div>
-    </div>
-<% end %>
+<%= render partial: 'application/unsupported_browser' %>
 
-<div class="mdc-card signin-card">
+<div class="mdc-card app-card">
   <div class="mdc-card__primary-action mdc-ripple-upgraded mdc-ripple-upgraded--foreground-activation" tabindex="0">
-    <div class="signin-card__primary"><h2 class="signin-card__title mdc-typography--headline6">Sign in</h2>
-      <div class="signin-card__secondary mdc-typography--body2">
+    <div class="app-card__primary"><h2 class="app-card__title mdc-typography--headline6">Sign in</h2>
+      <div class="app-card__secondary mdc-typography--body2">
         <%= form_with scope: :session, url: session_path, id: "new-session", data: {controller: "new-session", action: "ajax:success->new-session#create"} do |form| %>
             <div>
               <div class="mdc-text-field mdc-text-field--fullwidth">
@@ -27,7 +20,7 @@
     <div class="mdc-card__actions">
       <div class="mdc-card__action-buttons">
         <div class="mdc-card__actions">
-          <%= link_to 'Register', new_registrations_path, class: "mdc-button mdc-card__action mdc-card__action--button mdc-ripple-upgraded" %>
+          <%= link_to 'Register', new_registration_path, class: "mdc-button mdc-card__action mdc-card__action--button mdc-ripple-upgraded" %>
         </div>
       </div>
     </div>

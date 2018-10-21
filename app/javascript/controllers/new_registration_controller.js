@@ -13,7 +13,7 @@ export default class extends Controller {
     if (credentialOptions["user"]) {
       credentialOptions["user"]["id"] = Encoder.strToBin(credentialOptions["user"]["id"]);
       var credential_nickname = event.target.querySelector("input[name='registration[nickname]']").value;
-      var callback_url = `/registration_callback?credential_nickname=${credential_nickname}`
+      var callback_url = `/registration/callback?credential_nickname=${credential_nickname}`
 
       Credential.create(encodeURI(callback_url), credentialOptions);
     }
