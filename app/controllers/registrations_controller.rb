@@ -5,7 +5,7 @@ class RegistrationsController < ApplicationController
   end
 
   def create
-    user = User.new(username: session_params[:username])
+    user = User.new(username: registration_params[:username])
 
     credential_options = WebAuthn.credential_creation_options
     credential_options[:user][:id] = Base64.strict_encode64(session_params[:username])
@@ -15,7 +15,7 @@ class RegistrationsController < ApplicationController
     credential_options[:challenge] = bin_to_str(credential_options[:challenge])
     user.update!(current_challenge: credential_options[:challenge])
 
-    session[:username] = session_params[:username]
+    session[:username] = registration_params[:username]
 
     respond_to do |format|
       format.json { render json: credential_options }
@@ -51,7 +51,7 @@ class RegistrationsController < ApplicationController
 
   private
 
-  def session_params
+  def registration_params
     params.require(:registration).permit(:username)
   end
 end
