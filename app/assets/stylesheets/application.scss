@@ -18,6 +18,7 @@ $mdc-theme-primary: #212121;
 $mdc-theme-background: #f5f5f6;
 
 @import "@material/button/mdc-button";
+@import "@material/card/mdc-card";
 @import "@material/list/mdc-list";
 @import "@material/menu/mdc-menu";
 @import "@material/textfield/mdc-text-field";
@@ -51,4 +52,12 @@ body {
 
 a {
   text-decoration: none;
+}
+
+.app-card {
+  margin-top: 2rem;
+}
+
+.app-card__primary {
+  padding: 1rem;
 }

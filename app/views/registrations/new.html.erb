@@ -2,17 +2,23 @@
 
 <div class="mdc-card app-card">
   <div class="mdc-card__primary-action mdc-ripple-upgraded mdc-ripple-upgraded--foreground-activation" tabindex="0">
-    <div class="app-card__primary"><h2 class="app-card__title mdc-typography--headline6">Sign in</h2>
+    <div class="app-card__primary"><h2 class="app-card__title mdc-typography--headline6">Register</h2>
       <div class="app-card__secondary mdc-typography--body2">
-        <%= form_with scope: :session, url: session_path, id: "new-session", data: {controller: "new-session", action: "ajax:success->new-session#create"} do |form| %>
+        <%= form_with scope: :registration, url: registration_path, id: "new-registration", data: {controller: "new-registration", action: "ajax:success->new-registration#create"} do |form| %>
             <div>
               <div class="mdc-text-field mdc-text-field--fullwidth">
                 <%= form.text_field :username, class: "mdc-text-field__input", placeholder: "Username", autofocus: true, autocapitalize: "none" %>
               </div>
             </div>
 
+            <div>
+              <div class="mdc-text-field mdc-text-field--fullwidth">
+                <%= form.text_field :nickname, class: "mdc-text-field__input", placeholder: "Credential Nickname" %>
+              </div>
+            </div>
+
             <div class="center">
-              <%= form.submit "Sign in using WebAuthn", class: "mdc-button mdc-button--raised" %>
+              <%= form.submit "Register using WebAuthn", class: "mdc-button mdc-button--raised" %>
             </div>
         <% end %>
       </div>
@@ -20,7 +26,7 @@
     <div class="mdc-card__actions">
       <div class="mdc-card__action-buttons">
         <div class="mdc-card__actions">
-          <%= link_to 'Register', new_registration_path, class: "mdc-button mdc-card__action mdc-card__action--button mdc-ripple-upgraded" %>
+          <%= link_to 'Sign in', new_session_path, class: "mdc-button mdc-card__action mdc-card__action--button mdc-ripple-upgraded" %>
         </div>
       </div>
     </div>

@@ -35,7 +35,7 @@ function get(credentialOptions) {
   navigator.credentials.get({ "publicKey": credentialOptions }).then(function(credential) {
     var assertionResponse = credential.response;
 
-    callback("/callback", {
+    callback("/session/callback", {
       id: Encoder.binToStr(credential.rawId),
       response: {
         clientDataJSON: Encoder.binToStr(assertionResponse.clientDataJSON),
