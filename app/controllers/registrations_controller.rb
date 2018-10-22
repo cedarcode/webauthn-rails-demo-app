@@ -8,9 +8,9 @@ class RegistrationsController < ApplicationController
     user = User.new(username: registration_params[:username])
 
     credential_options = WebAuthn.credential_creation_options
-    credential_options[:user][:id] = Base64.strict_encode64(session_params[:username])
-    credential_options[:user][:name] = session_params[:username]
-    credential_options[:user][:displayName] = session_params[:username]
+    credential_options[:user][:id] = Base64.strict_encode64(registration_params[:username])
+    credential_options[:user][:name] = registration_params[:username]
+    credential_options[:user][:displayName] = registration_params[:username]
 
     credential_options[:challenge] = bin_to_str(credential_options[:challenge])
     user.update!(current_challenge: credential_options[:challenge])
