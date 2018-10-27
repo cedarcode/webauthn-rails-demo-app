@@ -4,11 +4,14 @@
   <div class="mdc-card__primary-action mdc-ripple-upgraded mdc-ripple-upgraded--foreground-activation" tabindex="0">
     <div class="app-card__primary"><h2 class="app-card__title mdc-typography--headline6">Sign in</h2>
       <div class="app-card__secondary mdc-typography--body2">
-        <%= form_with scope: :session, url: session_path, id: "new-session", data: {controller: "new-session", action: "ajax:success->new-session#create"} do |form| %>
+        <%= form_with scope: :session, url: session_path, id: "new-session", data: { controller: "new-session", action: "ajax:success->new-session#create ajax:error->new-session#error" } do |form| %>
             <div class="form-field">
-              <div class="mdc-text-field mdc-text-field--fullwidth">
-                <%= form.text_field :username, class: "mdc-text-field__input", placeholder: "Username", autofocus: true, autocapitalize: "none" %>
+              <div class="mdc-text-field mdc-text-field--fullwidth" data-controller="textfield" data-target="new-session.usernameField">
+                <%= form.text_field :username, class: "mdc-text-field__input", placeholder: "Username", autocapitalize: "none", "aria-controls" => "username-helper-text" %>
               </div>
+
+              <p id="username-helper-text" class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg" aria-hidden="true">
+              </p>
             </div>
 
             <div class="center">

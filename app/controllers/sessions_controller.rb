@@ -5,20 +5,26 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by!(username: session_params[:username])
+    user = User.find_by(username: session_params[:username])
 
-    credential_options = WebAuthn.credential_request_options
-    credential_options[:allowCredentials] = user.credentials.map do |cred|
-      { id: cred.external_id, type: "public-key" }
-    end
+    if user
+      credential_options = WebAuthn.credential_request_options
+      credential_options[:allowCredentials] = user.credentials.map do |cred|
+        { id: cred.external_id, type: "public-key" }
+      end
 
-    credential_options[:challenge] = bin_to_str(credential_options[:challenge])
-    user.update!(current_challenge: credential_options[:challenge])
+      credential_options[:challenge] = bin_to_str(credential_options[:challenge])
+      user.update!(current_challenge: credential_options[:challenge])
 
-    session[:username] = session_params[:username]
+      session[:username] = session_params[:username]
 
-    respond_to do |format|
-      format.json { render json: credential_options }
+      respond_to do |format|
+        format.json { render json: credential_options }
+      end
+    else
+      respond_to do |format|
+        format.json { render json: { errors: ["Username doesn't exist"] }, status: :unprocessable_entity }
+      end
     end
   end
 
