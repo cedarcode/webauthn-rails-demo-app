@@ -5,6 +5,8 @@ class User < ApplicationRecord
 
   has_many :credentials, dependent: :destroy
 
+  validates :username, uniqueness: true
+
   def can_delete_credentials?
     credentials.size > CREDENTIAL_MIN_AMOUNT
   end

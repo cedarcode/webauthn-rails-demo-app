@@ -13,12 +13,17 @@ class RegistrationsController < ApplicationController
     credential_options[:user][:displayName] = registration_params[:username]
 
     credential_options[:challenge] = bin_to_str(credential_options[:challenge])
-    user.update!(current_challenge: credential_options[:challenge])
 
-    session[:username] = registration_params[:username]
+    if user.update(current_challenge: credential_options[:challenge])
+      session[:username] = registration_params[:username]
 
-    respond_to do |format|
-      format.json { render json: credential_options }
+      respond_to do |format|
+        format.json { render json: credential_options }
+      end
+    else
+      respond_to do |format|
+        format.json { render json: { errors: user.errors.full_messages }, status: :unprocessable_entity }
+      end
     end
   end
 
