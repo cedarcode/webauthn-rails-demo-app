@@ -5,7 +5,7 @@
     <div class="app-card__primary"><h2 class="app-card__title mdc-typography--headline6">Sign in</h2>
       <div class="app-card__secondary mdc-typography--body2">
         <%= form_with scope: :session, url: session_path, id: "new-session", data: {controller: "new-session", action: "ajax:success->new-session#create"} do |form| %>
-            <div>
+            <div class="form-field">
               <div class="mdc-text-field mdc-text-field--fullwidth">
                 <%= form.text_field :username, class: "mdc-text-field__input", placeholder: "Username", autofocus: true, autocapitalize: "none" %>
               </div>
