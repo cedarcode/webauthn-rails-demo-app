@@ -5,13 +5,13 @@
     <div class="app-card__primary"><h2 class="app-card__title mdc-typography--headline6">Register</h2>
       <div class="app-card__secondary mdc-typography--body2">
         <%= form_with scope: :registration, url: registration_path, id: "new-registration", data: {controller: "new-registration", action: "ajax:success->new-registration#create"} do |form| %>
-            <div>
+            <div class="form-field">
               <div class="mdc-text-field mdc-text-field--fullwidth">
                 <%= form.text_field :username, class: "mdc-text-field__input", placeholder: "Username", autofocus: true, autocapitalize: "none" %>
               </div>
             </div>
 
-            <div>
+            <div class="form-field">
               <div class="mdc-text-field mdc-text-field--fullwidth">
                 <%= form.text_field :nickname, class: "mdc-text-field__input", placeholder: "Credential Nickname" %>
               </div>
