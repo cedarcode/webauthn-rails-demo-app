@@ -7,7 +7,7 @@
         <%= form_with scope: :registration, url: registration_path, id: "new-registration", data: { controller: "new-registration", action: "ajax:success->new-registration#create ajax:error->new-registration#error" } do |form| %>
             <div class="form-field">
               <div class="mdc-text-field mdc-text-field--fullwidth" data-controller="textfield" data-target="new-registration.usernameField">
-                <%= form.text_field :username, class: "mdc-text-field__input", placeholder: "Username", required: true, autofocus: true, autocapitalize: "none", "aria-controls" => "username-helper-text" %>
+                <%= form.text_field :username, class: "mdc-text-field__input", placeholder: "Username", required: true, autocapitalize: "none", "aria-controls" => "username-helper-text" %>
               </div>
 
               <p id="username-helper-text" class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg" aria-hidden="true">
