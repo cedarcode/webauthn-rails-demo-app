@@ -8,6 +8,7 @@ AllCops:
   Exclude:
     - "bin/*"
     - "db/schema.rb"
+    - "tmp/**/*"
 
 Bundler:
   Enabled: true
