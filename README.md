@@ -1,6 +1,6 @@
 # WebAuthn Rails Demo App
 
-Application demonstrating a WebAuthn login built with Ruby on Rails.
+Application demonstrating a [WebAuthn](https://en.wikipedia.org/wiki/WebAuthn) login built with Ruby on Rails + [webauthn](https://rubygems.org/gems/webauthn) rubygem.
 
 [![Travis](https://img.shields.io/travis/cedarcode/webauthn-rails-demo-app/master.svg?style=flat-square)](https://travis-ci.org/cedarcode/webauthn-rails-demo-app)
 
