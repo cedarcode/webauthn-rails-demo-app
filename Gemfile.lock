@@ -203,7 +203,7 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
-    webauthn (1.6.0)
+    webauthn (1.7.0)
       cbor (~> 0.5.9.2)
       cose (~> 0.1.0)
       jwt (>= 1.5, < 3.0)
@@ -239,7 +239,7 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   useragent (~> 0.16.10)
   web-console (>= 3.3.0)
-  webauthn (~> 1.6.0)
+  webauthn (~> 1.7.0)
   webpacker (~> 3.5)
 
 RUBY VERSION
