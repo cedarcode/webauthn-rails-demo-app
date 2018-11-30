@@ -12,7 +12,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
 gem "rollbar", "~> 2.16"
-gem 'sassc-rails', '~> 1.3'
+gem 'sassc-rails', '~> 2.0'
 gem "useragent", "~> 0.16.10"
 gem 'webpacker', '~> 3.5'
 
