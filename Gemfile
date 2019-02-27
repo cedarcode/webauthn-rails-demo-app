@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.3'
+ruby '2.6.1'
 
 gem 'rails', '5.2.2'
 gem "webauthn", "~> 1.9.0"
