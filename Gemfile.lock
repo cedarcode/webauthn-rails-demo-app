@@ -1,3 +1,15 @@
+GIT
+  remote: https://github.com/cedarcode/webauthn-ruby.git
+  revision: 9bed1ede4cfe132255d8ce7dd65929278300f6fd
+  branch: fake_client
+  specs:
+    webauthn (1.11.0)
+      cbor (~> 0.5.9)
+      cose (~> 0.4.1)
+      jwt (>= 1.5, < 3.0)
+      openssl (~> 2.0)
+      securecompare (~> 1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -200,12 +212,6 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
-    webauthn (1.11.0)
-      cbor (~> 0.5.9)
-      cose (~> 0.4.1)
-      jwt (>= 1.5, < 3.0)
-      openssl (~> 2.0)
-      securecompare (~> 1.0)
     webpacker (3.5.5)
       activesupport (>= 4.2)
       rack-proxy (>= 0.6.1)
@@ -237,7 +243,7 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   useragent (~> 0.16.10)
   web-console (>= 3.3.0)
-  webauthn (~> 1.11.0)
+  webauthn!
   webpacker (~> 3.5)
 
 RUBY VERSION
