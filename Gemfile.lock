@@ -59,6 +59,7 @@ GEM
     addressable (2.6.0)
       public_suffix (>= 2.0.2, < 4.0)
     ast (2.4.0)
+    bindata (2.4.4)
     bindex (0.7.0)
     bootsnap (1.4.4)
       msgpack (~> 1.0)
@@ -209,7 +210,8 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
-    webauthn (1.13.0)
+    webauthn (1.14.0)
+      bindata (~> 2.4)
       cbor (~> 0.5.9)
       cose (~> 0.6.0)
       jwt (>= 1.5, < 3.0)
@@ -246,7 +248,7 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   useragent (~> 0.16.10)
   web-console (>= 3.3.0)
-  webauthn (~> 1.13.0)
+  webauthn (~> 1.14.0)
   webpacker (~> 3.5)
 
 RUBY VERSION
