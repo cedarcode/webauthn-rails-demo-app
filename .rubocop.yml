@@ -3,7 +3,7 @@ inherit_mode:
     - Exclude
 
 AllCops:
-  TargetRubyVersion: 2.5
+  TargetRubyVersion: 2.6
   DisabledByDefault: true
   Exclude:
     - "bin/*"
