@@ -7,6 +7,10 @@ class CredentialsController < ApplicationController
     credential_options[:user][:name] = current_user.username
     credential_options[:user][:displayName] = current_user.username
 
+    credential_options[:excludeCredentials] = current_user.credentials.map do |credential|
+      { id: credential.external_id, type: "public-key" }
+    end
+
     credential_options[:challenge] = bin_to_str(credential_options[:challenge])
     current_user.update!(current_challenge: credential_options[:challenge])
 
