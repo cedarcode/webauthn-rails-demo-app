@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.2'
 
 gem 'rails', '5.2.2.1'
-gem "webauthn", "~> 1.13.0"
+gem "webauthn", "~> 1.14.0"
 
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'pg', '>= 0.18', '< 2.0'
