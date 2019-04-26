@@ -19,7 +19,7 @@ gem 'webpacker', '~> 3.5'
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem "dotenv-rails"
-  gem 'rubocop', '~> 0.63.0', require: false
+  gem 'rubocop', '~> 0.67.0', require: false
 end
 
 group :development do
@@ -31,6 +31,5 @@ end
 
 group :test do
   gem 'capybara', '>= 2.15', '< 4.0'
-  gem 'chromedriver-helper'
   gem 'selenium-webdriver'
 end
