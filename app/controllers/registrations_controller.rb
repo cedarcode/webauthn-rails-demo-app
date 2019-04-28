@@ -7,10 +7,11 @@ class RegistrationsController < ApplicationController
   def create
     user = User.new(username: registration_params[:username])
 
-    credential_options = WebAuthn.credential_creation_options
-    credential_options[:user][:id] = Base64.strict_encode64(registration_params[:username])
-    credential_options[:user][:name] = registration_params[:username]
-    credential_options[:user][:displayName] = registration_params[:username]
+    credential_options = WebAuthn.credential_creation_options(
+      user_name: registration_params[:username],
+      display_name: registration_params[:username],
+      user_id: Base64.strict_encode64(registration_params[:username])
+    )
 
     credential_options[:challenge] = bin_to_str(credential_options[:challenge])
 

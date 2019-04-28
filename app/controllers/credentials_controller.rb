@@ -2,10 +2,11 @@
 
 class CredentialsController < ApplicationController
   def create
-    credential_options = WebAuthn.credential_creation_options
-    credential_options[:user][:id] = Base64.strict_encode64(current_user.username)
-    credential_options[:user][:name] = current_user.username
-    credential_options[:user][:displayName] = current_user.username
+    credential_options = WebAuthn.credential_creation_options(
+      user_id: Base64.strict_encode64(current_user.username),
+      user_name: current_user.username,
+      display_name: current_user.username
+    )
 
     credential_options[:excludeCredentials] = current_user.credentials.map do |credential|
       { id: credential.external_id, type: "public-key" }
