@@ -26,7 +26,7 @@ class CredentialsController < ApplicationController
       client_data_json: str_to_bin(params[:response][:clientDataJSON])
     )
 
-    if auth_response.verify(str_to_bin(current_user.current_challenge), request.base_url)
+    if auth_response.verify(str_to_bin(current_user.current_challenge))
       if params[:response][:attestationObject].present?
         credential = current_user.credentials.find_or_initialize_by(
           external_id: Base64.strict_encode64(auth_response.credential.id)

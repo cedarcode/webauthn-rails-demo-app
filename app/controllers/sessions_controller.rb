@@ -49,7 +49,6 @@ class SessionsController < ApplicationController
 
     render json: { status: "forbidden" }, status: :forbidden unless auth_response.verify(
       str_to_bin(user.current_challenge),
-      request.base_url,
       allowed_credentials: allowed_credentials
     )
 
