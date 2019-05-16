@@ -39,7 +39,7 @@ class RegistrationsController < ApplicationController
     raise "user #{session[:username]} never initiated sign up" unless user
 
     render json: { status: "forbidden" },
-           status: :forbidden unless auth_response.verify(str_to_bin(user.current_challenge), request.base_url)
+           status: :forbidden unless auth_response.verify(str_to_bin(user.current_challenge))
 
     credential = user.credentials.find_or_initialize_by(
       external_id: Base64.strict_encode64(auth_response.credential.id)
