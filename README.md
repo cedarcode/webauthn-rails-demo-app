@@ -27,6 +27,7 @@ Application demonstrating a [WebAuthn](https://en.wikipedia.org/wiki/WebAuthn) l
 ```
 $ git clone https://github.com/cedarcode/webauthn-rails-demo-app
 $ cd webauthn-rails-demo-app/
+$ cp .env.example .env
 $ bundle install
 $ yarn install (or npm install)
 $ bundle exec rake db:setup
