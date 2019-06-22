@@ -47,13 +47,12 @@ class SessionsController < ApplicationController
       }
     end
 
-    render json: { status: "forbidden" }, status: :forbidden unless auth_response.verify(
-      str_to_bin(user.current_challenge),
-      allowed_credentials: allowed_credentials
-    )
-
-    sign_in(user)
-    render json: { status: "ok" }, status: :ok
+    if auth_response.verify(str_to_bin(user.current_challenge), allowed_credentials: allowed_credentials)
+      sign_in(user)
+      render json: { status: "ok" }, status: :ok
+    else
+      render json: { status: "forbidden" }, status: :forbidden
+    end
   end
 
   def destroy
