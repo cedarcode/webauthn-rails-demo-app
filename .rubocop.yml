@@ -29,9 +29,6 @@ Metrics/LineLength:
 Naming:
   Enabled: true
 
-Performance:
-  Enabled: true
-
 Rails:
   Enabled: true
 
