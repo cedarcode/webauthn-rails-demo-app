@@ -29,11 +29,7 @@ class SessionsController < ApplicationController
   end
 
   def callback
-    auth_response = WebAuthn::AuthenticatorAssertionResponse.new(
-      client_data_json: str_to_bin(params[:response][:clientDataJSON]),
-      authenticator_data: str_to_bin(params[:response][:authenticatorData]),
-      signature: str_to_bin(params[:response][:signature])
-    )
+    public_key_credential = WebAuthn::PublicKeyCredential.from_get(params)
 
     user = User.find_by(username: session[:username])
 
@@ -41,8 +37,9 @@ class SessionsController < ApplicationController
 
     public_key = Base64.strict_decode64(user.credentials.find_by(external_id: params[:rawId]).public_key)
 
-    if auth_response.verify(str_to_bin(user.current_challenge), public_key: public_key)
+    if public_key_credential.verify(str_to_bin(user.current_challenge), public_key: public_key)
       sign_in(user)
+
       render json: { status: "ok" }, status: :ok
     else
       render json: { status: "forbidden" }, status: :forbidden
