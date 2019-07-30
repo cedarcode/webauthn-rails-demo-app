@@ -159,7 +159,7 @@ GEM
       ffi (~> 1.0)
     regexp_parser (1.6.0)
     rollbar (2.21.0)
-    rubocop (0.72.0)
+    rubocop (0.73.0)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
       parser (>= 2.6)
@@ -239,7 +239,7 @@ DEPENDENCIES
   puma (~> 3.11)
   rails (~> 6.0.0.a)
   rollbar (~> 2.16)
-  rubocop (~> 0.72.0)
+  rubocop (~> 0.73.0)
   rubocop-rails (~> 2.2.1)
   sassc-rails (~> 2.0)
   selenium-webdriver
