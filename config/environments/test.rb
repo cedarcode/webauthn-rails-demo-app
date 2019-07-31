@@ -27,8 +27,8 @@ Rails.application.configure do
   # Raise exceptions instead of rendering exception templates.
   config.action_dispatch.show_exceptions = false
 
-  # Disable request forgery protection in test environment.
-  config.action_controller.allow_forgery_protection = false
+  # Enable request forgery protection in test environment.
+  config.action_controller.allow_forgery_protection = true
 
   config.action_mailer.perform_caching = false
 
