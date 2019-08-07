@@ -9,13 +9,13 @@ class AddCredentialFlowTest < ApplicationSystemTestCase
     fake_client = WebAuthn::FakeClient.new(fake_origin)
 
     fixed_challenge = SecureRandom.random_bytes(32)
-    WebAuthn::CredentialOptions.stub_any_instance :challenge, fixed_challenge do
+    WebAuthn::CredentialCreationOptions.stub_any_instance :challenge, fixed_challenge do
       fake_credentials = fake_client.create(challenge: fixed_challenge)
       register_user(fake_credentials: fake_credentials)
     end
 
     fixed_challenge = SecureRandom.random_bytes(32)
-    WebAuthn::CredentialOptions.stub_any_instance :challenge, fixed_challenge do
+    WebAuthn::CredentialCreationOptions.stub_any_instance :challenge, fixed_challenge do
       fake_credentials = fake_client.create(challenge: fixed_challenge)
       stub_create(fake_credentials)
 
