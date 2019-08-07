@@ -1,9 +1,9 @@
 import * as Encoder from "encoder";
 
-function getCSFRToken() {
-  var CSFRSelector = document.querySelector('meta[name="csrf-token"]')
-  if (CSFRSelector) {
-    return CSFRSelector.getAttribute("content")
+function getCSRFToken() {
+  var CSRFSelector = document.querySelector('meta[name="csrf-token"]')
+  if (CSRFSelector) {
+    return CSRFSelector.getAttribute("content")
   } else {
     return null
   }
@@ -16,7 +16,7 @@ function callback(url, body) {
     headers: {
       "Content-Type": "application/json",
       "Accept": "application/json",
-      "X-CSRF-Token": getCSFRToken()
+      "X-CSRF-Token": getCSRFToken()
     },
     credentials: 'same-origin'
   }).then(function() {
