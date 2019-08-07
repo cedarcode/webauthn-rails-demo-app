@@ -233,7 +233,7 @@ DEPENDENCIES
   capybara (>= 2.15, < 4.0)
   dotenv-rails
   listen (>= 3.0.5, < 3.2)
-  minitest-stub_any_instance
+  minitest-stub_any_instance (~> 1.0)
   pg (>= 0.18, < 2.0)
   puma (~> 3.11)
   rails (~> 6.0.0.a)
