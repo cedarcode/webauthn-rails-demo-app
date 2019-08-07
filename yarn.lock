@@ -2,6 +2,13 @@
 # yarn lockfile v1
 
 
+"@github/webauthn-json@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@github/webauthn-json/-/webauthn-json-0.1.2.tgz#e7a87ded660bee248c89436d0119f8bb83c84732"
+  integrity sha512-oNQNxVfgNFfd6Ma10MnfXGxeXfhMQfTZnZPO1MLtURf4B4CuGBGQiFZ/LqcTr+656sdMWEYdDY9fpj11rUz1Sg==
+  dependencies:
+    "@types/webappsec-credential-management" "^0.3.11"
+
 "@material/animation@^0.34.0":
   version "0.34.0"
   resolved "https://registry.yarnpkg.com/@material/animation/-/animation-0.34.0.tgz#a99cc9dabf7d0179b4da9a0aaa1575c4d1513823"
@@ -245,6 +252,11 @@
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@stimulus/webpack-helpers/-/webpack-helpers-1.1.1.tgz#eff60cd4e58b921d1a2764dc5215f5141510f2c2"
   integrity sha512-XOkqSw53N9072FLHvpLM25PIwy+ndkSSbnTtjKuyzsv8K5yfkFB2rv68jU1pzqYa9FZLcvZWP4yazC0V38dx9A==
+
+"@types/webappsec-credential-management@^0.3.11":
+  version "0.3.11"
+  resolved "https://registry.yarnpkg.com/@types/webappsec-credential-management/-/webappsec-credential-management-0.3.11.tgz#e8ddf8f8fb8fb1346128b97ddf95c371a92bd1bd"
+  integrity sha512-VsN40aBi3qKeCIxVDsoUaYkdzNejeCA02+u7swBQKMbshcFcSgmP97wqfrtGtC9mxP7GI1oojrZciGvV2i6Xvw==
 
 abbrev@1:
   version "1.1.1"

@@ -12,10 +12,8 @@ export default class extends Controller {
     console.log(data);
     var credentialOptions = data;
 
-    credentialOptions["challenge"] = Encoder.strToBin(credentialOptions["challenge"]);
     // Registration
     if (credentialOptions["user"]) {
-      credentialOptions["user"]["id"] = Encoder.strToBin(credentialOptions["user"]["id"]);
       var credential_nickname = event.target.querySelector("input[name='registration[nickname]']").value;
       var callback_url = `/registration/callback?credential_nickname=${credential_nickname}`
 
