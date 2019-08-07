@@ -19,7 +19,7 @@ class AddCredentialFlowTest < ApplicationSystemTestCase
       fake_credentials = fake_client.create(challenge: fixed_challenge)
       stub_create(fake_credentials)
 
-      find(:xpath, "//input[@id='credential_nickname']").fill_in(with: "Touch ID")
+      fill_in("credential_nickname", with: "Touch ID")
       click_on "Add Credential"
       wait_for_async_request
     end

@@ -7,7 +7,7 @@ class AddCredentialFlowTest < ApplicationSystemTestCase
     register_user
     # Human uses USB security key
 
-    find(:xpath, "//input[@id='credential_nickname']").fill_in(with: "Touch ID")
+    fill_in("credential_nickname", with: "Touch ID")
     click_on "Add Credential"
     # Human uses Touch ID sensor
 
