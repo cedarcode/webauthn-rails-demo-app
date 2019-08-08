@@ -1,4 +1,3 @@
-import * as Encoder from "encoder";
 import * as WebAuthnJSON from "@github/webauthn-json"
 
 function callback(url, body) {

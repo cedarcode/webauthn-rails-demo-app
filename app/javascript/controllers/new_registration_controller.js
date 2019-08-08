@@ -1,6 +1,5 @@
 import { Controller } from "stimulus"
 import * as Credential from "credential";
-import * as Encoder from "encoder";
 
 import { MDCTextField } from '@material/textfield';
 
