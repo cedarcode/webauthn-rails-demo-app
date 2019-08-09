@@ -1,3 +1,5 @@
+require: rubocop-rails
+
 inherit_mode:
   merge:
     - Exclude
@@ -31,6 +33,10 @@ Naming:
 
 Rails:
   Enabled: true
+
+# to deal with https://github.com/rubocop-hq/rubocop/issues/6002
+Rails/BulkChangeTable:
+  Enabled: false
 
 Security:
   Enabled: true

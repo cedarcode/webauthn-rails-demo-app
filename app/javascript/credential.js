@@ -1,4 +1,4 @@
-import * as Encoder from "encoder";
+import * as WebAuthnJSON from "@github/webauthn-json"
 
 function getCSRFToken() {
   var CSRFSelector = document.querySelector('meta[name="csrf-token"]')
@@ -25,14 +25,8 @@ function callback(url, body) {
 }
 
 function create(callbackUrl, credentialOptions) {
-  navigator.credentials.create({ "publicKey": credentialOptions }).then(function(attestation) {
-    callback(callbackUrl, {
-      id: attestation.id,
-      response: {
-        clientDataJSON: Encoder.binToStr(attestation.response.clientDataJSON),
-        attestationObject: Encoder.binToStr(attestation.response.attestationObject)
-      }
-    });
+  WebAuthnJSON.create({ "publicKey": credentialOptions }).then(function(attestation) {
+    callback(callbackUrl, attestation);
   }).catch(function(error) {
     console.log(error);
   });
@@ -41,18 +35,8 @@ function create(callbackUrl, credentialOptions) {
 }
 
 function get(credentialOptions) {
-  navigator.credentials.get({ "publicKey": credentialOptions }).then(function(credential) {
-    var assertionResponse = credential.response;
-
-    callback("/session/callback", {
-      id: Encoder.binToStr(credential.rawId),
-      response: {
-        clientDataJSON: Encoder.binToStr(assertionResponse.clientDataJSON),
-        signature: Encoder.binToStr(assertionResponse.signature),
-        userHandle: Encoder.binToStr(assertionResponse.userHandle),
-        authenticatorData: Encoder.binToStr(assertionResponse.authenticatorData)
-      }
-    });
+  WebAuthnJSON.get({ "publicKey": credentialOptions }).then(function(credentials) {
+    callback("/session/callback", credentials);
   }).catch(function(error) {
     console.log(error);
   });

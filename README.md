@@ -43,14 +43,27 @@ Now you can visit http://localhost:3000 to play with the demo site.
 
 ## Development
 
-### Updating gems
+### Gem Update Policy
+
+#### Gemfile Version Constraints
+
+In `Gemfile` define gem dependencies using a version contrainst of `~> MAJOR.MINOR` by default (or ~> `0.MINOR.PATCH` if
+latest `MAJOR` is `0`), unless you have reasons to use something different. An example of an exception could be
+`rails`, which is known to make backwards-incompatible changes in minor level updates, so in that case we use
+`~> MAJOR.MINOR.PATCH`.
+
+#### Updating
 
 ```
 $ gem install bundler-audit
 $ bundle audit --update
 $ bundle update --conservative --group test development
-$ bundle update --patch --strict
-$ bundle update --minor --strict
+$ bundle update --strict --patch
+$ bundle update --strict --minor
 $ bundle update --major
-$ bundle outdated
+$ bundle outdated --groups
 ```
+
+More in:
+
+[Updating gems cheat sheet](https://medium.com/cedarcode/updating-gems-cheat-sheet-346d5666a181)
