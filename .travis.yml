@@ -10,5 +10,5 @@ before_script:
   - psql -c 'create database "webauthn-app_test";' -U postgres
 
 script:
-  - rake
-  - rake test:system
+  - bundle exec rake
+  - bundle exec rake test:system
