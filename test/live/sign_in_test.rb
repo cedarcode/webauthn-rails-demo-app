@@ -2,15 +2,20 @@
 
 require "application_system_test_case"
 
-class SignInFlowTest < ApplicationSystemTestCase
+class SignInTest < ApplicationSystemTestCase
   test "register with human interaction and then sign in" do
-    register_user
+    visit new_registration_path
+    fill_in "registration_username", with: "User1"
+    fill_in "Credential Nickname", with: "USB key"
+    click_on "Register using WebAuthn"
     # Human uses USB security key
 
     click_button "account_circle"
     click_on "Sign out"
 
-    sign_in
+    visit new_session_path
+    fill_in "Username", with: "User1"
+    click_button "Sign in using WebAuthn"
     # Human uses USB security key
 
     assert_current_path '/'

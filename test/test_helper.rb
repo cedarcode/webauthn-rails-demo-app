@@ -8,34 +8,6 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
-  def register_user(fake_credentials: nil)
-    visit root_path
-    if fake_credentials
-      stub_create(fake_credentials)
-    end
-    click_on "Register"
-    fill_in "registration_username", with: "User1"
-    fill_in "Credential Nickname", with: "USB key"
-    click_on "Register using WebAuthn"
-    wait_for_async_request
-    if fake_credentials
-      page.execute_script("window.sinon.restore()")
-    end
-  end
-
-  def sign_in(fake_assertion: nil)
-    visit root_path
-    if fake_assertion
-      stub_get(fake_assertion)
-    end
-    fill_in "Username", with: "User1"
-    click_button "Sign in using WebAuthn"
-    wait_for_async_request
-    if fake_assertion
-      page.execute_script("window.sinon.restore()")
-    end
-  end
-
   def stub_create(fake_credentials)
     fake_credentials = camelize_keys(fake_credentials)
 
@@ -96,9 +68,5 @@ class ActiveSupport::TestCase
 
   def encode(hash, key)
     hash[key] = Base64.strict_encode64(hash[key])
-  end
-
-  def wait_for_async_request
-    sleep 0.5
   end
 end

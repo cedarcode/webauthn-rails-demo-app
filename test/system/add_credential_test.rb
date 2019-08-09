@@ -3,28 +3,38 @@
 require "application_system_test_case"
 require "webauthn/fake_client"
 
-class AddCredentialFlowTest < ApplicationSystemTestCase
+class AddCredentialTest < ApplicationSystemTestCase
   test "add credentials" do
     fake_origin = ENV['WEBAUTHN_ORIGIN']
     fake_client = WebAuthn::FakeClient.new(fake_origin)
-
     fixed_challenge = SecureRandom.random_bytes(32)
+
+    visit new_registration_path
+
+    fake_credentials = fake_client.create(challenge: fixed_challenge)
+    stub_create(fake_credentials)
+
+    fill_in "registration_username", with: "User1"
+    fill_in "Credential Nickname", with: "USB key"
+
     WebAuthn::CredentialCreationOptions.stub_any_instance :challenge, fixed_challenge do
-      fake_credentials = fake_client.create(challenge: fixed_challenge)
-      register_user(fake_credentials: fake_credentials)
+      click_on "Register using WebAuthn"
+      # wait for async response
+      assert_button 'account_circle'
     end
 
-    fixed_challenge = SecureRandom.random_bytes(32)
-    WebAuthn::CredentialCreationOptions.stub_any_instance :challenge, fixed_challenge do
-      fake_credentials = fake_client.create(challenge: fixed_challenge)
-      stub_create(fake_credentials)
+    fake_credentials = fake_client.create(challenge: fixed_challenge)
+    stub_create(fake_credentials)
 
-      fill_in("credential_nickname", with: "Touch ID")
+    fill_in("credential_nickname", with: "Touch ID")
+
+    WebAuthn::CredentialCreationOptions.stub_any_instance :challenge, fixed_challenge do
       click_on "Add Credential"
-      wait_for_async_request
+      # wait for async response
+      assert_text 'Touch ID'
     end
 
-    assert_text 'Touch ID'
+    assert_current_path "/"
     assert_text 'USB key'
   end
 end

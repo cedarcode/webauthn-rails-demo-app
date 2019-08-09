@@ -2,9 +2,12 @@
 
 require "application_system_test_case"
 
-class AddCredentialFlowTest < ApplicationSystemTestCase
+class AddCredentialTest < ApplicationSystemTestCase
   test "add credential with human interaction" do
-    register_user
+    visit new_registration_path
+    fill_in "registration_username", with: "User1"
+    fill_in "Credential Nickname", with: "USB key"
+    click_on "Register using WebAuthn"
     # Human uses USB security key
 
     fill_in("credential_nickname", with: "Touch ID")
