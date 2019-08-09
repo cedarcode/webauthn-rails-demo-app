@@ -21,15 +21,11 @@ class ApplicationController < ActionController::Base
       end
   end
 
-  def str_to_bin(str, urlsafe: false)
-    if urlsafe
-      Base64.urlsafe_decode64(str)
-    else
-      Base64.strict_decode64(str)
-    end
+  def str_to_bin(str)
+    Base64.urlsafe_decode64(str)
   end
 
   def bin_to_str(bin)
-    Base64.strict_encode64(bin)
+    Base64.urlsafe_encode64(bin, padding: false)
   end
 end

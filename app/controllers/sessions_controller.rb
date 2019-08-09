@@ -30,7 +30,7 @@ class SessionsController < ApplicationController
 
   def callback
     auth_response = WebAuthn::AuthenticatorAssertionResponse.new(
-      credential_id: str_to_bin(params[:id], urlsafe: true),
+      credential_id: str_to_bin(params[:id]),
       client_data_json: str_to_bin(params[:response][:clientDataJSON]),
       authenticator_data: str_to_bin(params[:response][:authenticatorData]),
       signature: str_to_bin(params[:response][:signature])
