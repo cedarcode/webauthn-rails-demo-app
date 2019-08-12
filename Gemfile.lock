@@ -216,6 +216,10 @@ GEM
       jwt (>= 1.5, < 3.0)
       openssl (~> 2.0)
       securecompare (~> 1.0)
+    webdrivers (4.1.2)
+      nokogiri (~> 1.6)
+      rubyzip (~> 1.0)
+      selenium-webdriver (>= 3.0, < 4.0)
     webpacker (3.6.0)
       activesupport (>= 4.2)
       rack-proxy (>= 0.6.1)
@@ -250,6 +254,7 @@ DEPENDENCIES
   useragent (~> 0.16.10)
   web-console (~> 4.0)
   webauthn (~> 1.18.0)
+  webdrivers (~> 4.1)
   webpacker (~> 3.5)
 
 RUBY VERSION
