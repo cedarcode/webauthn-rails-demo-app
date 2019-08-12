@@ -1,7 +1,5 @@
 sudo: false
 dist: xenial
-env:
-  - MOZ_HEADLESS=1
 addons:
   chrome: stable
 language: ruby
