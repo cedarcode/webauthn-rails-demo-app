@@ -17,4 +17,4 @@ before_script:
 
 script:
   - bundle exec rake
-  - bundle exec rake test:system
+  - TEST_BROWSER=headless_chrome bundle exec rake test:system
