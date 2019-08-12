@@ -1,5 +1,7 @@
 sudo: false
 dist: xenial
+addons:
+  chrome: stable
 language: ruby
 cache: bundler
 
