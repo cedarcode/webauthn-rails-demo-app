@@ -1,5 +1,14 @@
 import * as WebAuthnJSON from "@github/webauthn-json"
 
+function getCSRFToken() {
+  var CSRFSelector = document.querySelector('meta[name="csrf-token"]')
+  if (CSRFSelector) {
+    return CSRFSelector.getAttribute("content")
+  } else {
+    return null
+  }
+}
+
 function callback(url, body) {
   fetch(url, {
     method: "POST",
@@ -7,7 +16,7 @@ function callback(url, body) {
     headers: {
       "Content-Type": "application/json",
       "Accept": "application/json",
-      "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+      "X-CSRF-Token": getCSRFToken()
     },
     credentials: 'same-origin'
   }).then(function() {

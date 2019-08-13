@@ -11,6 +11,10 @@
       <%= render "rollbar_js" %>
     <% end %>
 
+    <% if Rails.env.test? %>
+      <%= javascript_pack_tag 'stub_credentials', 'data-turbolinks-track': 'reload' %>
+    <% end %>
+
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag "https://fonts.googleapis.com/css?family=Roboto:300,400,500" %>
     <%= stylesheet_link_tag "https://fonts.googleapis.com/icon?family=Material+Icons" %>
