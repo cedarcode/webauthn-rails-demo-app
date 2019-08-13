@@ -8,9 +8,6 @@ cache: bundler
 services:
   - postgresql
 
-before_install:
-  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
-
 before_script:
   - psql -c 'create database "webauthn-app_test";' -U postgres
   - yarn install
