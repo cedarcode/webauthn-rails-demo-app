@@ -3,7 +3,10 @@ dist: xenial
 addons:
   chrome: stable
 language: ruby
-cache: bundler
+cache:
+  bundler: true
+  directories:
+    - node_modules
 
 services:
   - postgresql
