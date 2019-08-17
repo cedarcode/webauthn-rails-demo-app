@@ -30,7 +30,6 @@ class SessionsController < ApplicationController
 
   def callback
     auth_response = WebAuthn::AuthenticatorAssertionResponse.new(
-      credential_id: str_to_bin(params[:id], urlsafe: true),
       client_data_json: str_to_bin(params[:response][:clientDataJSON]),
       authenticator_data: str_to_bin(params[:response][:authenticatorData]),
       signature: str_to_bin(params[:response][:signature])
@@ -40,14 +39,9 @@ class SessionsController < ApplicationController
 
     raise "user #{session[:username]} never initiated sign up" unless user
 
-    allowed_credentials = user.credentials.map do |cred|
-      {
-        id: Base64.strict_decode64(cred.external_id),
-        public_key: Base64.strict_decode64(cred.public_key)
-      }
-    end
+    public_key = Base64.strict_decode64(user.credentials.find_by(external_id: params[:rawId]).public_key)
 
-    if auth_response.verify(str_to_bin(user.current_challenge), allowed_credentials: allowed_credentials)
+    if auth_response.verify(str_to_bin(user.current_challenge), public_key: public_key)
       sign_in(user)
       render json: { status: "ok" }, status: :ok
     else
