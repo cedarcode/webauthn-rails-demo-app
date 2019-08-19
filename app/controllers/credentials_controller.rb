@@ -3,7 +3,7 @@
 class CredentialsController < ApplicationController
   def create
     credential_options = WebAuthn.credential_creation_options(
-      user_id: Base64.strict_encode64(current_user.username),
+      user_id: bin_to_str(current_user.username),
       user_name: current_user.username,
       display_name: current_user.username
     )

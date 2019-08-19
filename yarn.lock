@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@github/webauthn-json@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@github/webauthn-json/-/webauthn-json-0.1.2.tgz#e7a87ded660bee248c89436d0119f8bb83c84732"
-  integrity sha512-oNQNxVfgNFfd6Ma10MnfXGxeXfhMQfTZnZPO1MLtURf4B4CuGBGQiFZ/LqcTr+656sdMWEYdDY9fpj11rUz1Sg==
+"@github/webauthn-json@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@github/webauthn-json/-/webauthn-json-0.3.1.tgz#cfeb72b468ba91fb8a305d19b7ccd43c48dea02c"
+  integrity sha512-uFfjAWpBhArtbfsuzf1MJAq+TSh6WmHQtL4IboFyYLeYr8XSV2Qd77Gu5gOEWxoDmFcfOr6Est2YbUmF98UY7g==
   dependencies:
     "@types/webappsec-credential-management" "^0.3.11"
 
