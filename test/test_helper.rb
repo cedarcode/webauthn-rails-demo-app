@@ -9,14 +9,12 @@ class ActiveSupport::TestCase
   fixtures :all
 
   def stub_create(fake_credentials)
-    fake_credentials = camelize_keys(fake_credentials)
-
     # Encode binary fields to use in script
-    encode(fake_credentials, :rawId)
-    encode(fake_credentials[:response], :attestationObject)
+    encode(fake_credentials, "rawId")
+    encode(fake_credentials["response"], "attestationObject")
 
     # Parse to avoid escaping already escaped characters
-    fake_credentials[:response][:clientDataJSON] = JSON.parse(fake_credentials[:response][:clientDataJSON])
+    fake_credentials["response"]["clientDataJSON"] = JSON.parse(fake_credentials["response"]["clientDataJSON"])
 
     fake_credentials = fake_credentials.to_json
 
@@ -32,15 +30,13 @@ class ActiveSupport::TestCase
   end
 
   def stub_get(fake_assertion)
-    fake_assertion = camelize_keys(fake_assertion)
-
     # Encode binary fields to use in script
-    encode(fake_assertion, :rawId)
-    encode(fake_assertion[:response], :authenticatorData)
-    encode(fake_assertion[:response], :signature)
+    encode(fake_assertion, "rawId")
+    encode(fake_assertion["response"], "authenticatorData")
+    encode(fake_assertion["response"], "signature")
 
     # Parse to avoid escaping already escaped characters
-    fake_assertion[:response][:clientDataJSON] = JSON.parse(fake_assertion[:response][:clientDataJSON])
+    fake_assertion["response"]["clientDataJSON"] = JSON.parse(fake_assertion["response"]["clientDataJSON"])
 
     fake_assertion = fake_assertion.to_json
     script =
@@ -54,16 +50,6 @@ class ActiveSupport::TestCase
         Uint8Array.from(atob(assertion['response']['signature']), c => c.charCodeAt(0));
        var stub = window.sinon.stub(navigator.credentials, 'get').resolves(assertion);"
     page.execute_script(script)
-  end
-
-  def camelize_keys(hash)
-    hash.deep_transform_keys do |key|
-      if key == :client_data_json
-        :clientDataJSON
-      else
-        key.to_s.camelize(:lower).to_sym
-      end
-    end
   end
 
   def encode(hash, key)
