@@ -10,7 +10,7 @@ class RegistrationsController < ApplicationController
     credential_options = WebAuthn.credential_creation_options(
       user_name: registration_params[:username],
       display_name: registration_params[:username],
-      user_id: Base64.strict_encode64(registration_params[:username])
+      user_id: bin_to_str(registration_params[:username])
     )
 
     credential_options[:challenge] = bin_to_str(credential_options[:challenge])
