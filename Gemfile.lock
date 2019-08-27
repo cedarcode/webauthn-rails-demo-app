@@ -1,8 +1,10 @@
 GIT
   remote: https://github.com/cedarcode/webauthn-ruby.git
-  revision: 4b86238aafb51d492b08cfdc0e8c1b296e02849f
+  revision: 0f32b53f81b29d25e76be71bcd49bedfe5f33d1a
+  branch: credential_options
   specs:
     webauthn (1.18.0)
+      awrence (~> 1.1)
       bindata (~> 2.4)
       cbor (~> 0.5.9)
       cose (~> 0.8.0)
@@ -71,6 +73,7 @@ GEM
     addressable (2.6.0)
       public_suffix (>= 2.0.2, < 4.0)
     ast (2.4.0)
+    awrence (1.1.0)
     bindata (2.4.4)
     bindex (0.8.1)
     bootsnap (1.4.4)

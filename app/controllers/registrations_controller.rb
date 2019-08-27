@@ -7,19 +7,19 @@ class RegistrationsController < ApplicationController
   def create
     user = User.new(username: registration_params[:username])
 
-    credential_options = WebAuthn.credential_creation_options(
-      user_name: registration_params[:username],
-      display_name: registration_params[:username],
-      user_id: bin_to_str(registration_params[:username])
+    create_options = WebAuthn::PublicKeyCredential.create_options(
+      user: {
+        name: registration_params[:username],
+        display_name: registration_params[:username],
+        id: bin_to_str(registration_params[:username])
+      }
     )
 
-    credential_options[:challenge] = bin_to_str(credential_options[:challenge])
-
-    if user.update(current_challenge: credential_options[:challenge])
+    if user.update(current_challenge: create_options.challenge)
       session[:username] = registration_params[:username]
 
       respond_to do |format|
-        format.json { render json: credential_options }
+        format.json { render json: create_options }
       end
     else
       respond_to do |format|

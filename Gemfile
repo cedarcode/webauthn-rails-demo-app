@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.3'
 
 gem 'rails', "~> 6.0.0"
-gem "webauthn", github: "cedarcode/webauthn-ruby"
+gem "webauthn", github: "cedarcode/webauthn-ruby", branch: "credential_options"
 
 gem 'bootsnap', '~> 1.4', require: false
 gem 'pg', '~> 1.1'
