@@ -1,11 +1,11 @@
 GIT
   remote: https://github.com/cedarcode/webauthn-ruby.git
-  revision: 88d8203c451a457e4fc41feb079af5d056b21559
+  revision: 4b86238aafb51d492b08cfdc0e8c1b296e02849f
   specs:
     webauthn (1.18.0)
       bindata (~> 2.4)
       cbor (~> 0.5.9)
-      cose (~> 0.7.0)
+      cose (~> 0.8.0)
       jwt (>= 1.5, < 3.0)
       openssl (~> 2.0)
       securecompare (~> 1.0)
@@ -89,7 +89,7 @@ GEM
     childprocess (1.0.1)
       rake (< 13.0)
     concurrent-ruby (1.1.5)
-    cose (0.7.0)
+    cose (0.8.0)
       cbor (~> 0.5.9)
     crass (1.0.4)
     dotenv (2.7.5)
