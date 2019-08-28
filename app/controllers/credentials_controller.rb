@@ -8,7 +8,7 @@ class CredentialsController < ApplicationController
         name: current_user.username,
         display_name: current_user.username
       },
-      exclude_credentials: current_user.credentials.map { |c| { id: c.external_id, type: "public-key" } }
+      exclude: current_user.credentials.pluck(:external_id)
     )
 
     current_user.update!(current_challenge: create_options.challenge)

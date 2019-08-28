@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/cedarcode/webauthn-ruby.git
-  revision: 0f32b53f81b29d25e76be71bcd49bedfe5f33d1a
+  revision: dd8fbc5b16cbbca510a7729a0c3fa601e1014378
   branch: credential_options
   specs:
     webauthn (1.18.0)

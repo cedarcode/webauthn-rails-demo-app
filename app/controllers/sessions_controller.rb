@@ -8,9 +8,7 @@ class SessionsController < ApplicationController
     user = User.find_by(username: session_params[:username])
 
     if user
-      get_options = WebAuthn::PublicKeyCredential.get_options(
-        allow_credentials: user.credentials.map { |c| { id: c.external_id, type: "public-key" } }
-      )
+      get_options = WebAuthn::PublicKeyCredential.get_options(allow: user.credentials.pluck(:external_id))
 
       user.update!(current_challenge: get_options.challenge)
 
