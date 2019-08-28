@@ -10,7 +10,6 @@ class RegistrationsController < ApplicationController
     create_options = WebAuthn::PublicKeyCredential.create_options(
       user: {
         name: registration_params[:username],
-        display_name: registration_params[:username],
         id: bin_to_str(registration_params[:username])
       }
     )

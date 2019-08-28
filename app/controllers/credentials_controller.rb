@@ -6,7 +6,6 @@ class CredentialsController < ApplicationController
       user: {
         id: bin_to_str(current_user.username),
         name: current_user.username,
-        display_name: current_user.username
       },
       exclude: current_user.credentials.pluck(:external_id)
     )
