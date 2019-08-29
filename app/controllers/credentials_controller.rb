@@ -31,7 +31,8 @@ class CredentialsController < ApplicationController
 
         credential.update!(
           nickname: params[:credential_nickname],
-          public_key: Base64.strict_encode64(public_key_credential.public_key)
+          public_key: Base64.strict_encode64(public_key_credential.public_key),
+          sign_count: public_key_credential.sign_count
         )
       end
 

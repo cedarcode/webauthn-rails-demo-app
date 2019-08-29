@@ -35,12 +35,15 @@ class SessionsController < ApplicationController
 
     raise "user #{session[:username]} never initiated sign up" unless user
 
-    public_key =
-      Base64.strict_decode64(
-        user.credentials.find_by(external_id: Base64.strict_encode64(public_key_credential.raw_id)).public_key
-      )
+    credential = user.credentials.find_by(external_id: Base64.strict_encode64(public_key_credential.raw_id))
+    public_key = Base64.strict_decode64(credential.public_key)
 
-    if public_key_credential.verify(str_to_bin(user.current_challenge), public_key: public_key)
+    if public_key_credential.verify(
+      str_to_bin(user.current_challenge),
+      public_key: public_key,
+      sign_count: credential.sign_count
+    )
+      credential.update!(sign_count: public_key_credential.sign_count)
       sign_in(user)
 
       render json: { status: "ok" }, status: :ok
