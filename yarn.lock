@@ -3,11 +3,9 @@
 
 
 "@github/webauthn-json@^0.3.1":
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/@github/webauthn-json/-/webauthn-json-0.3.1.tgz#cfeb72b468ba91fb8a305d19b7ccd43c48dea02c"
-  integrity sha512-uFfjAWpBhArtbfsuzf1MJAq+TSh6WmHQtL4IboFyYLeYr8XSV2Qd77Gu5gOEWxoDmFcfOr6Est2YbUmF98UY7g==
-  dependencies:
-    "@types/webappsec-credential-management" "^0.3.11"
+  version "0.3.6"
+  resolved "https://registry.yarnpkg.com/@github/webauthn-json/-/webauthn-json-0.3.6.tgz#d1a143489087e904225fd2fde9217c2c2d8d3b7b"
+  integrity sha512-0yTfZ8mbmaGv7jck0DfkCP9vXcAAkKKWVrScSGp314gIcuNiYluHLSCnl+lTS8q2UIWZeEamqHCQw6dQ327nNg==
 
 "@material/animation@^0.34.0":
   version "0.34.0"
@@ -281,11 +279,6 @@
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@stimulus/webpack-helpers/-/webpack-helpers-1.1.1.tgz#eff60cd4e58b921d1a2764dc5215f5141510f2c2"
   integrity sha512-XOkqSw53N9072FLHvpLM25PIwy+ndkSSbnTtjKuyzsv8K5yfkFB2rv68jU1pzqYa9FZLcvZWP4yazC0V38dx9A==
-
-"@types/webappsec-credential-management@^0.3.11":
-  version "0.3.11"
-  resolved "https://registry.yarnpkg.com/@types/webappsec-credential-management/-/webappsec-credential-management-0.3.11.tgz#e8ddf8f8fb8fb1346128b97ddf95c371a92bd1bd"
-  integrity sha512-VsN40aBi3qKeCIxVDsoUaYkdzNejeCA02+u7swBQKMbshcFcSgmP97wqfrtGtC9mxP7GI1oojrZciGvV2i6Xvw==
 
 abbrev@1:
   version "1.1.1"
