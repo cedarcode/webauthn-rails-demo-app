@@ -32,11 +32,10 @@ class SessionsController < ApplicationController
     raise "user #{session[:username]} never initiated sign up" unless user
 
     credential = user.credentials.find_by(external_id: Base64.strict_encode64(public_key_credential.raw_id))
-    public_key = Base64.strict_decode64(credential.public_key)
 
     if public_key_credential.verify(
       user.current_challenge,
-      public_key: public_key,
+      public_key: credential.public_key,
       sign_count: credential.sign_count
     )
       credential.update!(sign_count: public_key_credential.sign_count)
