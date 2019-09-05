@@ -21,10 +21,6 @@ class ApplicationController < ActionController::Base
       end
   end
 
-  def str_to_bin(str)
-    Base64.urlsafe_decode64(str)
-  end
-
   def bin_to_str(bin)
     Base64.urlsafe_encode64(bin, padding: false)
   end

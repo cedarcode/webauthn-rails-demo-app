@@ -20,7 +20,7 @@ class CredentialsController < ApplicationController
   def callback
     public_key_credential = WebAuthn::PublicKeyCredential.from_create(params)
 
-    if public_key_credential.verify(str_to_bin(current_user.current_challenge))
+    if public_key_credential.verify(current_user.current_challenge)
       if params[:response][:attestationObject].present?
         credential = current_user.credentials.find_or_initialize_by(
           external_id: Base64.strict_encode64(public_key_credential.raw_id)

@@ -35,7 +35,7 @@ class SessionsController < ApplicationController
     public_key = Base64.strict_decode64(credential.public_key)
 
     if public_key_credential.verify(
-      str_to_bin(user.current_challenge),
+      user.current_challenge,
       public_key: public_key,
       sign_count: credential.sign_count
     )
