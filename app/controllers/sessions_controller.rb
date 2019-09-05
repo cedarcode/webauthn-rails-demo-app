@@ -8,18 +8,14 @@ class SessionsController < ApplicationController
     user = User.find_by(username: session_params[:username])
 
     if user
-      credential_options = WebAuthn.credential_request_options
-      credential_options[:allowCredentials] = user.credentials.map do |cred|
-        { id: cred.external_id, type: "public-key" }
-      end
+      get_options = WebAuthn::PublicKeyCredential.get_options(allow: user.credentials.pluck(:external_id))
 
-      credential_options[:challenge] = bin_to_str(credential_options[:challenge])
-      user.update!(current_challenge: credential_options[:challenge])
+      user.update!(current_challenge: get_options.challenge)
 
       session[:username] = session_params[:username]
 
       respond_to do |format|
-        format.json { render json: credential_options }
+        format.json { render json: get_options }
       end
     else
       respond_to do |format|
