@@ -28,10 +28,6 @@ class SignInTest < ApplicationSystemTestCase
     visit new_session_path
 
     fake_assertion = fake_client.get(challenge: fixed_challenge)
-
-    # Temporary until https://github.com/cedarcode/webauthn-ruby/issues/246 is fixed
-    fake_assertion["response"]["userHandle"] = nil
-
     stub_get(fake_assertion)
 
     fill_in "Username", with: "User1"

@@ -43,7 +43,8 @@ class RegistrationsController < ApplicationController
       )
       credential.update!(
         nickname: params[:credential_nickname],
-        public_key: Base64.strict_encode64(auth_response.credential.public_key)
+        public_key: Base64.strict_encode64(auth_response.credential.public_key),
+        sign_count: auth_response.authenticator_data.sign_count,
       )
 
       sign_in(user)
