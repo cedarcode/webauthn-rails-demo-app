@@ -17,7 +17,7 @@ class SignInTest < ApplicationSystemTestCase
     fill_in "registration_username", with: "User1"
     fill_in "Credential Nickname", with: "USB key"
 
-    WebAuthn::CredentialCreationOptions.stub_any_instance :challenge, fixed_challenge do
+    WebAuthn::PublicKeyCredential::CreationOptions.stub_any_instance :raw_challenge, fixed_challenge do
       click_on "Register using WebAuthn"
       # wait for async response
       assert_button "account_circle"
@@ -32,7 +32,7 @@ class SignInTest < ApplicationSystemTestCase
 
     fill_in "Username", with: "User1"
 
-    WebAuthn::CredentialRequestOptions.stub_any_instance :challenge, fixed_challenge do
+    WebAuthn::PublicKeyCredential::RequestOptions.stub_any_instance :raw_challenge, fixed_challenge do
       click_button "Sign in using WebAuthn"
       # wait for async response
       assert_button "account_circle"

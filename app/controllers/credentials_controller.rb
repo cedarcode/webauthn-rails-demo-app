@@ -2,21 +2,18 @@
 
 class CredentialsController < ApplicationController
   def create
-    credential_options = WebAuthn.credential_creation_options(
-      user_id: bin_to_str(current_user.username),
-      user_name: current_user.username,
-      display_name: current_user.username
+    create_options = WebAuthn::PublicKeyCredential.create_options(
+      user: {
+        id: bin_to_str(current_user.username),
+        name: current_user.username,
+      },
+      exclude: current_user.credentials.pluck(:external_id)
     )
 
-    credential_options[:excludeCredentials] = current_user.credentials.map do |credential|
-      { id: credential.external_id, type: "public-key" }
-    end
-
-    credential_options[:challenge] = bin_to_str(credential_options[:challenge])
-    current_user.update!(current_challenge: credential_options[:challenge])
+    current_user.update!(current_challenge: create_options.challenge)
 
     respond_to do |format|
-      format.json { render json: credential_options.merge(user_id: current_user.id) }
+      format.json { render json: create_options }
     end
   end
 
