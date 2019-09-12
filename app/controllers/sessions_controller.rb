@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     user = User.find_by(username: session_params[:username])
 
     if user
-      get_options = WebAuthn::PublicKeyCredential.get_options(allow: user.credentials.pluck(:external_id))
+      get_options = WebAuthn::Credential.get_options(allow: user.credentials.pluck(:external_id))
 
       user.update!(current_challenge: get_options.challenge)
 
@@ -25,20 +25,20 @@ class SessionsController < ApplicationController
   end
 
   def callback
-    public_key_credential = WebAuthn::PublicKeyCredential.from_get(params)
+    webauthn_credential = WebAuthn::Credential.from_get(params)
 
     user = User.find_by(username: session[:username])
 
     raise "user #{session[:username]} never initiated sign up" unless user
 
-    credential = user.credentials.find_by(external_id: Base64.strict_encode64(public_key_credential.raw_id))
+    credential = user.credentials.find_by(external_id: Base64.strict_encode64(webauthn_credential.raw_id))
 
-    if public_key_credential.verify(
+    if webauthn_credential.verify(
       user.current_challenge,
       public_key: credential.public_key,
       sign_count: credential.sign_count
     )
-      credential.update!(sign_count: public_key_credential.sign_count)
+      credential.update!(sign_count: webauthn_credential.sign_count)
       sign_in(user)
 
       render json: { status: "ok" }, status: :ok
