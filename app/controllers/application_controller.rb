@@ -22,6 +22,6 @@ class ApplicationController < ActionController::Base
   end
 
   def bin_to_str(bin)
-    Base64.urlsafe_encode64(bin, padding: false)
+    WebAuthn::Encoder.new(:base64url).encode(bin)
   end
 end
