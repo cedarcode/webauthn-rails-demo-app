@@ -2,7 +2,7 @@
 
 class CredentialsController < ApplicationController
   def create
-    create_options = WebAuthn::PublicKeyCredential.create_options(
+    create_options = WebAuthn::Credential.options_for_create(
       user: {
         id: bin_to_str(current_user.username),
         name: current_user.username,
@@ -18,21 +18,18 @@ class CredentialsController < ApplicationController
   end
 
   def callback
-    auth_response = WebAuthn::AuthenticatorAttestationResponse.new(
-      attestation_object: str_to_bin(params[:response][:attestationObject]),
-      client_data_json: str_to_bin(params[:response][:clientDataJSON])
-    )
+    webauthn_credential = WebAuthn::Credential.from_create(params)
 
-    if auth_response.verify(str_to_bin(current_user.current_challenge))
+    if webauthn_credential.verify(current_user.current_challenge)
       if params[:response][:attestationObject].present?
         credential = current_user.credentials.find_or_initialize_by(
-          external_id: Base64.strict_encode64(auth_response.credential.id)
+          external_id: Base64.strict_encode64(webauthn_credential.raw_id)
         )
 
         credential.update!(
           nickname: params[:credential_nickname],
-          public_key: Base64.strict_encode64(auth_response.credential.public_key),
-          sign_count: auth_response.authenticator_data.sign_count,
+          public_key: webauthn_credential.public_key,
+          sign_count: webauthn_credential.sign_count
         )
       end
 

@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     user = User.find_by(username: session_params[:username])
 
     if user
-      get_options = WebAuthn::PublicKeyCredential.get_options(allow: user.credentials.pluck(:external_id))
+      get_options = WebAuthn::Credential.options_for_get(allow: user.credentials.pluck(:external_id))
 
       user.update!(current_challenge: get_options.challenge)
 
@@ -25,23 +25,22 @@ class SessionsController < ApplicationController
   end
 
   def callback
-    auth_response = WebAuthn::AuthenticatorAssertionResponse.new(
-      client_data_json: str_to_bin(params[:response][:clientDataJSON]),
-      authenticator_data: str_to_bin(params[:response][:authenticatorData]),
-      signature: str_to_bin(params[:response][:signature])
-    )
+    webauthn_credential = WebAuthn::Credential.from_get(params)
 
     user = User.find_by(username: session[:username])
 
     raise "user #{session[:username]} never initiated sign up" unless user
 
-    credential = user.credentials.find_by(external_id: Base64.strict_encode64(str_to_bin(params[:id])))
-    public_key = Base64.strict_decode64(credential.public_key)
+    credential = user.credentials.find_by(external_id: Base64.strict_encode64(webauthn_credential.raw_id))
 
-    if auth_response.verify(str_to_bin(user.current_challenge), public_key: public_key,
-                                                                sign_count: credential.sign_count)
-      credential.update!(sign_count: auth_response.authenticator_data.sign_count)
+    if webauthn_credential.verify(
+      user.current_challenge,
+      public_key: credential.public_key,
+      sign_count: credential.sign_count
+    )
+      credential.update!(sign_count: webauthn_credential.sign_count)
       sign_in(user)
+
       render json: { status: "ok" }, status: :ok
     else
       render json: { status: "forbidden" }, status: :forbidden
