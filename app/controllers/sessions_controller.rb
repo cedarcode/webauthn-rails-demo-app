@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     user = User.find_by(username: session_params[:username])
 
     if user
-      get_options = WebAuthn::Credential.get_options(allow: user.credentials.pluck(:external_id))
+      get_options = WebAuthn::Credential.options_for_get(allow: user.credentials.pluck(:external_id))
 
       user.update!(current_challenge: get_options.challenge)
 

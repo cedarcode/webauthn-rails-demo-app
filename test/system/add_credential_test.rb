@@ -6,7 +6,7 @@ require "webauthn/fake_client"
 class AddCredentialTest < ApplicationSystemTestCase
   test "add credentials" do
     fake_origin = ENV['WEBAUTHN_ORIGIN']
-    fake_client = WebAuthn::FakeClient.new(fake_origin)
+    fake_client = WebAuthn::FakeClient.new(fake_origin, encoding: false)
     fixed_challenge = SecureRandom.random_bytes(32)
 
     visit new_registration_path

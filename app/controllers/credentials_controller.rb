@@ -2,7 +2,7 @@
 
 class CredentialsController < ApplicationController
   def create
-    create_options = WebAuthn::Credential.create_options(
+    create_options = WebAuthn::Credential.options_for_create(
       user: {
         id: bin_to_str(current_user.username),
         name: current_user.username,
