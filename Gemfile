@@ -13,7 +13,6 @@ gem 'pg', '~> 1.1'
 gem 'puma', '~> 3.11'
 gem "rollbar", "~> 2.16"
 gem 'sassc-rails', '~> 2.0'
-gem "useragent", "~> 0.16.10"
 gem 'webpacker', '~> 3.5'
 
 group :development, :test do
