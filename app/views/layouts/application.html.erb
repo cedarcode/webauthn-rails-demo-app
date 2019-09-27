@@ -22,7 +22,7 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body class="mdc-theme--background">
+  <body class="mdc-theme--background mdc-typography">
     <header class="mdc-top-app-bar">
       <div class="mdc-top-app-bar__row">
         <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
@@ -55,10 +55,17 @@
       </div>
     </header>
 
-    <div class="mdc-top-app-bar--fixed-adjust">
+    <div class="content mdc-top-app-bar--fixed-adjust">
       <div class="page-content">
         <%= yield %>
       </div>
     </div>
+
+    <footer class="footer mdc-theme--secondary-bg mdc-theme--text-primary-on-light">
+      <span class="mdc-theme--text-secondary-on-light">
+        Built by
+      </span>
+      <%= link_to "Cedarcode", "https://cedarcode.com", class: "mdc-theme--text-primary-on-light" %>
+    </footer>
   </body>
 </html>
