@@ -15,7 +15,7 @@ class AddCredentialTest < ApplicationSystemTestCase
     stub_create(fake_credentials)
 
     fill_in "registration_username", with: "User1"
-    fill_in "Credential Nickname", with: "USB key"
+    fill_in "Security Key nickname", with: "USB key"
 
     WebAuthn::PublicKeyCredential::CreationOptions.stub_any_instance :raw_challenge, fixed_challenge do
       click_on "Register using WebAuthn"
@@ -29,7 +29,7 @@ class AddCredentialTest < ApplicationSystemTestCase
     fill_in("credential_nickname", with: "Touch ID")
 
     WebAuthn::PublicKeyCredential::CreationOptions.stub_any_instance :raw_challenge, fixed_challenge do
-      click_on "Add Credential"
+      click_on "Add Security Key"
       # wait for async response
       assert_text 'Touch ID'
     end

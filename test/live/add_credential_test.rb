@@ -6,12 +6,12 @@ class AddCredentialTest < ApplicationSystemTestCase
   test "add credential with human interaction" do
     visit new_registration_path
     fill_in "registration_username", with: "User1"
-    fill_in "Credential Nickname", with: "USB key"
+    fill_in "Security Key nickname", with: "USB key"
     click_on "Register using WebAuthn"
     # Human uses USB security key
 
     fill_in("credential_nickname", with: "Touch ID")
-    click_on "Add Credential"
+    click_on "Add Security Key"
     # Human uses Touch ID sensor
 
     assert_text 'Touch ID'

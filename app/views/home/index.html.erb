@@ -1,33 +1,39 @@
-<%- if current_user && current_user.credentials.any? %>
+<div class="mdc-list-group">
+  <h3 class="mdc-list-group__subheader">Your Security Keys</h3>
+  <ul class="mdc-list mdc-list--two-line">
+    <% current_user.credentials.each do |credential| %>
+      <li class="mdc-list-item">
+        <span class="mdc-list-item__graphic material-icons">vpn_key</span>
+
+        <span class="mdc-list-item__text">
+          <span class="mdc-list-item__primary-text">
+            <%= credential.nickname %>
+          </span>
+
+          <span class="mdc-list-item__secondary-text">
+            <%= credential.external_id %>
+          </span>
+        </span>
+
+        <% if current_user.can_delete_credentials? %>
+          <%= link_to "delete", credential, method: :delete, class: "mdc-list-item__meta material-icons" %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+
   <div data-controller="add-credential">
     <%= form_with scope: :credential, url: credentials_path, remote: true, data: { action: "ajax:success->add-credential#create" } do |form| %>
-      <div class="mdc-text-field mdc-text-field--box" data-controller="textfield">
-        <%= form.text_field :nickname, class: "mdc-text-field__input"%>
-        <label class="mdc-floating-label" for="my-text-field">Nickname</label>
+      <div class="form-field">
+        <div class="mdc-text-field mdc-text-field--fullwidth" data-controller="textfield">
+          <%= form.text_field :nickname, class: "mdc-text-field__input", placeholder: "New Security Key nickname", required: true %>
+          <div class="mdc-line-ripple"></div>
+        </div>
       </div>
-      <%= form.submit "Add Security Key", class: "mdc-button" %>
+
+      <div class="center">
+        <%= form.submit "Add Security Key", class: "mdc-button mdc-button--unelevated" %>
+      </div>
     <% end %>
   </div>
-<% end %>
-
-<ul class="mdc-list mdc-list--two-line">
-  <% current_user.credentials.each do |credential| %>
-    <li class="mdc-list-item">
-      <span class="mdc-list-item__graphic material-icons">vpn_key</span>
-
-      <span class="mdc-list-item__text">
-        <span class="mdc-list-item__primary-text">
-          <%= credential.nickname %>
-        </span>
-
-        <span class="mdc-list-item__secondary-text">
-          <%= credential.external_id %>
-        </span>
-      </span>
-
-      <% if current_user.can_delete_credentials? %>
-        <%= link_to "delete", credential, method: :delete, class: "mdc-list-item__meta material-icons" %>
-      <% end %>
-    </li>
-  <% end %>
-</ul>
+</div>

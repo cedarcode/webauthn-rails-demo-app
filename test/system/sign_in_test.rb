@@ -15,7 +15,7 @@ class SignInTest < ApplicationSystemTestCase
     stub_create(fake_credentials)
 
     fill_in "registration_username", with: "User1"
-    fill_in "Credential Nickname", with: "USB key"
+    fill_in "Security Key nickname", with: "USB key"
 
     WebAuthn::PublicKeyCredential::CreationOptions.stub_any_instance :raw_challenge, fixed_challenge do
       click_on "Register using WebAuthn"
