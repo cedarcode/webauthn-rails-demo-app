@@ -8,10 +8,10 @@ Application demonstrating a [WebAuthn](https://en.wikipedia.org/wiki/WebAuthn) l
 
 ### Option 1 — Visit the hosted version
 
-* Visit https://webauthn.herokuapp.com
+* Visit https://webauthn.cedarcode.com
 * Try logging in with
   * a username;
-  * a [WebAuthn compatible authenticator](https://github.com/cedarcode/webauthn-ruby#a-conforming-authenticator).
+  * a [WebAuthn compatible authenticator](https://github.com/cedarcode/webauthn-ruby#prerequisites).
 
 
 ### Option 2 — Run it locally
