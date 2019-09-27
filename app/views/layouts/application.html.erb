@@ -32,21 +32,24 @@
         <% if current_user %>
           <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
 
-            <div class="mdc-menu-anchor" data-controller="menu">
-              <button class="material-icons mdc-top-app-bar__action-item" data-action="menu#open">account_circle</button>
+            <div class="mdc-menu-surface--anchor" data-controller="menu">
+              <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" data-action="menu#open">account_circle</button>
 
-              <div class="mdc-menu" tabindex="-1" data-target="menu.openable">
-                <div class="mdc-menu__items mdc-list">
+              <div class="mdc-menu mdc-menu-surface" tabindex="-1" data-target="menu.openable">
+                <div class="mdc-list">
                   <div class="mdc-list-item">
-                    <%= current_user.username %>
+                    <span class="mdc-list-item__text">
+                      <%= current_user.username %>
+                    </span>
                   </div>
 
                   <div role="separator" class="mdc-list-divider"></div>
 
                   <%= link_to session_path, class: "mdc-list-item", method: :delete do %>
                     <span class="mdc-list-item__graphic material-icons">launch</span>
-
-                    Sign out
+                    <span class="mdc-list-item__text">
+                      Sign out
+                    </span>
                   <% end %>
                 </div>
               </div>

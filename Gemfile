@@ -13,7 +13,7 @@ gem 'pg', '~> 1.1'
 gem 'puma', '~> 3.11'
 gem "rollbar", "~> 2.16"
 gem 'sassc-rails', '~> 2.0'
-gem 'webpacker', '~> 3.5'
+gem 'webpacker', '~> 4.0'
 
 group :development, :test do
   gem 'byebug', '~> 11.0', platforms: [:mri, :mingw, :x64_mingw]
