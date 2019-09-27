@@ -13,13 +13,13 @@
     "@material/textfield": "^0.37.0",
     "@material/top-app-bar": "^0.37.0",
     "@material/typography": "^0.35.0",
-    "@rails/webpacker": "3.5",
     "@rails/ujs": "~6.0.0",
+    "@rails/webpacker": "^4.0.7",
     "sinon": "^7.3.2",
     "stimulus": "^1.1.0",
     "turbolinks": "^5.2.0"
   },
   "devDependencies": {
-    "webpack-dev-server": "^3.1.14"
+    "webpack-dev-server": "^3.8.1"
   }
 }
