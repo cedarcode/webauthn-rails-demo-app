@@ -20,8 +20,4 @@ class ApplicationController < ActionController::Base
         User.find_by(id: session[:user_id])
       end
   end
-
-  def bin_to_str(bin)
-    WebAuthn::Encoder.new(:base64url).encode(bin)
-  end
 end
