@@ -14,8 +14,8 @@ class RegistrationsController < ApplicationController
       }
     )
 
-    if user.update(current_challenge: create_options.challenge)
-      session[:username] = registration_params[:username]
+    if user.valid?
+      session[:current_registration] = { challenge: create_options.challenge, user_attributes: user.attributes }
 
       respond_to do |format|
         format.json { render json: create_options }
@@ -30,16 +30,11 @@ class RegistrationsController < ApplicationController
   def callback
     webauthn_credential = WebAuthn::Credential.from_create(params)
 
-    user = User.find_by(username: session[:username])
+    user = User.create!(session["current_registration"]["user_attributes"])
 
-    raise "user #{session[:username]} never initiated sign up" unless user
-
-    if webauthn_credential.verify(user.current_challenge)
-      credential = user.credentials.find_or_initialize_by(
-        external_id: Base64.strict_encode64(webauthn_credential.raw_id)
-      )
-
-      credential.update!(
+    if webauthn_credential.verify(session["current_registration"]["challenge"])
+      user.credentials.create!(
+        external_id: Base64.strict_encode64(webauthn_credential.raw_id),
         nickname: params[:credential_nickname],
         public_key: webauthn_credential.public_key,
         sign_count: webauthn_credential.sign_count
