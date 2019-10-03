@@ -209,7 +209,7 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
-    webauthn (2.0.0.beta1)
+    webauthn (2.0.0)
       awrence (~> 1.1)
       bindata (~> 2.4)
       cbor (~> 0.5.9)
@@ -253,7 +253,7 @@ DEPENDENCIES
   spring (~> 2.1)
   spring-watcher-listen (~> 2.0.0)
   web-console (~> 4.0)
-  webauthn (~> 2.0.0.a)
+  webauthn (~> 2.0.0)
   webdrivers (~> 4.1)
   webpacker (~> 4.0)
 
