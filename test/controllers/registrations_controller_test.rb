@@ -57,6 +57,6 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     )
 
     assert_response :unprocessable_entity
-    assert_equal ["Couldn't register your Security Key"], JSON.parse(response.body)["errors"]
+    assert_equal "Couldn't register your Security Key", response.body
   end
 end

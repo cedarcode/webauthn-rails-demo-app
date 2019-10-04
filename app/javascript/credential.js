@@ -20,8 +20,14 @@ function callback(url, body) {
       "X-CSRF-Token": getCSRFToken()
     },
     credentials: 'same-origin'
-  }).then(function() {
-    window.location.replace("/")
+  }).then(function(response) {
+    if (response.ok) {
+      window.location.replace("/")
+    } else if (response.status < 500) {
+      response.text().then(showMessage);
+    } else {
+      showMessage("Sorry, something wrong happened.");
+    }
   });
 }
 
