@@ -20,7 +20,9 @@ class CredentialsController < ApplicationController
   def callback
     webauthn_credential = WebAuthn::Credential.from_create(params)
 
-    if webauthn_credential.verify(current_user.current_challenge)
+    begin
+      webauthn_credential.verify(current_user.current_challenge)
+
       credential = current_user.credentials.find_or_initialize_by(
         external_id: Base64.strict_encode64(webauthn_credential.raw_id)
       )
@@ -32,8 +34,8 @@ class CredentialsController < ApplicationController
       )
 
       render json: { status: "ok" }, status: :ok
-    else
-      render json: { status: "forbidden" }, status: :forbidden
+    rescue WebAuthn::Error => e
+      render json: "Verification failed: #{e.message}", status: :unprocessable_entity
     end
   end
 
