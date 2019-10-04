@@ -33,17 +33,19 @@ class SessionsController < ApplicationController
 
     credential = user.credentials.find_by(external_id: Base64.strict_encode64(webauthn_credential.raw_id))
 
-    if webauthn_credential.verify(
-      user.current_challenge,
-      public_key: credential.public_key,
-      sign_count: credential.sign_count
-    )
+    begin
+      webauthn_credential.verify(
+        user.current_challenge,
+        public_key: credential.public_key,
+        sign_count: credential.sign_count
+      )
+
       credential.update!(sign_count: webauthn_credential.sign_count)
       sign_in(user)
 
       render json: { status: "ok" }, status: :ok
-    else
-      render json: { status: "forbidden" }, status: :forbidden
+    rescue WebAuthn::Error => e
+      render json: "Verification failed: #{e.message}", status: :unprocessable_entity
     end
   end
 

@@ -34,7 +34,8 @@ class RegistrationsController < ApplicationController
 
     raise "user #{session[:username]} never initiated sign up" unless user
 
-    if webauthn_credential.verify(user.current_challenge)
+    begin
+      webauthn_credential.verify(user.current_challenge)
       credential = user.credentials.find_or_initialize_by(
         external_id: Base64.strict_encode64(webauthn_credential.raw_id)
       )
@@ -48,8 +49,8 @@ class RegistrationsController < ApplicationController
       sign_in(user)
 
       render json: { status: "ok" }, status: :ok
-    else
-      render json: { status: "forbidden" }, status: :forbidden
+    rescue WebAuthn::Error => e
+      render json: "Verification failed: #{e.message}", status: :unprocessable_entity
     end
   end
 
