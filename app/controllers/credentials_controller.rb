@@ -27,13 +27,15 @@ class CredentialsController < ApplicationController
         external_id: Base64.strict_encode64(webauthn_credential.raw_id)
       )
 
-      credential.update!(
+      if credential.update(
         nickname: params[:credential_nickname],
         public_key: webauthn_credential.public_key,
         sign_count: webauthn_credential.sign_count
       )
-
-      render json: { status: "ok" }, status: :ok
+        render json: { status: "ok" }, status: :ok
+      else
+        render json: "Couldn't add your Security Key", status: :unprocessable_entity
+      end
     rescue WebAuthn::Error => e
       render json: "Verification failed: #{e.message}", status: :unprocessable_entity
     end
