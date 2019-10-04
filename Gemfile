@@ -15,6 +15,10 @@ gem "rollbar", "~> 2.16"
 gem 'sassc-rails', '~> 2.0'
 gem 'webpacker', '~> 4.0'
 
+group :production do
+  gem "rack-host-redirect", "~> 1.3"
+end
+
 group :development, :test do
   gem 'byebug', '~> 11.0', platforms: [:mri, :mingw, :x64_mingw]
   gem "dotenv-rails", '~> 2.7'
