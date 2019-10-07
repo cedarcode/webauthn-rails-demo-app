@@ -10,7 +10,7 @@ class RegistrationsController < ApplicationController
     create_options = WebAuthn::Credential.options_for_create(
       user: {
         name: registration_params[:username],
-        id: bin_to_str(registration_params[:username])
+        id: user.webauthn_id
       }
     )
 
@@ -32,19 +32,25 @@ class RegistrationsController < ApplicationController
 
     user = User.create!(session["current_registration"]["user_attributes"])
 
-    if webauthn_credential.verify(session["current_registration"]["challenge"])
-      user.credentials.create!(
+    begin
+      webauthn_credential.verify(session["current_registration"]["challenge"])
+
+      credential = user.credentials.build(
         external_id: Base64.strict_encode64(webauthn_credential.raw_id),
         nickname: params[:credential_nickname],
         public_key: webauthn_credential.public_key,
         sign_count: webauthn_credential.sign_count
       )
 
-      sign_in(user)
+      if credential.save
+        sign_in(user)
 
-      render json: { status: "ok" }, status: :ok
-    else
-      render json: { status: "forbidden" }, status: :forbidden
+        render json: { status: "ok" }, status: :ok
+      else
+        render json: "Couldn't register your Security Key", status: :unprocessable_entity
+      end
+    rescue WebAuthn::Error => e
+      render json: "Verification failed: #{e.message}", status: :unprocessable_entity
     end
   end
 

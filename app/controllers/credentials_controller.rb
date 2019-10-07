@@ -4,7 +4,7 @@ class CredentialsController < ApplicationController
   def create
     create_options = WebAuthn::Credential.options_for_create(
       user: {
-        id: bin_to_str(current_user.username),
+        id: current_user.webauthn_id,
         name: current_user.username,
       },
       exclude: current_user.credentials.pluck(:external_id)
@@ -20,22 +20,24 @@ class CredentialsController < ApplicationController
   def callback
     webauthn_credential = WebAuthn::Credential.from_create(params)
 
-    if webauthn_credential.verify(current_user.current_challenge)
-      if params[:response][:attestationObject].present?
-        credential = current_user.credentials.find_or_initialize_by(
-          external_id: Base64.strict_encode64(webauthn_credential.raw_id)
-        )
+    begin
+      webauthn_credential.verify(current_user.current_challenge)
 
-        credential.update!(
-          nickname: params[:credential_nickname],
-          public_key: webauthn_credential.public_key,
-          sign_count: webauthn_credential.sign_count
-        )
+      credential = current_user.credentials.find_or_initialize_by(
+        external_id: Base64.strict_encode64(webauthn_credential.raw_id)
+      )
+
+      if credential.update(
+        nickname: params[:credential_nickname],
+        public_key: webauthn_credential.public_key,
+        sign_count: webauthn_credential.sign_count
+      )
+        render json: { status: "ok" }, status: :ok
+      else
+        render json: "Couldn't add your Security Key", status: :unprocessable_entity
       end
-
-      render json: { status: "ok" }, status: :ok
-    else
-      render json: { status: "forbidden" }, status: :forbidden
+    rescue WebAuthn::Error => e
+      render json: "Verification failed: #{e.message}", status: :unprocessable_entity
     end
   end
 
