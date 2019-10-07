@@ -10,7 +10,7 @@ class RegistrationsController < ApplicationController
     create_options = WebAuthn::Credential.options_for_create(
       user: {
         name: registration_params[:username],
-        id: bin_to_str(registration_params[:username])
+        id: user.webauthn_id
       }
     )
 

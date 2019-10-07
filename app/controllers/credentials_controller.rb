@@ -4,7 +4,7 @@ class CredentialsController < ApplicationController
   def create
     create_options = WebAuthn::Credential.options_for_create(
       user: {
-        id: bin_to_str(current_user.username),
+        id: current_user.webauthn_id,
         name: current_user.username,
       },
       exclude: current_user.credentials.pluck(:external_id)
