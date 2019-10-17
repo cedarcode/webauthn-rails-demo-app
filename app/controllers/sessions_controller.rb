@@ -8,7 +8,10 @@ class SessionsController < ApplicationController
     user = User.find_by(username: session_params[:username])
 
     if user
-      get_options = WebAuthn::Credential.options_for_get(allow: user.credentials.pluck(:external_id))
+      get_options = WebAuthn::Credential.options_for_get(
+        allow: user.credentials.pluck(:external_id),
+        user_verification: "required"
+      )
 
       user.update!(current_challenge: get_options.challenge)
 
@@ -37,7 +40,8 @@ class SessionsController < ApplicationController
       webauthn_credential.verify(
         user.current_challenge,
         public_key: credential.public_key,
-        sign_count: credential.sign_count
+        sign_count: credential.sign_count,
+        user_verification: true
       )
 
       credential.update!(sign_count: webauthn_credential.sign_count)

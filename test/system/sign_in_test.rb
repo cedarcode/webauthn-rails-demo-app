@@ -11,7 +11,7 @@ class SignInTest < ApplicationSystemTestCase
 
     visit new_registration_path
 
-    fake_credentials = fake_client.create(challenge: fixed_challenge)
+    fake_credentials = fake_client.create(challenge: fixed_challenge, user_verified: true)
     stub_create(fake_credentials)
 
     fill_in "registration_username", with: "User1"
@@ -27,7 +27,7 @@ class SignInTest < ApplicationSystemTestCase
     click_on "Sign out"
     visit new_session_path
 
-    fake_assertion = fake_client.get(challenge: fixed_challenge)
+    fake_assertion = fake_client.get(challenge: fixed_challenge, user_verified: true)
     stub_get(fake_assertion)
 
     fill_in "Username", with: "User1"

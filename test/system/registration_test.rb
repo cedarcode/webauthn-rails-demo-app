@@ -11,7 +11,7 @@ class RegistrationTest < ApplicationSystemTestCase
 
     visit new_registration_path
 
-    fake_credentials = fake_client.create(challenge: fixed_challenge)
+    fake_credentials = fake_client.create(challenge: fixed_challenge, user_verified: true)
     stub_create(fake_credentials)
 
     fill_in "registration_username", with: "User1"
