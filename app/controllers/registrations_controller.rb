@@ -5,11 +5,11 @@ class RegistrationsController < ApplicationController
   end
 
   def create
-    user = User.new(username: registration_params[:username])
+    user = User.new(username: params[:registration][:username])
 
     create_options = WebAuthn::Credential.options_for_create(
       user: {
-        name: registration_params[:username],
+        name: params[:registration][:username],
         id: user.webauthn_id
       }
     )
@@ -52,11 +52,5 @@ class RegistrationsController < ApplicationController
     rescue WebAuthn::Error => e
       render json: "Verification failed: #{e.message}", status: :unprocessable_entity
     end
-  end
-
-  private
-
-  def registration_params
-    params.require(:registration).permit(:username)
   end
 end
