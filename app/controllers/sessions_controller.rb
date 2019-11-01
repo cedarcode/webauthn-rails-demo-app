@@ -40,6 +40,20 @@ class SessionsController < ApplicationController
         sign_count: credential.sign_count
       )
 
+      if (entry = WebAuthn::Metadata::Store.new.fetch_entry(aaguid: credential.aaguid, attestation_certificate_key_id: credential.u2f_key_id))
+        # As an example, prevent logging in with known compromised authenticators
+        # Detailed information is available via `webauthn_credential.response.attestation_statement.metadata_statement`
+        if (unsafe_status = Credential.unsafe_status?(entry.status_reports))
+          Rails.logger.warn "User #{user.username} tried to login security key AAGUID #{entry.aaguid} with status #{unsafe_status.status}"
+
+          render json: "Couldn't log in with your Security Key", status: :unprocessable_entity
+          return
+        end
+      else
+        # For demo purposes we do nothing if metadata is absent. For your application, you need to decide
+        # whether not knowing metadata about an authenticator acceptable
+      end
+
       credential.update!(sign_count: webauthn_credential.sign_count)
       sign_in(user)
 

@@ -11,7 +11,8 @@ class RegistrationsController < ApplicationController
       user: {
         name: params[:registration][:username],
         id: user.webauthn_id
-      }
+      },
+      attestation: 'direct'
     )
 
     if user.valid?
@@ -35,11 +36,28 @@ class RegistrationsController < ApplicationController
     begin
       webauthn_credential.verify(session["current_registration"]["challenge"])
 
+      if (entry = webauthn_credential.response.attestation_statement.metadata_entry)
+        # As an example, prevent registration of known compromised authenticators
+        # Detailed information is available via `webauthn_credential.response.attestation_statement.metadata_statement`
+        if (unsafe_status = Credential.unsafe_status?(entry.status_reports))
+          Rails.logger.warn "User #{user.username} tried to register security key #{entry.aaguid} with status #{unsafe_status.status}"
+
+          render json: "Couldn't register your Security Key", status: :unprocessable_entity
+          return
+        end
+      else
+        # For demo purposes we do nothing if metadata is absent. For your application, you need to decide
+        # whether not knowing metadata about an authenticator acceptable
+      end
+
+      byebug
       credential = user.credentials.build(
         external_id: Base64.strict_encode64(webauthn_credential.raw_id),
         nickname: params[:credential_nickname],
         public_key: webauthn_credential.public_key,
-        sign_count: webauthn_credential.sign_count
+        sign_count: webauthn_credential.sign_count,
+        aaguid: webauthn_credential.response.aaguid,
+        u2f_key_id: webauthn_credential.response.attestation_certificate_key_id,
       )
 
       if credential.save

@@ -11,7 +11,8 @@
           </span>
 
           <span class="mdc-list-item__secondary-text">
-            <%= credential.external_id %>
+            External id: <%= credential.external_id %> <br>
+            Model identifier: <%= credential.aaguid.presence || credential.u2f_key_id.presence %>
           </span>
         </span>
 
