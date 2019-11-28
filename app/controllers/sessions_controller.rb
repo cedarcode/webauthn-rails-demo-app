@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require "webauthn/authentication"
-require "webauthn/ceremony"
-
 class SessionsController < ApplicationController
   def new
   end

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "webauthn/registration"
-
 class CredentialsController < ApplicationController
   def create
     registration = WebAuthn::Registration.new(current_user)
