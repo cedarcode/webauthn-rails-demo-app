@@ -1,22 +1,24 @@
 # frozen_string_literal: true
 
+require "webauthn/registration"
+
 class CredentialsController < ApplicationController
   def create
-    webauthn_credential = WebauthnCredential.new(current_user)
+    registration = WebAuthn::Registration.new(current_user)
 
-    register_options = webauthn_credential.register_options
+    registration_options = registration.options
 
-    session[:current_challenge] = register_options.challenge
+    session[:current_challenge] = registration_options.challenge
 
     respond_to do |format|
-      format.json { render json: register_options }
+      format.json { render json: registration_options }
     end
   end
 
   def callback
-    webauthn_user = WebauthnCredential.new(current_user)
+    registration = WebAuthn::Registration.new(current_user)
 
-    if webauthn_user.register(session[:current_challenge], params)
+    if registration.perform(session[:current_challenge], params)
       render json: { status: "ok" }, status: :ok
     else
       render json: "Couldn't add your Security Key", status: :unprocessable_entity

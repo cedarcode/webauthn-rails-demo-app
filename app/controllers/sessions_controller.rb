@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require "webauthn/authentication"
+require "webauthn/ceremony"
+
 class SessionsController < ApplicationController
   def new
   end
@@ -8,14 +11,14 @@ class SessionsController < ApplicationController
     user = User.find_by(username: session_params[:username])
 
     if user
-      webauthn_credential = WebauthnCredential.new(user)
-      authenticate_options = webauthn_credential.authenticate_options
+      authentication = WebAuthn::Authentication.new(user)
+      authentication_options = authentication.options
 
-      session[:current_challenge] = authenticate_options.challenge
+      session[:current_challenge] = authentication_options.challenge
       session[:username] = session_params[:username]
 
       respond_to do |format|
-        format.json { render json: authenticate_options }
+        format.json { render json: authentication_options }
       end
     else
       respond_to do |format|
@@ -29,9 +32,9 @@ class SessionsController < ApplicationController
 
     raise "user #{session[:username]} never initiated sign up" unless user
 
-    webauthn_credential = WebauthnCredential.new(user)
+    authentication = WebAuthn::Authentication.new(user)
 
-    if webauthn_credential.authenticate(session[:current_challenge], params)
+    if authentication.perform(session[:current_challenge], params)
       sign_in(user)
 
       render json: { status: "ok" }, status: :ok
