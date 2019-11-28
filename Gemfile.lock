@@ -1,3 +1,8 @@
+PATH
+  remote: /home/gon/dev/webauthn-activerecord
+  specs:
+    webauthn-activerecord (0.1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -257,6 +262,7 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   web-console (~> 4.0)
   webauthn (~> 2.0.0)
+  webauthn-activerecord!
   webdrivers (~> 4.1)
   webpacker (~> 4.0)
 

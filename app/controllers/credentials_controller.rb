@@ -18,7 +18,7 @@ class CredentialsController < ApplicationController
   def callback
     registration = WebAuthn::Registration.new(current_user)
 
-    if registration.perform(session[:current_challenge], params)
+    if registration.perform(session[:current_challenge], params, nickname: params[:credential_nickname])
       render json: { status: "ok" }, status: :ok
     else
       render json: "Couldn't add your Security Key", status: :unprocessable_entity
