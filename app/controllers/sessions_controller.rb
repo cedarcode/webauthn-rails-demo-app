@@ -8,14 +8,14 @@ class SessionsController < ApplicationController
     user = User.find_by(username: session_params[:username])
 
     if user
-      get_options = WebAuthn::Credential.options_for_get(allow: user.credentials.pluck(:external_id))
+      webauthn_credential = WebauthnCredential.new(user)
+      authenticate_options = webauthn_credential.authenticate_options
 
-      user.update!(current_challenge: get_options.challenge)
-
+      session[:current_challenge] = authenticate_options.challenge
       session[:username] = session_params[:username]
 
       respond_to do |format|
-        format.json { render json: get_options }
+        format.json { render json: authenticate_options }
       end
     else
       respond_to do |format|
@@ -25,27 +25,18 @@ class SessionsController < ApplicationController
   end
 
   def callback
-    webauthn_credential = WebAuthn::Credential.from_get(params)
-
     user = User.find_by(username: session[:username])
 
     raise "user #{session[:username]} never initiated sign up" unless user
 
-    credential = user.credentials.find_by(external_id: Base64.strict_encode64(webauthn_credential.raw_id))
+    webauthn_credential = WebauthnCredential.new(user)
 
-    begin
-      webauthn_credential.verify(
-        user.current_challenge,
-        public_key: credential.public_key,
-        sign_count: credential.sign_count
-      )
-
-      credential.update!(sign_count: webauthn_credential.sign_count)
+    if webauthn_credential.authenticate(session[:current_challenge], params)
       sign_in(user)
 
       render json: { status: "ok" }, status: :ok
-    rescue WebAuthn::Error => e
-      render json: "Verification failed: #{e.message}", status: :unprocessable_entity
+    else
+      render json: "Verification failed", status: :unprocessable_entity
     end
   end
 

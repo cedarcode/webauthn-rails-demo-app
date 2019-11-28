@@ -2,42 +2,24 @@
 
 class CredentialsController < ApplicationController
   def create
-    create_options = WebAuthn::Credential.options_for_create(
-      user: {
-        id: current_user.webauthn_id,
-        name: current_user.username,
-      },
-      exclude: current_user.credentials.pluck(:external_id)
-    )
+    webauthn_credential = WebauthnCredential.new(current_user)
 
-    current_user.update!(current_challenge: create_options.challenge)
+    register_options = webauthn_credential.register_options
+
+    session[:current_challenge] = register_options.challenge
 
     respond_to do |format|
-      format.json { render json: create_options }
+      format.json { render json: register_options }
     end
   end
 
   def callback
-    webauthn_credential = WebAuthn::Credential.from_create(params)
+    webauthn_user = WebauthnCredential.new(current_user)
 
-    begin
-      webauthn_credential.verify(current_user.current_challenge)
-
-      credential = current_user.credentials.find_or_initialize_by(
-        external_id: Base64.strict_encode64(webauthn_credential.raw_id)
-      )
-
-      if credential.update(
-        nickname: params[:credential_nickname],
-        public_key: webauthn_credential.public_key,
-        sign_count: webauthn_credential.sign_count
-      )
-        render json: { status: "ok" }, status: :ok
-      else
-        render json: "Couldn't add your Security Key", status: :unprocessable_entity
-      end
-    rescue WebAuthn::Error => e
-      render json: "Verification failed: #{e.message}", status: :unprocessable_entity
+    if webauthn_user.register(session[:current_challenge], params)
+      render json: { status: "ok" }, status: :ok
+    else
+      render json: "Couldn't add your Security Key", status: :unprocessable_entity
     end
   end
 
