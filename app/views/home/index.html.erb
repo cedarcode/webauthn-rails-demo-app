@@ -16,7 +16,7 @@
         </span>
 
         <% if current_user.can_delete_credentials? %>
-          <%= link_to "delete", credential, method: :delete, class: "mdc-list-item__meta material-icons" %>
+          <%= link_to "delete", credential_path(credential), method: :delete, class: "mdc-list-item__meta material-icons" %>
         <% end %>
       </li>
     <% end %>
