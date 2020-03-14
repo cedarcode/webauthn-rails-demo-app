@@ -22,7 +22,7 @@ end
 group :development, :test do
   gem 'byebug', '~> 11.0', platforms: [:mri, :mingw, :x64_mingw]
   gem "dotenv-rails", '~> 2.7'
-  gem 'rubocop', '~> 0.73.0', require: false
+  gem 'rubocop', '~> 0.80.1', require: false
   # rubocop-rails 2.2 => 2.3 broke the build - adopt more conservative gem constraint
   gem 'rubocop-rails', '~> 2.2.1', require: false
 end
