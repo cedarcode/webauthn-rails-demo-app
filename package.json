@@ -16,7 +16,7 @@
     "@material/top-app-bar": "~3.2.0",
     "@material/typography": "~3.1.0",
     "@rails/ujs": "~6.0.2-1",
-    "@rails/webpacker": "^4.2.2",
+    "@rails/webpacker": "^5.0.1",
     "sinon": "^8.1.1",
     "stimulus": "^1.1.0",
     "turbolinks": "^5.2.0"
