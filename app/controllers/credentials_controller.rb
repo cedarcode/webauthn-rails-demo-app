@@ -2,7 +2,9 @@
 
 class CredentialsController < ApplicationController
   def create
-    create_options = WebAuthn::Credential.options_for_create(
+    # XXX: Shouldn't need to pass {}
+    create_options = relying_party.options_for_registration(
+      {},
       user: {
         id: current_user.webauthn_id,
         name: current_user.username,
@@ -18,10 +20,11 @@ class CredentialsController < ApplicationController
   end
 
   def callback
-    webauthn_credential = WebAuthn::Credential.from_create(params)
-
     begin
-      webauthn_credential.verify(current_user.current_challenge)
+      webauthn_credential = relying_party.verify_registration(
+        params,
+        current_user.current_challenge
+      )
 
       credential = current_user.credentials.find_or_initialize_by(
         external_id: Base64.strict_encode64(webauthn_credential.raw_id)

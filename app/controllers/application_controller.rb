@@ -20,4 +20,12 @@ class ApplicationController < ActionController::Base
         User.find_by(id: session[:user_id])
       end
   end
+
+  def relying_party
+    @relying_party ||=
+      WebAuthn::RelyingParty.new(
+        origin: ENV["WEBAUTHN_ORIGIN"],
+        name: "WebAuthn Rails Demo App"
+      )
+  end
 end
