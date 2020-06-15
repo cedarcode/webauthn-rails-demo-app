@@ -1,4 +1,5 @@
 import * as WebAuthnJSON from "@github/webauthn-json"
+import { getExtended } from "@github/webauthn-json/dist/extended.esm";
 import { showMessage } from "messenger";
 
 function getCSRFToken() {
@@ -42,7 +43,7 @@ function create(callbackUrl, credentialOptions) {
 }
 
 function get(credentialOptions) {
-  WebAuthnJSON.get({ "publicKey": credentialOptions }).then(function(credential) {
+  getExtended({ "publicKey": credentialOptions }).then(function(credential) {
     callback("/session/callback", credential);
   }).catch(function(error) {
     showMessage(error);

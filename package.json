@@ -6,7 +6,7 @@
     "yarn": ">=1.7.0"
   },
   "dependencies": {
-    "@github/webauthn-json": "^0.3.1",
+    "@github/webauthn-json": "^0.4.2",
     "@material/button": "~4.0.0",
     "@material/card": "~4.0.0",
     "@material/list": "~4.0.0",

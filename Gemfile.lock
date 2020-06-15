@@ -1,3 +1,19 @@
+GIT
+  remote: git://github.com/cedarcode/webauthn-ruby.git
+  revision: a4bca13c8f6cf9d24ea10b3b6ca9bae8a9a53a63
+  branch: provide_extensions_as_an_output_of_the_verification
+  specs:
+    webauthn (2.2.0)
+      android_key_attestation (~> 0.3.0)
+      awrence (~> 1.1)
+      bindata (~> 2.4)
+      cbor (~> 0.5.9)
+      cose (~> 1.0)
+      openssl (~> 2.0)
+      safety_net_attestation (~> 0.4.0)
+      securecompare (~> 1.0)
+      tpm-key_attestation (~> 0.8.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -78,9 +94,9 @@ GEM
     cbor (0.5.9.6)
     childprocess (3.0.0)
     concurrent-ruby (1.1.6)
-    cose (0.11.0)
+    cose (1.0.0)
       cbor (~> 0.5.9)
-      openssl-signature_algorithm (~> 0.3.0)
+      openssl-signature_algorithm (~> 0.4.0)
     crass (1.0.6)
     dotenv (2.7.5)
     dotenv-rails (2.7.5)
@@ -115,7 +131,7 @@ GEM
     nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
     openssl (2.2.0)
-    openssl-signature_algorithm (0.3.0)
+    openssl-signature_algorithm (0.4.0)
     parallel (1.19.1)
     parser (2.7.1.2)
       ast (~> 2.4.0)
@@ -207,9 +223,9 @@ GEM
     thor (1.0.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
-    tpm-key_attestation (0.7.0)
+    tpm-key_attestation (0.8.0)
       bindata (~> 2.4)
-      openssl-signature_algorithm (~> 0.3.0)
+      openssl-signature_algorithm (~> 0.4.0)
     tzinfo (1.2.7)
       thread_safe (~> 0.1)
     unicode-display_width (1.6.1)
@@ -218,16 +234,6 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
-    webauthn (2.2.0)
-      android_key_attestation (~> 0.3.0)
-      awrence (~> 1.1)
-      bindata (~> 2.4)
-      cbor (~> 0.5.9)
-      cose (~> 0.11.0)
-      openssl (~> 2.0)
-      safety_net_attestation (~> 0.4.0)
-      securecompare (~> 1.0)
-      tpm-key_attestation (~> 0.7.0)
     webdrivers (4.3.0)
       nokogiri (~> 1.6)
       rubyzip (>= 1.3.0)
@@ -266,7 +272,7 @@ DEPENDENCIES
   spring (~> 2.1)
   spring-watcher-listen (~> 2.0)
   web-console (~> 4.0)
-  webauthn (~> 2.2.0)
+  webauthn!
   webdrivers (~> 4.1)
   webpacker (~> 5.0)
 
