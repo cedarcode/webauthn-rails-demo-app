@@ -7,9 +7,7 @@ class RegistrationsController < ApplicationController
   def create
     user = User.new(username: params[:registration][:username])
 
-    # XXX: Shouldn't need to pass {}
     create_options = relying_party.options_for_registration(
-      {},
       user: {
         name: params[:registration][:username],
         id: user.webauthn_id

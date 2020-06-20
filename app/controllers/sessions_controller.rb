@@ -8,8 +8,7 @@ class SessionsController < ApplicationController
     user = User.find_by(username: session_params[:username])
 
     if user
-      # XXX: Shouldn't need to pass {}
-      get_options = relying_party.options_for_authentication({}, allow: user.credentials.pluck(:external_id))
+      get_options = relying_party.options_for_authentication(allow: user.credentials.pluck(:external_id))
 
       user.update!(current_challenge: get_options.challenge)
 
@@ -26,23 +25,18 @@ class SessionsController < ApplicationController
   end
 
   def callback
-    webauthn_credential = WebAuthn::Credential.from_get(params)
-
     user = User.find_by(username: session[:username])
-
     raise "user #{session[:username]} never initiated sign up" unless user
 
-    credential = user.credentials.find_by(external_id: Base64.strict_encode64(webauthn_credential.raw_id))
-
     begin
-      webauthn_credential = relying_party.verify_authentication(
+      verified_webauthn_credential, stored_credential = relying_party.verify_authentication(
         params,
-        user.current_challenge,
-        public_key: credential.public_key,
-        sign_count: credential.sign_count
-      )
+        user.current_challenge
+      ) do |webauthn_credential|
+        user.credentials.find_by(external_id: Base64.strict_encode64(webauthn_credential.raw_id))
+      end
 
-      credential.update!(sign_count: webauthn_credential.sign_count)
+      stored_credential.update!(sign_count: verified_webauthn_credential.sign_count)
       sign_in(user)
 
       render json: { status: "ok" }, status: :ok

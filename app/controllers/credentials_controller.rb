@@ -2,9 +2,7 @@
 
 class CredentialsController < ApplicationController
   def create
-    # XXX: Shouldn't need to pass {}
     create_options = relying_party.options_for_registration(
-      {},
       user: {
         id: current_user.webauthn_id,
         name: current_user.username,
@@ -20,28 +18,26 @@ class CredentialsController < ApplicationController
   end
 
   def callback
-    begin
-      webauthn_credential = relying_party.verify_registration(
-        params,
-        current_user.current_challenge
-      )
+    webauthn_credential = relying_party.verify_registration(
+      params,
+      current_user.current_challenge
+    )
 
-      credential = current_user.credentials.find_or_initialize_by(
-        external_id: Base64.strict_encode64(webauthn_credential.raw_id)
-      )
+    credential = current_user.credentials.find_or_initialize_by(
+      external_id: Base64.strict_encode64(webauthn_credential.raw_id)
+    )
 
-      if credential.update(
-        nickname: params[:credential_nickname],
-        public_key: webauthn_credential.public_key,
-        sign_count: webauthn_credential.sign_count
-      )
-        render json: { status: "ok" }, status: :ok
-      else
-        render json: "Couldn't add your Security Key", status: :unprocessable_entity
-      end
-    rescue WebAuthn::Error => e
-      render json: "Verification failed: #{e.message}", status: :unprocessable_entity
+    if credential.update(
+      nickname: params[:credential_nickname],
+      public_key: webauthn_credential.public_key,
+      sign_count: webauthn_credential.sign_count
+    )
+      render json: { status: "ok" }, status: :ok
+    else
+      render json: "Couldn't add your Security Key", status: :unprocessable_entity
     end
+  rescue WebAuthn::Error => e
+    render json: "Verification failed: #{e.message}", status: :unprocessable_entity
   end
 
   def destroy
