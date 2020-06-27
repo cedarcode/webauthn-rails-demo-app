@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/cedarcode/webauthn-ruby.git
-  revision: 46fc8266ab41ce0993a65dd0d6fed4020150548d
-  branch: relying_party
+  revision: 8796326440e503bb552a16575a07825dc0d34c55
+  tag: v3.0.0.alpha1
   specs:
-    webauthn (2.2.1)
+    webauthn (3.0.0.alpha1)
       android_key_attestation (~> 0.3.0)
       awrence (~> 1.1)
       bindata (~> 2.4)
