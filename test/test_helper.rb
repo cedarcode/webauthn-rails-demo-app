@@ -25,6 +25,7 @@ class ActiveSupport::TestCase
          Uint8Array.from(atob(credential['response']['attestationObject']), c => c.charCodeAt(0));
        credential['response']['clientDataJSON'] =
          Uint8Array.from(JSON.stringify(credential['response']['clientDataJSON']), c => c.charCodeAt(0));
+       credential['getClientExtensionResults'] = function() { return {} };
        var stub = window.sinon.stub(navigator.credentials, 'create').resolves(credential);"
     page.execute_script(script)
   end
@@ -48,6 +49,7 @@ class ActiveSupport::TestCase
         Uint8Array.from(JSON.stringify(assertion['response']['clientDataJSON']), c => c.charCodeAt(0));
        assertion['response']['signature'] =
         Uint8Array.from(atob(assertion['response']['signature']), c => c.charCodeAt(0));
+       assertion['getClientExtensionResults'] = function() { return {} };
        var stub = window.sinon.stub(navigator.credentials, 'get').resolves(assertion);"
     page.execute_script(script)
   end
