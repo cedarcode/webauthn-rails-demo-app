@@ -8,50 +8,54 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
-  def stub_create(fake_credentials)
+  def stub_create(fake_credential)
     # Encode binary fields to use in script
-    encode(fake_credentials, "rawId")
-    encode(fake_credentials["response"], "attestationObject")
+    encode(fake_credential, "rawId")
+    encode(fake_credential["response"], "attestationObject")
 
     # Parse to avoid escaping already escaped characters
-    fake_credentials["response"]["clientDataJSON"] = JSON.parse(fake_credentials["response"]["clientDataJSON"])
+    fake_credential["response"]["clientDataJSON"] = JSON.parse(fake_credential["response"]["clientDataJSON"])
 
-    fake_credentials = fake_credentials.to_json
+    page.execute_script(<<-SCRIPT)
+      function encode(input) {
+        return Uint8Array.from(input, c => c.charCodeAt(0));
+      }
 
-    script =
-      "var credential = JSON.parse('" + fake_credentials + "');
-       credential['rawId'] = Uint8Array.from(atob(credential['rawId']), c => c.charCodeAt(0));
-       credential['response']['attestationObject'] =
-         Uint8Array.from(atob(credential['response']['attestationObject']), c => c.charCodeAt(0));
-       credential['response']['clientDataJSON'] =
-         Uint8Array.from(JSON.stringify(credential['response']['clientDataJSON']), c => c.charCodeAt(0));
-       credential['getClientExtensionResults'] = function() { return {} };
-       var stub = window.sinon.stub(navigator.credentials, 'create').resolves(credential);"
-    page.execute_script(script)
+      let fakeCredential = JSON.parse('#{fake_credential.to_json}');
+
+      fakeCredential.rawId = encode(atob(fakeCredential.rawId));
+      fakeCredential.response.attestationObject = encode(atob(fakeCredential.response.attestationObject));
+      fakeCredential.response.clientDataJSON = encode(JSON.stringify(fakeCredential.response.clientDataJSON));
+      fakeCredential.getClientExtensionResults = function() { return {} };
+
+      window.sinon.stub(navigator.credentials, 'create').resolves(fakeCredential);
+    SCRIPT
   end
 
-  def stub_get(fake_assertion)
+  def stub_get(fake_credential)
     # Encode binary fields to use in script
-    encode(fake_assertion, "rawId")
-    encode(fake_assertion["response"], "authenticatorData")
-    encode(fake_assertion["response"], "signature")
+    encode(fake_credential, "rawId")
+    encode(fake_credential["response"], "authenticatorData")
+    encode(fake_credential["response"], "signature")
 
     # Parse to avoid escaping already escaped characters
-    fake_assertion["response"]["clientDataJSON"] = JSON.parse(fake_assertion["response"]["clientDataJSON"])
+    fake_credential["response"]["clientDataJSON"] = JSON.parse(fake_credential["response"]["clientDataJSON"])
 
-    fake_assertion = fake_assertion.to_json
-    script =
-      "var assertion = JSON.parse('" + fake_assertion + "');
-       assertion['rawId'] = Uint8Array.from(atob(assertion['rawId']), c => c.charCodeAt(0));
-       assertion['response']['authenticatorData'] =
-        Uint8Array.from(atob(assertion['response']['authenticatorData']), c => c.charCodeAt(0));
-       assertion['response']['clientDataJSON'] =
-        Uint8Array.from(JSON.stringify(assertion['response']['clientDataJSON']), c => c.charCodeAt(0));
-       assertion['response']['signature'] =
-        Uint8Array.from(atob(assertion['response']['signature']), c => c.charCodeAt(0));
-       assertion['getClientExtensionResults'] = function() { return {} };
-       var stub = window.sinon.stub(navigator.credentials, 'get').resolves(assertion);"
-    page.execute_script(script)
+    page.execute_script(<<-SCRIPT)
+      function encode(input) {
+        return Uint8Array.from(input, c => c.charCodeAt(0));
+      }
+
+      let fakeCredential = JSON.parse('#{fake_credential.to_json}');
+
+      fakeCredential.rawId = encode(atob(fakeCredential.rawId));
+      fakeCredential.response.authenticatorData = encode(atob(fakeCredential.response.authenticatorData));
+      fakeCredential.response.clientDataJSON = encode(JSON.stringify(fakeCredential.response.clientDataJSON));
+      fakeCredential.response.signature = encode(atob(fakeCredential.response.signature));
+      fakeCredential.getClientExtensionResults = function() { return {} };
+
+      window.sinon.stub(navigator.credentials, 'get').resolves(fakeCredential);
+    SCRIPT
   end
 
   def encode(hash, key)
