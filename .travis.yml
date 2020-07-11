@@ -21,3 +21,9 @@ before_script:
 script:
   - bundle exec rake
   - TEST_BROWSER=headless_chrome bundle exec rake test:system
+deploy:
+  provider: heroku
+  app:
+    master: webauthn
+  api_key:
+    secure: DjdbJd/szk1e7i3cavELNnr+5VDxg2Xt3ozacJSm2TLhTlhWZ+lIPnkrhQj+yVNOe+/WqqZw46FjXkv1+yESFCR7tuE/gXGvlSh8FSYJI1eglriuLLc21AIZLnhGNM9zu3gYDBaVRZzc1RJghOxOBBvVur6SnttQdQqNQO161ZLkh3Tx/WT6CTCjVdIVWayi6OXxNKe2hZRSGiv0zaHm51YNuocHxg7x58b94TQCR2tcqgw1SPHes5KcNZ7qc5jdhQIbjkcJNwpdMoTJ41g6m+hY3ED3am34H2rHwiV2pnbrsee6UX7oKiQODR+QYYoZ5epOIjrD+/pE7hgKPWxckcawIloEOVeBYpBZRQ+s7v0lljwbCQfkBq4ymB72D7tAFy29xgAcv+42ciwEdTqOXDfHoozKuyeRHLT7rbNasnKM938GEqg1LlEVRu1RZSTDXXUEtSmFYpaV+MRSVgDWAPnVQsVe1I7Hrb0q5zhy/uhpWoTcQnrGhDsKcYiaUtd/MO1kR7NbQtO44rmJLSSkCFcoqYdHnOXjvv0hbCeESc1A08OOWtGsMiyZSVtiqN1932uVmwZjBh1PhknCVIMhm17/RMvkIJvlLnBXWcP78+JlwVf5zlDa+LxnmGNCG69h5xgf+kActLIVSf5AoECoT8zsyc7vlPEeE3AsgvllJXc=
