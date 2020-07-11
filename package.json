@@ -16,12 +16,12 @@
     "@material/top-app-bar": "~4.0.0",
     "@material/typography": "~4.0.0",
     "@rails/ujs": "~6.0.2-1",
-    "@rails/webpacker": "^5.0.1",
+    "@rails/webpacker": "5.1.1",
     "sinon": "^9.0.2",
     "stimulus": "^1.1.0",
     "turbolinks": "^5.2.0"
   },
   "devDependencies": {
-    "webpack-dev-server": "^3.10.1"
+    "webpack-dev-server": "^3.11.0"
   }
 }
