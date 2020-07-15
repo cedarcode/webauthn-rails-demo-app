@@ -27,6 +27,7 @@ group :development, :test do
 end
 
 group :development do
+  gem "brakeman", "~> 4.8"
   gem 'listen', '~> 3.1'
   gem 'spring', '~> 2.1'
   gem 'spring-watcher-listen', '~> 2.0'
