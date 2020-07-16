@@ -29,6 +29,7 @@ end
 group :development do
   gem "brakeman", "~> 4.8"
   gem 'listen', '~> 3.1'
+  gem "rack-mini-profiler", "~> 2.0"
   gem 'spring', '~> 2.1'
   gem 'spring-watcher-listen', '~> 2.0'
   gem 'web-console', '~> 4.0'
