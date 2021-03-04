@@ -11,7 +11,8 @@ class RegistrationsController < ApplicationController
       user: {
         name: params[:registration][:username],
         id: user.webauthn_id
-      }
+      },
+      attestation: "direct"
     )
 
     if user.valid?
