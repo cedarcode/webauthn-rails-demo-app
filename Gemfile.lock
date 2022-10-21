@@ -1,3 +1,27 @@
+GIT
+  remote: git@github.com:bdewater/cose-ruby.git
+  revision: 0e681216c137cc2c38b565cb17bf4632af053378
+  branch: eddsa
+  specs:
+    cose (1.2.1)
+      cbor (~> 0.5.9)
+      openssl-signature_algorithm (~> 1.0)
+
+GIT
+  remote: git@github.com:cedarcode/webauthn-ruby.git
+  revision: 4fbcd92eb2a4fa5d5e5b87b0645ff7f11d3ca88f
+  branch: sr/test-eddsa
+  specs:
+    webauthn (3.0.0.alpha2)
+      android_key_attestation (~> 0.3.0)
+      awrence (~> 1.1)
+      bindata (~> 2.4)
+      cbor (~> 0.5.9)
+      cose (~> 1.1)
+      openssl (>= 2.2, < 3.1)
+      safety_net_attestation (~> 0.4.0)
+      tpm-key_attestation (~> 0.11.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -61,7 +85,7 @@ GEM
     android_key_attestation (0.3.0)
     ast (2.4.1)
     awrence (1.2.1)
-    bindata (2.4.8)
+    bindata (2.4.13)
     bindex (0.8.1)
     bootsnap (1.4.6)
       msgpack (~> 1.0)
@@ -82,9 +106,6 @@ GEM
     cbor (0.5.9.6)
     childprocess (3.0.0)
     concurrent-ruby (1.1.6)
-    cose (1.2.0)
-      cbor (~> 0.5.9)
-      openssl-signature_algorithm (~> 1.0)
     crass (1.0.6)
     dotenv (2.7.6)
     dotenv-rails (2.7.6)
@@ -97,7 +118,7 @@ GEM
     i18n (1.8.3)
       concurrent-ruby (~> 1.0)
     jaro_winkler (1.5.4)
-    jwt (2.2.2)
+    jwt (2.5.0)
     listen (3.2.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -118,9 +139,9 @@ GEM
     nio4r (2.5.2)
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
-    openssl (2.2.0)
-    openssl-signature_algorithm (1.1.1)
-      openssl (~> 2.0)
+    openssl (3.0.1)
+    openssl-signature_algorithm (1.2.1)
+      openssl (> 2.0, < 3.1)
     parallel (1.19.2)
     parser (2.7.1.4)
       ast (~> 2.4.1)
@@ -195,7 +216,6 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    securecompare (1.0.0)
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
@@ -214,8 +234,9 @@ GEM
     thor (1.0.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
-    tpm-key_attestation (0.10.0)
+    tpm-key_attestation (0.11.0)
       bindata (~> 2.4)
+      openssl (> 2.0, < 3.1)
       openssl-signature_algorithm (~> 1.0)
     tzinfo (1.2.7)
       thread_safe (~> 0.1)
@@ -225,16 +246,6 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
-    webauthn (2.4.1)
-      android_key_attestation (~> 0.3.0)
-      awrence (~> 1.1)
-      bindata (~> 2.4)
-      cbor (~> 0.5.9)
-      cose (~> 1.1)
-      openssl (~> 2.0)
-      safety_net_attestation (~> 0.4.0)
-      securecompare (~> 1.0)
-      tpm-key_attestation (~> 0.10.0)
     webdrivers (4.4.1)
       nokogiri (~> 1.6)
       rubyzip (>= 1.3.0)
@@ -260,6 +271,7 @@ DEPENDENCIES
   bundler-audit (~> 0.7.0)
   byebug (~> 11.0)
   capybara (~> 3.26)
+  cose!
   dotenv-rails (~> 2.7)
   listen (~> 3.1)
   minitest-stub_any_instance (~> 1.0)
@@ -276,7 +288,7 @@ DEPENDENCIES
   spring (~> 2.1)
   spring-watcher-listen (~> 2.0)
   web-console (~> 4.0)
-  webauthn (~> 2.4.0)
+  webauthn!
   webdrivers (~> 4.1)
   webpacker (~> 5.0)
 
@@ -284,4 +296,4 @@ RUBY VERSION
    ruby 2.7.2p137
 
 BUNDLED WITH
-   2.2.11
+   2.2.14
