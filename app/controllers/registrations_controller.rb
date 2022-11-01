@@ -52,6 +52,8 @@ class RegistrationsController < ApplicationController
       end
     rescue WebAuthn::Error => e
       render json: "Verification failed: #{e.message}", status: :unprocessable_entity
+    ensure
+      session.delete("current_registration")
     end
   end
 end
