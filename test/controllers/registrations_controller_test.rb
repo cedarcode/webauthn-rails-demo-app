@@ -36,7 +36,11 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
       assert_response :success
     end
 
-    public_key_credential = WebAuthn::FakeClient.new(ENV["WEBAUTHN_ORIGIN"]).create(challenge: challenge)
+    public_key_credential =
+      WebAuthn::FakeClient
+      .new(ENV["WEBAUTHN_ORIGIN"])
+      .create(challenge: challenge, user_verified: true)
+
     webauthn_credential = WebAuthn::Credential.from_create(public_key_credential)
 
     User.create!(

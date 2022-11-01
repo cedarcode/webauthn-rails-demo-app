@@ -7,7 +7,8 @@ class CredentialsController < ApplicationController
         id: current_user.webauthn_id,
         name: current_user.username,
       },
-      exclude: current_user.credentials.pluck(:external_id)
+      exclude: current_user.credentials.pluck(:external_id),
+      authenticator_selection: { user_verification: "required" }
     )
 
     session[:current_registration] = { challenge: create_options.challenge }
@@ -21,7 +22,7 @@ class CredentialsController < ApplicationController
     webauthn_credential = WebAuthn::Credential.from_create(params)
 
     begin
-      webauthn_credential.verify(session["current_registration"]["challenge"])
+      webauthn_credential.verify(session["current_registration"]["challenge"], user_verification: true)
 
       credential = current_user.credentials.find_or_initialize_by(
         external_id: Base64.strict_encode64(webauthn_credential.raw_id)

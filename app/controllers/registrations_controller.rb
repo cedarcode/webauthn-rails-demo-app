@@ -11,7 +11,8 @@ class RegistrationsController < ApplicationController
       user: {
         name: params[:registration][:username],
         id: user.webauthn_id
-      }
+      },
+      authenticator_selection: { user_verification: "required" }
     )
 
     if user.valid?
@@ -33,7 +34,7 @@ class RegistrationsController < ApplicationController
     user = User.create!(session["current_registration"]["user_attributes"])
 
     begin
-      webauthn_credential.verify(session["current_registration"]["challenge"])
+      webauthn_credential.verify(session["current_registration"]["challenge"], user_verification: true)
 
       credential = user.credentials.build(
         external_id: Base64.strict_encode64(webauthn_credential.raw_id),
