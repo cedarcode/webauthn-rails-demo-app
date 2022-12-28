@@ -8,7 +8,7 @@
 # RUN bundle install
 # COPY . /myapp
 
-FROM ruby:2.7.2
+FROM ruby:3.1.0
 ARG precompileassets
 
 RUN apt-get update && apt-get install -y curl gnupg
@@ -22,7 +22,7 @@ RUN apt-get -y update && \
         curl \
         ssh \
         libpq5 libpq-dev -y && \
-      wget -qO- https://deb.nodesource.com/setup_12.x  | bash - && \
+      wget -qO- https://deb.nodesource.com/setup_16.x  | bash - && \
       apt-get install -y nodejs && \
       wget -qO- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
       echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
@@ -38,7 +38,9 @@ WORKDIR /gems
 COPY Gemfile .
 COPY Gemfile.lock .
 COPY .ruby-version .
+COPY package.json .
 RUN bundle install
+RUN yarn install
 
 ARG INSTALL_PATH=/opt/webauthnrailsdemo
 ENV INSTALL_PATH $INSTALL_PATH

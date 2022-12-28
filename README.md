@@ -20,11 +20,11 @@ If you want to see an implementation of WebAuthn as a second factor authenticato
 
 #### Prerequisites
 
-* Ruby
+* Ruby 3.1.0
 * yarn (or npm)
 * PostgreSQL
 
-#### Setup
+#### Local Setup
 
 ```
 $ git clone https://github.com/cedarcode/webauthn-rails-demo-app
@@ -33,6 +33,17 @@ $ cp .env.example .env
 $ bundle install
 $ yarn install (or npm install)
 $ bundle exec rake db:setup
+```
+
+#### Docker Setup
+
+```
+$ git clone https://github.com/cedarcode/webauthn-rails-demo-app
+$ cd webauthn-rails-demo-app/
+$ cp .env.example .env
+$ docker compose build
+$ docker compose run web scripts/wait-for-it.sh db:5432 -- "rails db:setup"
+$ docker compose up
 ```
 
 #### Running
