@@ -1,17 +1,54 @@
-version: '3'
+# version: '3'
+# services:
+#   db:
+#     image: postgres
+#     environment:
+#       POSTGRES_PASSWORD: password
+#     volumes:
+#       - ./tmp/db:/var/lib/postgresql/data
+#   web:
+#     build: .
+#     command: bundle exec rails s -p 3000 -b '0.0.0.0'
+#     volumes:
+#       - .:/myapp
+#     ports:
+#       - "3000:3000"
+#     depends_on:
+#       - db
+
+# https://medium.com/@dirkdk/running-a-rails-app-with-webpacker-and-docker-8d29153d3446
+# docker compose build
+# docker compose run web scripts/wait-for-it.sh db:5432 -- "rails db:setup"
+# docker compose up
+
+version: '3.0'
 services:
   db:
-    image: postgres
-    environment:
-      POSTGRES_PASSWORD: password
-    volumes:
-      - ./tmp/db:/var/lib/postgresql/data
-  web:
-    build: .
-    command: bundle exec rails s -p 3000 -b '0.0.0.0'
-    volumes:
-      - .:/myapp
+    image: postgres:10  # MIGHT WANT TO CHANGE THIS TO MORE UPDATED VERSION
     ports:
-      - "3000:3000"
-    depends_on:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: ${DB_USER_PASSWORD}
+
+  webpacker:
+    image: ${DOCKER_IMAGE_NAME-webauthnrailsdemo}
+    command: ["./scripts/start_webpack_dev.sh"]
+    volumes:
+      - .:/opt/webauthnrailsdemo:cached
+    ports:
+      - 3035:3035
+
+  web:
+    image: ${DOCKER_IMAGE_NAME-webauthnrailsdemo}
+    build:
+      context: .
+      args:
+        precompileassets: 'not'
+    links:
       - db
+      - webpacker
+    ports:
+      - 3000:3000
+    command: ["./scripts/wait-for-it.sh", "db:5432", "--", "./scripts/start_rails.sh"]
+    volumes:
+      - .:/opt/webauthnrailsdemo:cached
