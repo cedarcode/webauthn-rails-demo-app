@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>WebAuthn Rails Demo App</title>
+    <title>Ad Hoc WebAuthn Demo</title>
     <meta name="description" content="Application demonstrating a WebAuthn password-less login built with Ruby on Rails + webauthn ruby gem">
 
     <%= csrf_meta_tags %>
@@ -19,26 +19,25 @@
 
     <meta name="twitter:card" content="summary">
     <meta name="twitter:creator" content="@cedarcode">
-    <meta property="og:title" content="WebAuthn Rails Demo App"/>
+    <meta property="og:title" content="Ad Hoc WebAuthn Demo"/>
     <meta property="og:description" content="Application demonstrating a WebAuthn password-less login built with Ruby on Rails + webauthn ruby gem"/>
-    <meta property="og:site_name" content="WebAuthn Rails Demo App">
+    <meta property="og:site_name" content="Ad Hoc WebAuthn Demo">
     <meta property="og:type" content="website"/>
     <meta property="og:url" content="https://webauthn.cedarcode.com"/>
     <meta property="og:image" content="<%= image_url('webauthn-ruby.png') %>">
     <meta property="og:image:width" content="600">
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_link_tag "https://fonts.googleapis.com/css?family=Roboto:300,400,500" %>
     <%= stylesheet_link_tag "https://fonts.googleapis.com/icon?family=Material+Icons" %>
 
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body class="mdc-theme--background mdc-typography">
-    <header class="mdc-top-app-bar">
+  <body class="mdc-theme--background">
+    <header class="adhoc-top-app-bar">
       <div class="mdc-top-app-bar__row">
         <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-          <span class="mdc-top-app-bar__title">WebAuthn Rails Demo App</span>
+          <span class="adhoc-top-app-bar__title">Ad Hoc Webauthn Demo</span>
         </section>
 
         <% if current_user %>
@@ -77,11 +76,11 @@
       </div>
     </div>
 
-    <footer class="footer mdc-theme--secondary-bg mdc-theme--text-primary-on-light">
-      <span class="mdc-theme--text-secondary-on-light">
+    <footer class="footer mdc-theme--primary-bg mdc-theme--text-primary-on-light">
+      <span class="mdc-theme--text-primary-on-dark">
         Built by
       </span>
-      <%= link_to "Cedarcode", "https://cedarcode.com", class: "mdc-theme--text-primary-on-light" %>
+      <%= link_to "Ad Hoc", "https://adhocteam.us/", class: "mdc-theme--text-primary-on-dark" %>
     </footer>
 
     <div class="mdc-snackbar js-messenger">

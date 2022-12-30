@@ -1,4 +1,4 @@
-# WebAuthn Rails Demo App
+# Ad Hoc WebAuthn Demo
 
 Application demonstrating a [WebAuthn](https://en.wikipedia.org/wiki/WebAuthn) password-less login built with Ruby on Rails + [webauthn](https://github.com/cedarcode/webauthn-ruby) ruby gem.
 

@@ -14,9 +14,9 @@
  *= require_self
  */
 
-$mdc-theme-primary: #212121;
-$mdc-theme-secondary: #f5f5f6;
-$mdc-theme-background: #e1e2e1;
+$mdc-theme-primary: #118762;
+$mdc-theme-secondary: #31b67b;
+$mdc-theme-background: #d9d9d9;
 
 @import "@material/button/mdc-button";
 @import "@material/card/mdc-card";
@@ -29,10 +29,16 @@ $mdc-theme-background: #e1e2e1;
 @import "@material/textfield/helper-text/mdc-text-field-helper-text";
 @import "@material/theme/mdc-theme";
 @import "@material/top-app-bar/mdc-top-app-bar";
-@import "@material/typography/mdc-typography";
+
+
+html {
+  background-color: #626262;
+}
 
 html, body {
   height: 100%;
+  font-family: "proxima-nova", sans-serif;
+  margin: 0 5%;
 }
 
 body {
@@ -90,5 +96,34 @@ a {
   position: absolute;
   top: 0;
   right: 0;
+  z-index: 4;
+}
+
+.adhoc-top-app-bar_title {
+  font-family: 'proxima-nova', sans-serif;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+  font-size: 1.25rem;
+  line-height: 2rem;
+  font-weight: 500;
+  letter-spacing: 0.0125em;
+  text-decoration: inherit;
+  text-transform: inherit;
+  padding-left: 20px;
+  padding-right: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.adhoc-top-app-bar {
+  background-color: var(--mdc-theme-primary, #118762);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 100%;
   z-index: 4;
 }
