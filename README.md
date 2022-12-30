@@ -1,82 +1,50 @@
 # Ad Hoc WebAuthn Demo
 
-Application demonstrating a [WebAuthn](https://en.wikipedia.org/wiki/WebAuthn) password-less login built with Ruby on Rails + [webauthn](https://github.com/cedarcode/webauthn-ruby) ruby gem.
-
-If you want to see an implementation of WebAuthn as a second factor authenticator in a Rails application, you can check it in [webauthn-2fa-rails-demo](https://github.com/cedarcode/webauthn-2fa-rails-demo).
-
-[![Travis](https://img.shields.io/travis/cedarcode/webauthn-rails-demo-app/master.svg?style=flat-square)](https://travis-ci.org/cedarcode/webauthn-rails-demo-app)
+Application demonstrating a [WebAuthn](https://en.wikipedia.org/wiki/WebAuthn) password-less login built with Ruby on Rails + [webauthn](https://github.com/cedarcode/webauthn-ruby) ruby gem. This repository was forked from [cedarcode/webauthn-rails-demo-app](https://github.com/cedarcode/webauthn-rails-demo-app) and customized to fit Ad Hoc's needs.
 
 ## Want to try it?
 
-### Option 1 — Visit the hosted version
-
-* Visit https://webauthn.cedarcode.com
-* Try logging in with
-  * a username;
-  * a [WebAuthn compatible authenticator](https://github.com/cedarcode/webauthn-ruby#prerequisites).
-
-
-### Option 2 — Run it locally
-
-#### Prerequisites
+### Prerequisites
 
 * Ruby 3.1.0
 * yarn (or npm)
 * PostgreSQL
+* Docker (Only for running using Docker)
+
+### Option 1 — Run it locally
 
 #### Local Setup
 
-```
-$ git clone https://github.com/cedarcode/webauthn-rails-demo-app
-$ cd webauthn-rails-demo-app/
-$ cp .env.example .env
-$ bundle install
-$ yarn install (or npm install)
-$ bundle exec rake db:setup
-```
-
-#### Docker Setup
-
-```
-$ git clone https://github.com/cedarcode/webauthn-rails-demo-app
-$ cd webauthn-rails-demo-app/
-$ cp .env.example .env
-$ docker compose build
-$ docker compose run web scripts/wait-for-it.sh db:5432 -- "rails db:setup"
-$ docker compose up
+```bash
+git clone https://github.com/adhocteam/webauthn-rails-demo-app
+cd webauthn-rails-demo-app/
+cp .env.example .env
+bundle install
+yarn install (or npm install)
+bundle exec rake db:setup
 ```
 
 #### Running
 
-```
-$ bundle exec rails s
+```bash
+bundle exec rails s
 ```
 
 Now you can visit http://localhost:3000 to play with the demo site.
 
-## Development
+### Option 2 — Run it with Docker
 
-### Gem Update Policy
+#### Prerequisites
 
-#### Gemfile Version Constraints
+* Docker (Docker compose)
 
-In `Gemfile` define gem dependencies using a version contrainst of `~> MAJOR.MINOR` by default (or ~> `0.MINOR.PATCH` if
-latest `MAJOR` is `0`), unless you have reasons to use something different. An example of an exception could be
-`rails`, which is known to make backwards-incompatible changes in minor level updates, so in that case we use
-`~> MAJOR.MINOR.PATCH`.
+#### Docker Setup
 
-#### Updating
-
+```bash
+git clone https://github.com/adhocteam/webauthn-rails-demo-app
+cd webauthn-rails-demo-app/
+cp .env.example .env
+docker compose build
+docker compose run web scripts/wait-for-it.sh db:5432 -- "rails db:setup"
+docker compose up
 ```
-$ gem install bundler-audit
-$ bundle audit --update
-$ bundle update --conservative --group test development
-$ bundle update --strict --patch
-$ bundle update --strict --minor
-$ bundle update --major
-$ bundle outdated --groups
-```
-
-More in:
-
-[Updating gems cheat sheet](https://medium.com/cedarcode/updating-gems-cheat-sheet-346d5666a181)
