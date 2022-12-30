@@ -19,6 +19,8 @@ services:
     image: ${DOCKER_IMAGE_NAME-webauthnrailsdemo}
     build:
       context: .
+      args:
+        precompileassets: 'not'
     links:
       - db
       - webpacker
