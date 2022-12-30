@@ -7,7 +7,8 @@ Application demonstrating a [WebAuthn](https://en.wikipedia.org/wiki/WebAuthn) p
 ### Prerequisites
 
 * Ruby 3.1.0
-* yarn (or npm)
+* Node 16
+* Yarn >= v1.7.0
 * PostgreSQL
 * Docker (Only for running using Docker)
 
