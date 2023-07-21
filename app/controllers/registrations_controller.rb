@@ -11,7 +11,8 @@ class RegistrationsController < ApplicationController
       user: {
         name: params[:registration][:username],
         id: user.webauthn_id
-      }
+      },
+      authenticator_selection: { user_verification: "required" }
     )
 
     if user.valid?
@@ -33,7 +34,8 @@ class RegistrationsController < ApplicationController
     begin
       webauthn_credential = relying_party.verify_registration(
         params,
-        session["current_registration"]["challenge"]
+        session["current_registration"]["challenge"],
+        user_verification: true,
       )
 
       credential = user.credentials.build(
@@ -52,6 +54,8 @@ class RegistrationsController < ApplicationController
       end
     rescue WebAuthn::Error => e
       render json: "Verification failed: #{e.message}", status: :unprocessable_entity
+    ensure
+      session.delete("current_registration")
     end
   end
 end

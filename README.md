@@ -2,6 +2,8 @@
 
 Application demonstrating a [WebAuthn](https://en.wikipedia.org/wiki/WebAuthn) password-less login built with Ruby on Rails + [webauthn](https://github.com/cedarcode/webauthn-ruby) ruby gem.
 
+If you want to see an implementation of WebAuthn as a second factor authenticator in a Rails application, you can check it in [webauthn-2fa-rails-demo](https://github.com/cedarcode/webauthn-2fa-rails-demo).
+
 [![Travis](https://img.shields.io/travis/cedarcode/webauthn-rails-demo-app/master.svg?style=flat-square)](https://travis-ci.org/cedarcode/webauthn-rails-demo-app)
 
 ## Want to try it?

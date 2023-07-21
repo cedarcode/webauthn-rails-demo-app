@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
 
   def sign_in(user)
     session[:user_id] = user.id
-    user.update!(current_challenge: nil)
   end
 
   def sign_out

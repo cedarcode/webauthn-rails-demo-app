@@ -2,6 +2,8 @@
 <html>
   <head>
     <title>WebAuthn Rails Demo App</title>
+    <meta name="description" content="Application demonstrating a WebAuthn password-less login built with Ruby on Rails + webauthn ruby gem">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -15,7 +17,17 @@
       <%= javascript_pack_tag 'stub_credentials', 'data-turbolinks-track': 'reload' %>
     <% end %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:creator" content="@cedarcode">
+    <meta property="og:title" content="WebAuthn Rails Demo App"/>
+    <meta property="og:description" content="Application demonstrating a WebAuthn password-less login built with Ruby on Rails + webauthn ruby gem"/>
+    <meta property="og:site_name" content="WebAuthn Rails Demo App">
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://webauthn.cedarcode.com"/>
+    <meta property="og:image" content="<%= image_url('webauthn-ruby.png') %>">
+    <meta property="og:image:width" content="600">
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag "https://fonts.googleapis.com/css?family=Roboto:300,400,500" %>
     <%= stylesheet_link_tag "https://fonts.googleapis.com/icon?family=Material+Icons" %>
 

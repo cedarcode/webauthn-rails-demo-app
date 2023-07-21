@@ -7,10 +7,11 @@ class CredentialsController < ApplicationController
         id: current_user.webauthn_id,
         name: current_user.username,
       },
-      exclude: current_user.credentials.pluck(:external_id)
+      exclude: current_user.credentials.pluck(:external_id),
+      authenticator_selection: { user_verification: "required" }
     )
 
-    current_user.update!(current_challenge: create_options.challenge)
+    session[:current_registration] = { challenge: create_options.challenge }
 
     respond_to do |format|
       format.json { render json: create_options }
@@ -38,6 +39,8 @@ class CredentialsController < ApplicationController
     end
   rescue WebAuthn::Error => e
     render json: "Verification failed: #{e.message}", status: :unprocessable_entity
+  ensure
+    session.delete("current_registration")
   end
 
   def destroy
