@@ -7,7 +7,7 @@ class RegistrationsController < ApplicationController
   def create
     user = User.new(username: params[:registration][:username])
 
-    create_options = WebAuthn::Credential.options_for_create(
+    create_options = relying_party.options_for_registration(
       user: {
         name: params[:registration][:username],
         id: user.webauthn_id
@@ -29,12 +29,14 @@ class RegistrationsController < ApplicationController
   end
 
   def callback
-    webauthn_credential = WebAuthn::Credential.from_create(params)
-
     user = User.create!(session["current_registration"]["user_attributes"])
 
     begin
-      webauthn_credential.verify(session["current_registration"]["challenge"], user_verification: true)
+      webauthn_credential = relying_party.verify_registration(
+        params,
+        session["current_registration"]["challenge"],
+        user_verification: true,
+      )
 
       credential = user.credentials.build(
         external_id: Base64.strict_encode64(webauthn_credential.raw_id),
