@@ -21,7 +21,8 @@ class CredentialsController < ApplicationController
   def callback
     webauthn_credential = relying_party.verify_registration(
       params,
-      current_user.current_challenge
+      session["current_registration"]["challenge"],
+      user_verification: true,
     )
 
     credential = current_user.credentials.find_or_initialize_by(
