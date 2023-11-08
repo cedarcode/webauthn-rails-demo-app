@@ -10,7 +10,7 @@ gem "webauthn", "~> 3.0.0"
 
 gem 'bootsnap', '~> 1.4', require: false
 gem 'pg', '~> 1.1'
-gem 'puma', '~> 4.2'
+gem 'puma', '4.3.6'
 gem "rollbar", "~> 2.16"
 gem 'sassc-rails', '~> 2.0'
 gem 'webpacker', '~> 5.0'
