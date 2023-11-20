@@ -67,8 +67,8 @@ GEM
     awrence (1.2.1)
     bindata (2.4.15)
     bindex (0.8.1)
-    bootsnap (1.4.6)
-      msgpack (~> 1.0)
+    bootsnap (1.10.3)
+      msgpack (~> 1.2)
     brakeman (4.8.2)
     builder (3.2.4)
     bundler-audit (0.7.0.1)
@@ -119,7 +119,7 @@ GEM
     mini_portile2 (2.5.3)
     minitest (5.20.0)
     minitest-stub_any_instance (1.0.2)
-    msgpack (1.3.3)
+    msgpack (1.7.2)
     net-imap (0.3.7)
       date
       net-protocol
@@ -268,7 +268,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bootsnap (~> 1.4)
+  bootsnap (~> 1.10.0)
   brakeman (~> 4.8)
   bundler-audit (~> 0.7.0)
   byebug (~> 11.0)

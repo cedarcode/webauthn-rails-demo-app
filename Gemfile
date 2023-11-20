@@ -8,7 +8,7 @@ ruby File.read(".ruby-version").strip
 gem 'rails', "~> 6.1.7"
 gem "webauthn", "~> 3.0.0"
 
-gem 'bootsnap', '~> 1.4', require: false
+gem 'bootsnap', '~> 1.10.0', require: false
 gem 'pg', '~> 1.1'
 gem 'puma', '4.3.6'
 gem "rollbar", "~> 2.16"
