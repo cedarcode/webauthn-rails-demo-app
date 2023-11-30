@@ -8,9 +8,9 @@ ruby File.read(".ruby-version").strip
 gem 'rails', "~> 6.1.7"
 gem "webauthn", "~> 3.0.0"
 
-gem 'bootsnap', '~> 1.4', require: false
+gem 'bootsnap', '~> 1.17', require: false
 gem 'pg', '~> 1.1'
-gem 'puma', '4.3.6'
+gem 'puma', '~> 6.3', '>= 6.3.1'
 gem "rollbar", "~> 2.16"
 gem 'sassc-rails', '~> 2.0'
 gem 'webpacker', '~> 5.0'
@@ -27,13 +27,13 @@ group :development, :test do
 end
 
 group :development do
-  gem "brakeman", "~> 4.8"
-  gem "bundler-audit", "~> 0.7.0"
+  gem "brakeman", '~> 6.0', '>= 6.0.1'
+  gem "bundler-audit", '~> 0.9.1'
   gem 'listen', '~> 3.1'
   gem "rack-mini-profiler", "~> 2.0"
   gem 'spring', '~> 2.1'
   gem 'spring-watcher-listen', '~> 2.0'
-  gem 'web-console', '~> 4.0'
+  gem 'web-console', '~> 4.2', '>= 4.2.1'
 end
 
 group :test do
