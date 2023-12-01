@@ -49,6 +49,7 @@ jobs:
         PGHOST: localhost
         PGPORT: 5432
       run: |
+        bundle exec rake assets:precompile
         bundle exec rake db:create db:schema:load
         bundle exec rake
         TEST_BROWSER=headless_chrome bundle exec rake test:system
