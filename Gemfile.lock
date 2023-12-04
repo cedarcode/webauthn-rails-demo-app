@@ -141,7 +141,7 @@ GEM
     parallel (1.19.2)
     parser (2.7.1.4)
       ast (~> 2.4.1)
-    pg (1.2.3)
+    pg (1.5.4)
     public_suffix (4.0.5)
     puma (6.4.0)
       nio4r (~> 2.0)
@@ -278,7 +278,7 @@ DEPENDENCIES
   byebug (~> 11.0)
   capybara (~> 3.26)
   dotenv-rails (~> 2.7)
-  listen (~> 3.1)
+  listen (~> 3.8)
   minitest-stub_any_instance (~> 1.0)
   pg (~> 1.1)
   puma (~> 6.3, >= 6.3.1)
@@ -297,7 +297,7 @@ DEPENDENCIES
   webpacker (~> 5.0)
 
 RUBY VERSION
-   ruby 3.1.4p223
+   ruby 3.2.2p53
 
 BUNDLED WITH
    2.4.22
