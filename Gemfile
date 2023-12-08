@@ -5,7 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby File.read(".ruby-version").strip
 
-gem 'rails', "~> 6.1.7"
+gem 'rails', "~> 7.0.8"
 gem "webauthn", "~> 3.0.0"
 
 gem 'bootsnap', '~> 1.17', require: false
@@ -31,8 +31,6 @@ group :development do
   gem "bundler-audit", '~> 0.9.1'
   gem 'listen', '~> 3.8'
   gem "rack-mini-profiler", "~> 2.0"
-  gem 'spring', '~> 2.1'
-  gem 'spring-watcher-listen', '~> 2.0'
   gem 'web-console', '~> 4.2', '>= 4.2.1'
 end
 
