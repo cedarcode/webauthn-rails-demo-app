@@ -21,7 +21,7 @@ class CredentialsController < ApplicationController
   def callback
     webauthn_credential = relying_party.verify_registration(
       params,
-      session["current_registration"]["challenge"],
+      session[:current_registration][:challenge],
       user_verification: true,
     )
 
@@ -41,7 +41,7 @@ class CredentialsController < ApplicationController
   rescue WebAuthn::Error => e
     render json: "Verification failed: #{e.message}", status: :unprocessable_entity
   ensure
-    session.delete("current_registration")
+    session.delete(:current_registration)
   end
 
   def destroy
