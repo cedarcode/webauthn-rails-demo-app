@@ -3,7 +3,7 @@
   "private": true,
   "engines": {
     "node": "16.x",
-    "yarn": ">=1.7.0"
+    "yarn": "1.22.x"
   },
   "dependencies": {
     "@github/webauthn-json": "^2.1.1",
