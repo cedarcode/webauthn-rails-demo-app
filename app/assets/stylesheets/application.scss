@@ -14,22 +14,12 @@
  *= require_self
  */
 
-$mdc-theme-primary: #212121;
-$mdc-theme-secondary: #f5f5f6;
-$mdc-theme-background: #e1e2e1;
 
-@import "@material/button/mdc-button";
-@import "@material/card/mdc-card";
-@import "@material/icon-button/mdc-icon-button";
-@import "@material/list/mdc-list";
-@import "@material/menu-surface/mdc-menu-surface";
-@import "@material/menu/mdc-menu";
-@import "@material/snackbar/mdc-snackbar";
-@import "@material/textfield/mdc-text-field";
-@import "@material/textfield/helper-text/mdc-text-field-helper-text";
-@import "@material/theme/mdc-theme";
-@import "@material/top-app-bar/mdc-top-app-bar";
-@import "@material/typography/mdc-typography";
+:root {
+  --mdc-theme-primary: #212121;
+  --mdc-theme-secondary: #f5f5f6;
+  --mdc-theme-background: #e1e2e1;
+}
 
 html, body {
   height: 100%;
