@@ -14,7 +14,6 @@ gem 'pg', '~> 1.1'
 gem 'puma', '~> 6.3', '>= 6.3.1'
 gem "rollbar", "~> 2.16"
 gem 'sassc-rails', '~> 2.0'
-gem 'webpacker', '~> 5.0'
 
 group :production do
   gem "rack-host-redirect", "~> 1.3"
