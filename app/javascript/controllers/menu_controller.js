@@ -1,4 +1,4 @@
-import { Controller } from "stimulus"
+import { Controller } from "@hotwired/stimulus"
 import { MDCMenu, Corner as MDCMenu_Corner } from '@material/menu';
 
 export default class extends Controller {

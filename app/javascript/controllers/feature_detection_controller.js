@@ -1,4 +1,4 @@
-import { Controller } from "stimulus";
+import { Controller } from "@hotwired/stimulus";
 import { supported as WebAuthnSupported } from "@github/webauthn-json";
 
 export default class extends Controller {

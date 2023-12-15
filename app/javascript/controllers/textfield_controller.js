@@ -1,4 +1,4 @@
-import { Controller } from "stimulus"
+import { Controller } from "@hotwired/stimulus"
 import { MDCTextField } from '@material/textfield';
 
 export default class extends Controller {
