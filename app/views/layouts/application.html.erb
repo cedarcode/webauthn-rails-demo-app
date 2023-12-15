@@ -13,10 +13,6 @@
       <%= render "rollbar_js" %>
     <% end %>
 
-    <% if Rails.env.test? %>
-      <%= javascript_pack_tag 'stub_credentials', 'data-turbo-track': 'reload' %>
-    <% end %>
-
     <meta name="twitter:card" content="summary">
     <meta name="twitter:creator" content="@cedarcode">
     <meta property="og:title" content="WebAuthn Rails Demo App"/>
@@ -31,6 +27,10 @@
     <%= stylesheet_link_tag "https://fonts.googleapis.com/css?family=Roboto:300,400,500" %>
     <%= stylesheet_link_tag "https://fonts.googleapis.com/icon?family=Material+Icons" %>
     <%= javascript_importmap_tags %>
+
+    <% if Rails.env.test? %>
+      <%= javascript_import_module_tag 'stub_credentials' %>
+    <% end %>
   </head>
 
   <body class="mdc-theme--background mdc-typography">
