@@ -9,6 +9,7 @@ gem 'rails', "~> 7.0.8"
 gem "webauthn", "~> 3.0.0"
 
 gem 'bootsnap', '~> 1.17', require: false
+gem 'importmap-rails', '~> 1.2'
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 6.3', '>= 6.3.1'
 gem "rollbar", "~> 2.16"
