@@ -1,1 +1,3 @@
-window.sinon = require("sinon")
+import sinon from "sinon"
+
+window.sinon = sinon
