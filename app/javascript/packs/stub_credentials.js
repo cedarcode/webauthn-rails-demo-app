@@ -1,1 +1,0 @@
-window.sinon = require("sinon")

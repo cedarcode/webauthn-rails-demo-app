@@ -13,10 +13,6 @@
       <%= render "rollbar_js" %>
     <% end %>
 
-    <% if Rails.env.test? %>
-      <%= javascript_pack_tag 'stub_credentials', 'data-turbo-track': 'reload' %>
-    <% end %>
-
     <meta name="twitter:card" content="summary">
     <meta name="twitter:creator" content="@cedarcode">
     <meta property="og:title" content="WebAuthn Rails Demo App"/>
@@ -27,11 +23,16 @@
     <meta property="og:image" content="<%= image_url('webauthn-ruby.png') %>">
     <meta property="og:image:width" content="600">
 
+    <%= stylesheet_link_tag 'https://unpkg.com/material-components-web@4.0.0/dist/material-components-web.min.css' %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
     <%= stylesheet_link_tag "https://fonts.googleapis.com/css?family=Roboto:300,400,500" %>
     <%= stylesheet_link_tag "https://fonts.googleapis.com/icon?family=Material+Icons" %>
 
-    <%= javascript_pack_tag 'application', 'data-turbo-track': 'reload' %>
+    <%= javascript_importmap_tags %>
+
+    <% if Rails.env.test? %>
+      <%= javascript_import_module_tag 'stub_credentials' %>
+    <% end %>
   </head>
 
   <body class="mdc-theme--background mdc-typography">

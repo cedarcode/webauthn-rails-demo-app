@@ -33,14 +33,6 @@ jobs:
       with:
         bundler-cache: true
 
-    - name: Setup Node
-      uses: actions/setup-node@v3
-      with:
-        node-version-file: '.nvmrc'
-
-    - name: Yarn
-      run: yarn
-
     - name: Run tests
       env:
         RAILS_ENV: test
@@ -49,7 +41,6 @@ jobs:
         PGHOST: localhost
         PGPORT: 5432
       run: |
-        bundle exec rake assets:precompile
         bundle exec rake db:create db:schema:load
         bundle exec rake
         TEST_BROWSER=headless_chrome bundle exec rake test:system
