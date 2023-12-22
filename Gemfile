@@ -30,7 +30,6 @@ end
 group :development do
   gem "brakeman", '~> 6.0', '>= 6.0.1'
   gem "bundler-audit", '~> 0.9.1'
-  gem 'listen', '~> 3.8'
   gem "rack-mini-profiler", "~> 2.0"
   gem 'web-console', '~> 4.2', '>= 4.2.1'
 end
