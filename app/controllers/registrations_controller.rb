@@ -12,7 +12,10 @@ class RegistrationsController < ApplicationController
         name: params[:registration][:username],
         id: user.webauthn_id
       },
-      authenticator_selection: { user_verification: "required" }
+      authenticator_selection: {
+        user_verification: "required",
+        resident_key: 'discouraged',
+      }
     )
 
     if user.valid?
@@ -42,7 +45,11 @@ class RegistrationsController < ApplicationController
         external_id: Base64.strict_encode64(webauthn_credential.raw_id),
         nickname: params[:credential_nickname],
         public_key: webauthn_credential.public_key,
-        sign_count: webauthn_credential.sign_count
+        sign_count: webauthn_credential.sign_count,
+        uv_initialized: webauthn_credential.send(:authenticator_data).user_verified?,
+        transports: params['response']['transports'],
+        backup_eligible: webauthn_credential.backup_eligible?,
+        backup_state: webauthn_credential.backed_up?,
       )
 
       if credential.save

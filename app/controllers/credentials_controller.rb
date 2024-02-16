@@ -32,7 +32,11 @@ class CredentialsController < ApplicationController
     if credential.update(
       nickname: params[:credential_nickname],
       public_key: webauthn_credential.public_key,
-      sign_count: webauthn_credential.sign_count
+      sign_count: webauthn_credential.sign_count,
+      uv_initialized: webauthn_credential.send(:authenticator_data).user_verified?,
+      transports: params['response']['transports'],
+      backup_eligible: webauthn_credential.backup_eligible?,
+      backup_state: webauthn_credential.backed_up?,
     )
       render json: { status: "ok" }, status: :ok
     else
