@@ -6,7 +6,7 @@ image: webauthn-rails-demo
 
 # Deploy to these servers.
 servers:
-  - 192.168.0.1
+  - 3.233.189.168
 
 # Credentials for your image host.
 registry:
