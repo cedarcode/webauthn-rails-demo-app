@@ -1,8 +1,8 @@
 # Name of your application. Used to uniquely configure containers.
-service: my-app
+service: webauthn-rails-demo
 
 # Name of the container image.
-image: user/my-app
+image: webauthn-rails-demo
 
 # Deploy to these servers.
 servers:
@@ -12,11 +12,9 @@ servers:
 registry:
   # Specify the registry server, if you're not using Docker Hub
   # server: registry.digitalocean.com / ghcr.io / ...
-  username: my-user
-
-  # Always use an access token rather than real password when possible.
-  password:
-    - KAMAL_REGISTRY_PASSWORD
+  server: 864100757851.dkr.ecr.us-east-1.amazonaws.com
+  username: AWS
+  password: <%= %x(aws ecr get-login-password) %>
 
 # Inject ENV variables into containers (secrets come from .env).
 # Remember to run `kamal env push` after making changes!
