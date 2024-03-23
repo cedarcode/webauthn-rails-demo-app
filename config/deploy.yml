@@ -6,7 +6,13 @@ image: webauthn-rails-demo
 
 # Deploy to these servers.
 servers:
-  - 3.233.189.168
+  web:
+    hosts:
+      - 3.233.189.168
+    labels:
+      traefik.http.routers.webauth-rails-demo.rule: Host(`webauthn.cedarcode.com`)
+      traefik.http.routers.webauth-rails-demo.tls: true
+      traefik.http.routers.webauth-rails-demo.tls.certresolver: letsencrypt
 
 # Credentials for your image host.
 registry:
@@ -70,10 +76,19 @@ builder:
 #       - data:/data
 
 # Configure custom arguments for Traefik
-# traefik:
-#   args:
-#     accesslog: true
-#     accesslog.format: json
+traefik:
+  options:
+    publish:
+      - "443:443"
+    volume:
+      - "/home/ubuntu/letsencrypt/acme.json:/letsencrypt/acme.json"
+  args:
+    entryPoints.web.address: ":80"
+    entryPoints.websecure.address: ":443"
+    certificatesResolvers.letsencrypt.acme.email: "letsencrypt@cedarcode.com"
+    certificatesResolvers.letsencrypt.acme.storage: "/letsencrypt/acme.json"
+    certificatesResolvers.letsencrypt.acme.httpchallenge: true
+    certificatesResolvers.letsencrypt.acme.httpchallenge.entrypoint: web
 
 # Configure a custom healthcheck (default is /up on port 3000)
 # healthcheck:
