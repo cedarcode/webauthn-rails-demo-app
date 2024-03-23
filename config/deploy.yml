@@ -20,11 +20,11 @@ registry:
 # Remember to run `kamal env push` after making changes!
 env:
   clear:
-    - RACK_ENV: production
-    - RAILS_ENV: production
-    - RAILS_LOG_TO_STDOUT: enabled
-    - RAILS_SERVE_STATIC_FILES: enabled
-    - LANG: en_US.UTF-8
+    RACK_ENV: production
+    RAILS_ENV: production
+    RAILS_LOG_TO_STDOUT: enabled
+    RAILS_SERVE_STATIC_FILES: enabled
+    LANG: en_US.UTF-8
   secret:
     - SECRET_KEY_BASE
     - ROLLBAR_POST_CLIENT_ITEM_ACCESS_TOKEN
