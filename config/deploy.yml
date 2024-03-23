@@ -18,11 +18,18 @@ registry:
 
 # Inject ENV variables into containers (secrets come from .env).
 # Remember to run `kamal env push` after making changes!
-# env:
-#   clear:
-#     DB_HOST: 192.168.0.2
-#   secret:
-#     - RAILS_MASTER_KEY
+env:
+  clear:
+    RACK_ENV: production
+    RAILS_ENV: production
+    RAILS_LOG_TO_STDOUT: enabled
+    RAILS_SERVE_STATIC_FILES: enabled
+    LANG: en_US.UTF-8
+  secret:
+    - SECRET_KEY_BASE
+    - ROLLBAR_POST_CLIENT_ITEM_ACCESS_TOKEN
+    - ROLLBAR_POST_SERVER_ITEM_ACCESS_TOKEN
+    - DATABASE_URL
 
 # Use a different ssh user than root
 ssh:
