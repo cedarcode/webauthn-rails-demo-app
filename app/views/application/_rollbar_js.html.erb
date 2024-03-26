@@ -1,6 +1,6 @@
 <script>
 var _rollbarConfig = {
-  accessToken: "<%= ENV['ROLLBAR_POST_CLIENT_ITEM_ACCESS_TOKEN'] %>",
+  accessToken: "<%= Rails.application.credentials.rollbar_post_client_item_access_token %>",
   captureUncaught: true,
   captureUnhandledRejections: true,
   payload: {
