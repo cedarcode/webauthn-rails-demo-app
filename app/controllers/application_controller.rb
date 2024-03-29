@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
   def relying_party
     @relying_party ||=
       WebAuthn::RelyingParty.new(
-        origin: ENV["WEBAUTHN_ORIGIN"],
+        origin: Rails.configuration.webauthn_origin,
         name: "WebAuthn Rails Demo App"
       )
   end
