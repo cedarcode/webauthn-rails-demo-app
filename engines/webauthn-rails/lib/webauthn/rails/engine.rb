@@ -1,3 +1,5 @@
+require 'webauthn'
+
 module Webauthn
   module Rails
     class Engine < ::Rails::Engine
