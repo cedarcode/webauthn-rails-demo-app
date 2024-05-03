@@ -5,7 +5,7 @@
   <div class="mdc-card__primary-action mdc-ripple-upgraded mdc-ripple-upgraded--foreground-activation" tabindex="0">
     <div class="app-card__primary"><h2 class="app-card__title mdc-typography--headline6">Register</h2>
       <div class="app-card__secondary mdc-typography--body2">
-        <%= form_with scope: :registration, url: registration_path, local: false,  id: "new-registration", data: { controller: "new-registration", action: "ajax:success->new-registration#create ajax:error->new-registration#error" } do |form| %>
+        <%= form_with scope: :registration, url: webauthn_rails.registration_path, local: false, id: "new-registration", data: { controller: "new-registration", action: "ajax:success->new-registration#create ajax:error->new-registration#error" } do |form| %>
             <div class="form-field">
               <div class="mdc-text-field mdc-text-field--fullwidth" data-controller="textfield" data-target="new-registration.usernameField">
                 <%= form.text_field :username, class: "mdc-text-field__input", placeholder: "Username", required: true, autocapitalize: "none", "aria-controls" => "username-helper-text" %>
@@ -34,7 +34,7 @@
     <div class="mdc-card__actions">
       <div class="mdc-card__action-buttons">
         <div class="mdc-card__actions">
-          <%= link_to 'Sign in', new_session_path, class: "mdc-button mdc-card__action mdc-card__action--button mdc-ripple-upgraded" %>
+          <%= link_to 'Sign in', main_app.new_session_path, class: "mdc-button mdc-card__action mdc-card__action--button mdc-ripple-upgraded" %>
         </div>
       </div>
     </div>

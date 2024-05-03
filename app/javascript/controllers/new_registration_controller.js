@@ -14,7 +14,7 @@ export default class extends Controller {
     // Registration
     if (credentialOptions["user"]) {
       var credential_nickname = event.target.querySelector("input[name='registration[nickname]']").value;
-      var callback_url = `/registration/callback?credential_nickname=${credential_nickname}`
+      var callback_url = `/webauthn-rails/registration/callback?credential_nickname=${credential_nickname}`
 
       Credential.create(encodeURI(callback_url), credentialOptions);
     }

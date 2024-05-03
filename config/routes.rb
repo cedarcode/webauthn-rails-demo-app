@@ -11,10 +11,6 @@ Rails.application.routes.draw do
     post :callback
   end
 
-  resource :registration, only: [:new, :create] do
-    post :callback
-  end
-
   resources :credentials, only: [:create, :destroy] do
     post :callback, on: :collection
   end
