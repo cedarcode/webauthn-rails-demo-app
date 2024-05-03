@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import * as Credential from "credential";
+import * as Credential from "webauthn-rails/credential";
 
 export default class extends Controller {
   create(event) {

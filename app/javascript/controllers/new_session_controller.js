@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import * as Credential from "credential";
+import * as Credential from "webauthn-rails/credential";
 
 import { MDCTextField } from '@material/textfield';
 

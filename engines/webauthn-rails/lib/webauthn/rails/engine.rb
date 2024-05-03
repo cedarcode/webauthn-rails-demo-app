@@ -10,6 +10,12 @@ module Webauthn
           include Webauthn::Rails::Controllers::Helpers
         end
       end
+
+      initializer "webautn-rails.assets" do
+        if ::Rails.application.config.respond_to?(:assets)
+          ::Rails.application.config.assets.precompile += %w( credential.js )
+        end
+      end
     end
   end
 end
