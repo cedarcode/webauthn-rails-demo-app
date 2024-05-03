@@ -16,14 +16,14 @@
         </span>
 
         <% if current_user.can_delete_credentials? %>
-          <%= link_to "delete", credential, method: :delete, class: "mdc-list-item__meta material-icons" %>
+          <%= link_to "delete", webauthn_rails.credential_path(credential), method: :delete, class: "mdc-list-item__meta material-icons" %>
         <% end %>
       </li>
     <% end %>
   </ul>
 
   <div data-controller="add-credential">
-    <%= form_with scope: :credential, url: credentials_path, local: false, data: { action: "ajax:success->add-credential#create" } do |form| %>
+    <%= form_with scope: :credential, url: webauthn_rails.credentials_path, local: false, data: { action: "ajax:success->add-credential#create" } do |form| %>
       <div class="form-field">
         <div class="mdc-text-field mdc-text-field--fullwidth" data-controller="textfield">
           <%= form.text_field :nickname, class: "mdc-text-field__input", placeholder: "New Security Key nickname", required: true %>

@@ -7,10 +7,6 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
-  resources :credentials, only: [:create, :destroy] do
-    post :callback, on: :collection
-  end
-
   mount Webauthn::Rails::Engine, at: "/webauthn-rails"
 
   # post "session_callback", to: "sessions#callback"
