@@ -3,6 +3,10 @@ require "webauthn/rails/engine"
 
 module Webauthn
   module Rails
-    # Your code goes here...
+
+    module Controllers
+      autoload :Helpers, 'webauthn/rails/controllers/helpers'
+    end
+
   end
 end
