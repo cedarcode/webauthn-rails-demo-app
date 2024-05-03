@@ -13,6 +13,8 @@ servers:
       traefik.http.routers.webauth-rails-demo.rule: Host(`webauthn.cedarcode.com`)
       traefik.http.routers.webauth-rails-demo.tls: true
       traefik.http.routers.webauth-rails-demo.tls.certresolver: letsencrypt
+    options:
+      memory: 200MiB
 
 # Credentials for your image host.
 registry:
