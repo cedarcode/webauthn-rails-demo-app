@@ -1,6 +1,8 @@
 import { Controller } from "@hotwired/stimulus"
 import * as Credential from "webauthn-rails/credential";
 
+import { MDCTextField } from '@material/textfield';
+
 export default class extends Controller {
   static targets = ["usernameField"]
 
@@ -19,7 +21,9 @@ export default class extends Controller {
   }
 
   error(event) {
-    errorElementTarget.innerHTML = message;
-    errorElementTarget.hidden = false;
+    let response = event.detail[0];
+    let usernameField = new MDCTextField(this.usernameFieldTarget);
+    usernameField.valid = false;
+    usernameField.helperTextContent = response["errors"][0];
   }
 }

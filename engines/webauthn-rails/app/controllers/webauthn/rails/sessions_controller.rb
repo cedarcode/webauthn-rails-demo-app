@@ -18,23 +18,23 @@ module Webauthn
           session[:current_authentication] = { challenge: get_options.challenge, username: session_params[:username] }
 
           respond_to do |format|
-            format.json { render json: get_options }
+            format.turbo_stream { render json: get_options }
           end
         else
           respond_to do |format|
-            format.json { render json: { errors: ["Username doesn't exist"] }, status: :unprocessable_entity }
+            format.turbo_stream { render json: { errors: ["Username doesn't exist"] }, status: :unprocessable_entity }
           end
         end
       end
 
       def callback
-        user = User.find_by(username: session[:current_authentication][:username])
-        raise "user #{session[:current_authentication][:username]} never initiated sign up" unless user
+        user = User.find_by(username: session[:current_authentication]['username'])
+        raise "user #{session[:current_authentication]['username']} never initiated sign up" unless user
 
         begin
           verified_webauthn_credential, stored_credential = relying_party.verify_authentication(
             params,
-            session[:current_authentication][:challenge],
+            session[:current_authentication]['challenge'],
             user_verification: true,
           ) do |webauthn_credential|
             user.credentials.find_by(external_id: Base64.strict_encode64(webauthn_credential.raw_id))

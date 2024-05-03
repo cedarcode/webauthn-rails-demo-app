@@ -9,6 +9,13 @@ function getCSRFToken() {
   }
 }
 
+function showErrorMessage(message) {
+  const errorElement = document.querySelector("#error_explanation");
+
+  errorElement.innerHTML = message;
+  errorElement.hidden = false;
+}
+
 function callback(url, body) {
   fetch(url, {
     method: "POST",
@@ -23,9 +30,9 @@ function callback(url, body) {
     if (response.ok) {
       window.location.replace("/")
     } else if (response.status < 500) {
-      response.text().then(console.log);
+      response.text().then(showErrorMessage);
     } else {
-      console.log("Sorry, something wrong happened.");
+      showErrorMessage("Sorry, something wrong happened.");
     }
   });
 }
@@ -34,20 +41,16 @@ function create(callbackUrl, credentialOptions) {
   WebAuthnJSON.create({ "publicKey": credentialOptions }).then(function(credential) {
     callback(callbackUrl, credential);
   }).catch(function(error) {
-    console.log(error);
+    showErrorMessage(error);
   });
-
-  console.log("Creating new public key credential...");
 }
 
 function get(credentialOptions) {
   WebAuthnJSON.get({ "publicKey": credentialOptions }).then(function(credential) {
     callback("/webauthn-rails/session/callback", credential);
   }).catch(function(error) {
-    console.log(error);
+    showErrorMessage(error);
   });
-
-  console.log("Getting public key credential...");
 }
 
 export { create, get }

@@ -22,21 +22,24 @@ module Webauthn
 
           respond_to do |format|
             format.json { render json: create_options }
+            format.turbo_stream { render json: create_options }
           end
         else
           respond_to do |format|
             format.json { render json: { errors: user.errors.full_messages }, status: :unprocessable_entity }
+            format.turbo_stream { render json: { errors: user.errors.full_messages }, status: :unprocessable_entity }
           end
         end
       end
 
       def callback
-        user = User.create!(session[:current_registration][:user_attributes])
+        debugger
+        user = User.create!(session[:current_registration]['user_attributes'])
 
         begin
           webauthn_credential = relying_party.verify_registration(
             params,
-            session[:current_registration][:challenge],
+            session[:current_registration]['challenge'],
             user_verification: true,
           )
 
