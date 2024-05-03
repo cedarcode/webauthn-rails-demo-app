@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     post :callback, on: :collection
   end
 
+  mount Webauthn::Rails::Engine, at: "/webauthn-rails"
+
   # post "session_callback", to: "sessions#callback"
   # post "registration_callback", to: "registrations#callback"
   root to: "home#index"
