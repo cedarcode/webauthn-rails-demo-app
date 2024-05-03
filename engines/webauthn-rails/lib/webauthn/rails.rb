@@ -8,5 +8,11 @@ module Webauthn
       autoload :Helpers, 'webauthn/rails/controllers/helpers'
     end
 
+    mattr_accessor :webauthn_origin
+
+    def self.configure
+      yield self
+    end
+
   end
 end
