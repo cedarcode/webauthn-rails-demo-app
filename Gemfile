@@ -20,6 +20,10 @@ group :production do
   gem "rack-host-redirect", "~> 1.3"
 end
 
+group :development, :deploy do
+  gem "kamal", '~> 1.8'
+end
+
 group :development, :test do
   gem 'byebug', '~> 11.0', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rubocop', '~> 0.80.1', require: false
