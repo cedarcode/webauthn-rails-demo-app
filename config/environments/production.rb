@@ -88,6 +88,4 @@ Rails.application.configure do
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
   config.webauthn_origin = 'https://webauthn.cedarcode.com'
-
-  config.middleware.use(Rack::HostRedirect, "webauthn.herokuapp.com" => URI(config.webauthn_origin).host)
 end

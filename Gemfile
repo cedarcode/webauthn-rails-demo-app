@@ -16,10 +16,6 @@ gem "rollbar", "~> 2.16"
 gem 'sassc-rails', '~> 2.0'
 gem 'stimulus-rails', '~> 1.3'
 
-group :production do
-  gem "rack-host-redirect", "~> 1.3"
-end
-
 group :development, :deploy do
   gem "kamal", '~> 1.8'
 end
