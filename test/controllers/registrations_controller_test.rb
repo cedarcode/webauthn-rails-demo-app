@@ -16,14 +16,14 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     post registration_url, params: { registration: { username: "alice" }, format: :json }
 
     assert_response :unprocessable_entity
-    assert_equal ["Username has already been taken"], JSON.parse(response.body)["errors"]
+    assert_equal ["Username has already been taken"], response.parsed_body["errors"]
   end
 
   test "should return error if registrating blank username" do
     post registration_url, params: { registration: { username: "" }, format: :json }
 
     assert_response :unprocessable_entity
-    assert_equal ["Username can't be blank"], JSON.parse(response.body)["errors"]
+    assert_equal ["Username can't be blank"], response.parsed_body["errors"]
   end
 
   test "should return error if registering existing credential" do
@@ -39,7 +39,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     public_key_credential =
       WebAuthn::FakeClient
       .new(Rails.configuration.webauthn_origin)
-      .create(challenge: challenge, user_verified: true)
+      .create(challenge:, user_verified: true)
 
     webauthn_credential = WebAuthn::Credential.from_create(public_key_credential)
 

@@ -26,8 +26,8 @@ end
 
 group :development, :test do
   gem 'byebug', '~> 11.0', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'rubocop', '~> 0.80.1', require: false
-  gem 'rubocop-rails', '~> 2.5.0', require: false
+  gem 'rubocop', '~> 1.65', require: false
+  gem 'rubocop-rails', '~> 2.25', require: false
 end
 
 group :development do

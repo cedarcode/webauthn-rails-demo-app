@@ -15,13 +15,13 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     post session_url, params: { session: { username: "alice" }, format: :json }
 
     assert_response :unprocessable_entity
-    assert_equal ["Username doesn't exist"], JSON.parse(response.body)["errors"]
+    assert_equal ["Username doesn't exist"], response.parsed_body["errors"]
   end
 
   test "should return error if creating session with blank username" do
     post session_url, params: { session: { username: "" }, format: :json }
 
     assert_response :unprocessable_entity
-    assert_equal ["Username doesn't exist"], JSON.parse(response.body)["errors"]
+    assert_equal ["Username doesn't exist"], response.parsed_body["errors"]
   end
 end
