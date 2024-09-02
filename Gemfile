@@ -12,7 +12,7 @@ gem 'bootsnap', '~> 1.17', require: false
 gem 'importmap-rails', '~> 2.0'
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 6.3', '>= 6.3.1'
-gem "rollbar", "~> 3.5"
+gem "rollbar", "~> 3.6"
 gem 'sassc-rails', '~> 2.0'
 gem 'stimulus-rails', '~> 1.3'
 
