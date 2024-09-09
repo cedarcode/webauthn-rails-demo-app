@@ -186,7 +186,7 @@ GEM
     parser (3.3.5.0)
       ast (~> 2.4.1)
       racc
-    pg (1.5.7)
+    pg (1.5.8)
     psych (5.1.2)
       stringio
     public_suffix (6.0.1)
@@ -339,7 +339,7 @@ DEPENDENCIES
   importmap-rails (~> 2.0)
   kamal (~> 1.8)
   minitest-stub_any_instance (~> 1.0)
-  pg (~> 1.1)
+  pg (~> 1.5)
   puma (~> 6.3, >= 6.3.1)
   rack-mini-profiler (~> 3.3)
   rails (~> 7.1.3)
