@@ -91,7 +91,7 @@ traefik:
 # Configure a custom healthcheck (default is /up on port 3000)
 healthcheck:
   interval: 30s
-  max_attempts: 8
+  max_attempts: 14
 
 # Bridge fingerprinted assets, like JS and CSS, between versions to avoid
 # hitting 404 on in-flight requests. Combines all files from new and old
