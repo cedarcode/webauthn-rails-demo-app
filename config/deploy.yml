@@ -54,21 +54,6 @@ builder:
 #     arch: amd64
 #     host: ssh://app@192.168.0.1
 
-# Use accessory services (secrets come from .env).
-accessories:
-  db_webauthn:
-    image: postgres:15.4
-    host: 54.145.40.246
-    port: 5435:5432
-    env:
-      clear:
-        POSTGRES_USER: 'webauthn'
-        POSTGRES_DB: 'webauthn_production'
-      secret:
-        - POSTGRES_PASSWORD
-    directories:
-      - data:/var/lib/postgresql/data
-
 # Configure custom arguments for Traefik
 traefik:
   options:
