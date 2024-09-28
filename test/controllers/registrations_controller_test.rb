@@ -55,10 +55,12 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
       ]
     )
 
-    post(
-      callback_registration_url,
-      params: { credential_nickname: "USB Key" }.merge(public_key_credential)
-    )
+    assert_no_difference -> { User.count } do
+      post(
+        callback_registration_url,
+        params: { credential_nickname: "USB Key" }.merge(public_key_credential)
+      )
+    end
 
     assert_response :unprocessable_entity
     assert_equal "Couldn't register your Security Key", response.body
