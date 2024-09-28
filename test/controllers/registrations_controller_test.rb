@@ -91,20 +91,16 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
       }
     }
 
-    any_instance_of(RegistrationsController) do |klass|
-      stub(klass).session { session_data }
-    end
-
-    any_instance_of(ApplicationController) do |klass|
-      stub(klass).relying_party { fake_rp }
-    end
-
-    assert_difference 'User.count', +1 do
-      assert_difference 'Credential.count', +1 do
-        post(
-          callback_registration_url,
-          params: { credential_nickname: "USB Key" }.merge(webauthn_credential)
-        )
+    ApplicationController.stub_any_instance(:relying_party, fake_rp) do
+      RegistrationsController.stub_any_instance(:session, session_data) do
+        assert_difference 'User.count', +1 do
+          assert_difference 'Credential.count', +1 do
+            post(
+              callback_registration_url,
+              params: { credential_nickname: "USB Key" }.merge(webauthn_credential)
+            )
+          end
+        end
       end
     end
 
