@@ -37,5 +37,4 @@ group :test do
   gem 'capybara', '~> 3.26'
   gem 'minitest-stub_any_instance', '~> 1.0'
   gem 'selenium-webdriver', '~> 4.25'
-  gem 'rr'
 end
