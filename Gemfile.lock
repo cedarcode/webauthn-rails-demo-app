@@ -131,7 +131,7 @@ GEM
     json (2.7.2)
     jwt (2.8.2)
       base64
-    kamal (1.8.3)
+    kamal (1.9.1)
       activesupport (>= 7.0)
       base64 (~> 0.2)
       bcrypt_pbkdf (~> 1.0)
@@ -335,7 +335,7 @@ DEPENDENCIES
   byebug (~> 11.0)
   capybara (~> 3.26)
   importmap-rails (~> 2.0)
-  kamal (~> 1.8)
+  kamal (~> 1.9)
   minitest-stub_any_instance (~> 1.0)
   pg (~> 1.5)
   puma (~> 6.4)
