@@ -17,7 +17,7 @@ gem 'sassc-rails', '~> 2.0'
 gem 'stimulus-rails', '~> 1.3'
 
 group :development, :deploy do
-  gem "kamal", '~> 1.9'
+  gem "kamal", '~> 2.1'
 end
 
 group :development, :test do
