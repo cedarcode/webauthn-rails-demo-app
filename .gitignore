@@ -27,3 +27,5 @@
 
 /public/packs
 /public/packs-test
+
+/.kamal/secrets*
