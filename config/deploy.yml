@@ -45,7 +45,7 @@ ssh:
 
 # Configure builder setup.
 builder:
-  multiarch: false
+  arch: amd64
 #   args:
 #     RUBY_VERSION: 3.2.0
 #   secrets:
