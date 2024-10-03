@@ -10,7 +10,7 @@ gem "webauthn", "~> 3.1"
 
 gem 'bootsnap', '~> 1.17', require: false
 gem 'importmap-rails', '~> 2.0'
-gem 'pg', '~> 1.5'
+gem 'sqlite3', '>= 1.4'
 gem 'puma', '~> 6.4'
 gem "rollbar", "~> 3.6"
 gem 'sassc-rails', '~> 2.0'

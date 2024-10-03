@@ -28,7 +28,6 @@ env:
     LANG: en_US.UTF-8
   secret:
     - RAILS_MASTER_KEY
-    - DATABASE_URL
 
 ssh:
   user: ubuntu
