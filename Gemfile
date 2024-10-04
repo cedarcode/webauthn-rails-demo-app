@@ -10,10 +10,10 @@ gem "webauthn", "~> 3.1"
 
 gem 'bootsnap', '~> 1.17', require: false
 gem 'importmap-rails', '~> 2.0'
-gem 'sqlite3', '>= 1.4'
 gem 'puma', '~> 6.4'
 gem "rollbar", "~> 3.6"
 gem 'sassc-rails', '~> 2.0'
+gem 'sqlite3', '>= 1.4'
 gem 'stimulus-rails', '~> 1.3'
 
 group :development, :deploy do
