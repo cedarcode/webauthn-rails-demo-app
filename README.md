@@ -21,7 +21,6 @@ If you want to see an implementation of WebAuthn as a second factor authenticato
 #### Prerequisites
 
 * Ruby
-* PostgreSQL
 
 #### Setup
 
