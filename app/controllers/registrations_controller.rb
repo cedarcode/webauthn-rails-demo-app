@@ -29,7 +29,7 @@ class RegistrationsController < ApplicationController
   end
 
   def callback
-    user = User.create!(session[:current_registration][:user_attributes])
+    user = User.new(session[:current_registration][:user_attributes])
 
     begin
       webauthn_credential = relying_party.verify_registration(
@@ -45,7 +45,7 @@ class RegistrationsController < ApplicationController
         sign_count: webauthn_credential.sign_count
       )
 
-      if credential.save
+      if user.save
         sign_in(user)
 
         render json: { status: "ok" }, status: :ok
