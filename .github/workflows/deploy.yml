@@ -16,6 +16,8 @@ on:
 
 jobs:
   deploy:
+    if: github.repository == 'cedarcode/webauthn-rails-demo-app'
+
     runs-on: ubuntu-latest
 
     env:
