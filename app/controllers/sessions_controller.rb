@@ -26,13 +26,14 @@ class SessionsController < ApplicationController
   end
 
   def callback
-    user = User.find_by(username: session[:current_authentication]["username"])
-    raise "user #{session[:current_authentication]["username"]} never initiated sign up" unless user
+    current_registration = session[:current_registration].deep_symbolize_keys
+    user = User.find_by(username: current_registration[:username])
+    raise "user #{current_registration[:username]} never initiated sign up" unless user
 
     begin
       verified_webauthn_credential, stored_credential = relying_party.verify_authentication(
         params,
-        session[:current_authentication]["challenge"],
+        current_registration[:challenge],
         user_verification: true,
       ) do |webauthn_credential|
         user.credentials.find_by(external_id: Base64.strict_encode64(webauthn_credential.raw_id))

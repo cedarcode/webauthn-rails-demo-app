@@ -29,12 +29,13 @@ class RegistrationsController < ApplicationController
   end
 
   def callback
-    user = User.new(session[:current_registration]["user_attributes"])
+    current_registration = session[:current_registration].deep_symbolize_keys
+    user = User.new(current_registration[:user_attributes])
 
     begin
       webauthn_credential = relying_party.verify_registration(
         params,
-        session[:current_registration]["challenge"],
+        current_registration[:challenge],
         user_verification: true,
       )
 
