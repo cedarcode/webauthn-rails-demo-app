@@ -39,7 +39,7 @@ class RegistrationsController < ApplicationController
         user_verification: true,
       )
 
-      credential = user.credentials.build(
+      user.credentials.build(
         external_id: Base64.strict_encode64(webauthn_credential.raw_id),
         nickname: params[:credential_nickname],
         public_key: webauthn_credential.public_key,
