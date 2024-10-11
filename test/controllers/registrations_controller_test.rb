@@ -67,40 +67,26 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should register successfully" do
-    authenticator = WebAuthn::FakeAuthenticator.new
-
-    fake_rp = WebAuthn::RelyingParty.new(
-      origin: "https://fake.relying_party.test",
-      id: "fake.relying_party.test",
-      name: "Fake RelyingParty"
-    )
-
-    fake_client = WebAuthn::FakeClient.new("https://fake.relying_party.test", authenticator:)
-
-    user = User.new(username: "John Doe")
-
     raw_challenge = SecureRandom.random_bytes(32)
     challenge = WebAuthn.configuration.encoder.encode(raw_challenge)
 
-    webauthn_credential = fake_client.create(challenge:, rp_id: fake_rp.id, user_verified: true)
+    WebAuthn::PublicKeyCredential::CreationOptions.stub_any_instance(:raw_challenge, raw_challenge) do
+      post registration_url, params: { registration: { username: "alice" }, format: :json }
 
-    session_data = {
-      current_registration: {
-        challenge:,
-        user_attributes: user.attributes
-      }
-    }
+      assert_response :success
+    end
 
-    ApplicationController.stub_any_instance(:relying_party, fake_rp) do
-      RegistrationsController.stub_any_instance(:session, session_data) do
-        assert_difference 'User.count', +1 do
-          assert_difference 'Credential.count', +1 do
-            post(
-              callback_registration_url,
-              params: { credential_nickname: "USB Key" }.merge(webauthn_credential)
-            )
-          end
-        end
+    public_key_credential =
+      WebAuthn::FakeClient
+      .new(Rails.configuration.webauthn_origin)
+      .create(challenge:, user_verified: true)
+
+    assert_difference 'User.count', +1 do
+      assert_difference 'Credential.count', +1 do
+        post(
+          callback_registration_url,
+          params: { credential_nickname: "USB Key" }.merge(public_key_credential)
+        )
       end
     end
 
