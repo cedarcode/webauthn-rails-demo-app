@@ -1,0 +1,62 @@
+name: Deploy
+
+concurrency:
+  group: ${{ github.workflow }}
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+    inputs:
+      commit:
+        description: "Commit (SHA, tag, branch, etc)"
+        required: true
+        default: "master"
+
+jobs:
+  deploy:
+    if: github.repository == 'cedarcode/webauthn-rails-demo-app'
+
+    runs-on: ubuntu-latest
+
+    env:
+      BUNDLE_ONLY: 'deploy'
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.commit }}
+
+      - name: Start the ssh-agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id    : ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region           : us-east-1
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Set up Docker Buildx for cache
+        uses: docker/setup-buildx-action@v3
+
+      - name: Expose GitHub Runtime for cache
+        uses: crazy-max/ghaction-github-runtime@v3
+
+      - name: Generate kamal secrets
+        run: |
+          cat <<EOT >> .kamal/secrets
+            RAILS_MASTER_KEY=${{secrets.RAILS_MASTER_KEY}}
+          EOT
+
+      - name: Run deploy command
+        run: bundle exec kamal deploy
