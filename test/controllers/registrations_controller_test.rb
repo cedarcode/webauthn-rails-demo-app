@@ -55,12 +55,41 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
       ]
     )
 
-    post(
-      callback_registration_url,
-      params: { credential_nickname: "USB Key" }.merge(public_key_credential)
-    )
+    assert_no_difference -> { User.count } do
+      post(
+        callback_registration_url,
+        params: { credential_nickname: "USB Key" }.merge(public_key_credential)
+      )
+    end
 
     assert_response :unprocessable_entity
     assert_equal "Couldn't register your Security Key", response.body
+  end
+
+  test "should register successfully" do
+    raw_challenge = SecureRandom.random_bytes(32)
+    challenge = WebAuthn.configuration.encoder.encode(raw_challenge)
+
+    WebAuthn::PublicKeyCredential::CreationOptions.stub_any_instance(:raw_challenge, raw_challenge) do
+      post registration_url, params: { registration: { username: "alice" }, format: :json }
+
+      assert_response :success
+    end
+
+    public_key_credential =
+      WebAuthn::FakeClient
+      .new(Rails.configuration.webauthn_origin)
+      .create(challenge:, user_verified: true)
+
+    assert_difference 'User.count', +1 do
+      assert_difference 'Credential.count', +1 do
+        post(
+          callback_registration_url,
+          params: { credential_nickname: "USB Key" }.merge(public_key_credential)
+        )
+      end
+    end
+
+    assert_response :success
   end
 end
