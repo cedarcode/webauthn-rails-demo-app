@@ -22,7 +22,7 @@ end
 
 group :development, :test do
   gem 'byebug', '~> 11.0', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'rubocop', '~> 1.67', require: false
+  gem 'rubocop', '~> 1.68', require: false
   gem 'rubocop-rails', '~> 2.27', require: false
 end
 
