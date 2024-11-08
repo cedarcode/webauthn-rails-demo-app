@@ -4,6 +4,12 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    groups:
+      all-gems:
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "rails"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
