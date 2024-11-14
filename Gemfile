@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby File.read(".ruby-version").strip
 
 gem 'rails', "~> 7.1.5"
-gem "webauthn", "~> 3.1"
+gem "webauthn", "~> 3.2"
 
 gem 'bootsnap', '~> 1.17', require: false
 gem 'importmap-rails', '~> 2.0'
