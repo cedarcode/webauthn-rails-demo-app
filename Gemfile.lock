@@ -1,3 +1,17 @@
+GIT
+  remote: https://github.com/cedarcode/webauthn-ruby.git
+  revision: 94d460790e9b125cddf144e31fd1985533a554a1
+  branch: sr--fix-serializer
+  specs:
+    webauthn (3.2.1)
+      android_key_attestation (~> 0.3.0)
+      bindata (~> 2.4)
+      cbor (~> 0.5.9)
+      cose (~> 1.1)
+      openssl (>= 2.2)
+      safety_net_attestation (~> 0.4.0)
+      tpm-key_attestation (~> 0.12.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -82,7 +96,6 @@ GEM
       public_suffix (>= 2.0.2, < 7.0)
     android_key_attestation (0.3.0)
     ast (2.4.2)
-    awrence (1.2.1)
     base64 (0.2.0)
     bcrypt_pbkdf (1.1.1)
     benchmark (0.3.0)
@@ -133,7 +146,7 @@ GEM
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
     json (2.7.6)
-    jwt (2.8.2)
+    jwt (2.9.3)
       base64
     kamal (2.3.0)
       activesupport (>= 7.0)
@@ -312,15 +325,6 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
-    webauthn (3.1.0)
-      android_key_attestation (~> 0.3.0)
-      awrence (~> 1.1)
-      bindata (~> 2.4)
-      cbor (~> 0.5.9)
-      cose (~> 1.1)
-      openssl (>= 2.2)
-      safety_net_attestation (~> 0.4.0)
-      tpm-key_attestation (~> 0.12.0)
     websocket (1.2.11)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
@@ -352,7 +356,7 @@ DEPENDENCIES
   sqlite3 (>= 1.4)
   stimulus-rails (~> 1.3)
   web-console (~> 4.2, >= 4.2.1)
-  webauthn (~> 3.1)
+  webauthn!
 
 RUBY VERSION
    ruby 3.3.5p100
