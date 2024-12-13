@@ -7,6 +7,7 @@ ruby File.read(".ruby-version").strip
 
 gem 'rails', "~> 7.1.5"
 gem "webauthn", "~> 3.2"
+gem 'tpm-key_attestation', github: 'cedarcode/tpm-key_attestation', branch: 'sr--fix-windows-hello'
 
 gem 'bootsnap', '~> 1.17', require: false
 gem 'importmap-rails', '~> 2.0'
