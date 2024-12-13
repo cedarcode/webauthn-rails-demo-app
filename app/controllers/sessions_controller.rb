@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
     if user
       get_options = WebAuthn::Credential.options_for_get(
         allow: user.credentials.pluck(:external_id),
-        user_verification: "required"
+        user_verification: "required",
       )
 
       session[:current_authentication] = { challenge: get_options.challenge, username: session_params[:username] }
