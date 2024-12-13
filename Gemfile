@@ -6,7 +6,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby File.read(".ruby-version").strip
 
 gem 'rails', "~> 7.1.5"
-gem "webauthn", "~> 3.2"
+gem "webauthn", github: 'cedarcode/webauthn-ruby', branch: 'bump_tpm_attestation'
+gem 'tpm-key_attestation', github: 'cedarcode/tpm-key_attestation', branch: 'master'
 
 gem 'bootsnap', '~> 1.17', require: false
 gem 'importmap-rails', '~> 2.1'
