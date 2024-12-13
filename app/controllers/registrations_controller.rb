@@ -13,6 +13,7 @@ class RegistrationsController < ApplicationController
         id: user.webauthn_id
       },
       authenticator_selection: { user_verification: "required" }
+      attestation: "direct",
     )
 
     if user.valid?
