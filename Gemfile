@@ -27,7 +27,7 @@ group :development, :test do
 end
 
 group :development do
-  gem "brakeman", '~> 6.2'
+  gem "brakeman", '~> 7.0'
   gem "bundler-audit", '~> 0.9.1'
   gem "rack-mini-profiler", "~> 3.3"
   gem 'web-console', '~> 4.2', '>= 4.2.1'
