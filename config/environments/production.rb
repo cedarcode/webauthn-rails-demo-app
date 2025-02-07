@@ -94,4 +94,6 @@ Rails.application.configure do
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
   config.webauthn_origin = 'https://webauthn.cedarcode.com'
+
+  config.yjit = false
 end
