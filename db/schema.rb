@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2020_04_11_210422) do
+ActiveRecord::Schema[8.0].define(version: 2020_04_11_210422) do
   create_table "credentials", force: :cascade do |t|
     t.string "external_id"
     t.string "public_key"
