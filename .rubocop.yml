@@ -1,4 +1,4 @@
-require: rubocop-rails
+plugins: rubocop-rails
 
 inherit_mode:
   merge:
