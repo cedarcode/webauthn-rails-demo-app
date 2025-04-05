@@ -22,7 +22,7 @@ FROM base as build
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git pkg-config
+    apt-get install --no-install-recommends -y build-essential git libyaml-dev pkg-config
 
 # Install application gems
 COPY .ruby-version Gemfile Gemfile.lock ./
