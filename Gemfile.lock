@@ -357,8 +357,5 @@ DEPENDENCIES
   web-console (~> 4.2, >= 4.2.1)
   webauthn (~> 3.4)
 
-RUBY VERSION
-   ruby 3.3.5p100
-
 BUNDLED WITH
    2.5.20
