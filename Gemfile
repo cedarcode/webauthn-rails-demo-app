@@ -3,8 +3,6 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby File.read(".ruby-version").strip
-
 gem 'rails', "~> 8.0.1"
 gem "webauthn", "~> 3.4"
 
