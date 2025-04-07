@@ -20,7 +20,7 @@ end
 group :development, :test do
   gem 'byebug', '~> 12.0', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rubocop', '~> 1.75', require: false
-  gem 'rubocop-rails', '~> 2.30', require: false
+  gem 'rubocop-rails', '~> 2.31', require: false
 end
 
 group :development do
@@ -33,5 +33,5 @@ end
 group :test do
   gem 'capybara', '~> 3.26'
   gem 'minitest-stub_any_instance', '~> 1.0'
-  gem 'selenium-webdriver', '~> 4.30'
+  gem 'selenium-webdriver', '~> 4.31'
 end
