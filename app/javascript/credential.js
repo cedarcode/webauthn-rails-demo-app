@@ -1,4 +1,5 @@
 import * as WebAuthnJSON from "@github/webauthn-json"
+
 import { showMessage } from "messenger";
 
 function getCSRFToken() {
@@ -10,8 +11,8 @@ function getCSRFToken() {
   }
 }
 
-function callback(url, body) {
-  fetch(url, {
+function _fetch(url, body) {
+  return fetch(url, {
     method: "POST",
     body: JSON.stringify(body),
     headers: {
@@ -20,7 +21,11 @@ function callback(url, body) {
       "X-CSRF-Token": getCSRFToken()
     },
     credentials: 'same-origin'
-  }).then(function(response) {
+  })
+}
+
+function callback(url, body) {
+  _fetch(url, body).then(function(response) {
     if (response.ok) {
       window.location.replace("/")
     } else if (response.status < 500) {
@@ -29,6 +34,37 @@ function callback(url, body) {
       showMessage("Sorry, something wrong happened.");
     }
   });
+}
+
+function getCredentialOptions() {
+  return _fetch("/session/options").then(function(response) {
+    if (response.ok) {
+      return response.json();
+    }
+    if (response.status < 500) {
+      response.text().then(showMessage);
+    } else {
+      showMessage("Sorry, something wrong happened.");
+    }
+  });
+}
+
+async function autofill() {
+  if (WebAuthnJSON.supported &&
+    PublicKeyCredential.isConditionalMediationAvailable) {
+      try {
+        const cma = await PublicKeyCredential.isConditionalMediationAvailable();
+        if (cma) {
+          var credentialOptions = await getCredentialOptions();
+          get(credentialOptions, "conditional");
+        }
+      } catch (e) {
+        console.error(e);
+        if (e.name !== "NotAllowedError") {
+          alert(e.message);
+        }
+      }
+  }
 }
 
 function create(callbackUrl, credentialOptions) {
@@ -41,8 +77,8 @@ function create(callbackUrl, credentialOptions) {
   console.log("Creating new public key credential...");
 }
 
-function get(credentialOptions) {
-  WebAuthnJSON.get({ "publicKey": credentialOptions }).then(function(credential) {
+function get(credentialOptions, mediationOption) {
+  WebAuthnJSON.get({ "publicKey": credentialOptions, "mediation": mediationOption }).then(function(credential) {
     callback("/session/callback", credential);
   }).catch(function(error) {
     showMessage(error);
@@ -51,4 +87,4 @@ function get(credentialOptions) {
   console.log("Getting public key credential...");
 }
 
-export { create, get }
+export { autofill, create, get }
