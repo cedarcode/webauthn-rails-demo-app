@@ -25,7 +25,6 @@ If you want to see an implementation of WebAuthn as a second factor authenticato
 ```
 $ git clone https://github.com/cedarcode/webauthn-rails-demo-app
 $ cd webauthn-rails-demo-app/
-$ cp .env.example .env
 $ bundle install
 $ bundle exec rake db:setup
 ```
