@@ -6,11 +6,15 @@ import { MDCTextField } from '@material/textfield';
 export default class extends Controller {
   static targets = ["usernameField"]
 
+  connect() {
+    Credential.autofill();
+  }
+
   create(event) {
     var [data, status, xhr] = event.detail;
     console.log(data);
     var credentialOptions = data;
-    Credential.get(credentialOptions);
+    Credential.get(credentialOptions, "optional");
   }
 
   error(event) {
