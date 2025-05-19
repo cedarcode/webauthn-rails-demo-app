@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 gem 'rails', "~> 8.0.1"
 gem "webauthn", "~> 3.4"
 
-gem 'bootsnap', '~> 1.17', require: false
+gem 'bootsnap', '~> 1.18', require: false
 gem 'importmap-rails', '~> 2.1'
 gem 'puma', '~> 6.6'
 gem "rollbar", "~> 3.6"
@@ -14,13 +14,13 @@ gem 'sqlite3', '>= 1.4'
 gem 'stimulus-rails', '~> 1.3'
 
 group :development, :deploy do
-  gem "kamal", '~> 2.5'
+  gem "kamal", '~> 2.6'
 end
 
 group :development, :test do
   gem 'byebug', '~> 12.0', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rubocop', '~> 1.75', require: false
-  gem 'rubocop-rails', '~> 2.31', require: false
+  gem 'rubocop-rails', '~> 2.32', require: false
 end
 
 group :development do
