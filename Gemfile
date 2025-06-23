@@ -14,12 +14,12 @@ gem 'sqlite3', '>= 1.4'
 gem 'stimulus-rails', '~> 1.3'
 
 group :development, :deploy do
-  gem "kamal", '~> 2.6'
+  gem "kamal", '~> 2.7'
 end
 
 group :development, :test do
   gem 'byebug', '~> 12.0', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'rubocop', '~> 1.76', require: false
+  gem 'rubocop', '~> 1.77', require: false
   gem 'rubocop-rails', '~> 2.32', require: false
 end
 
