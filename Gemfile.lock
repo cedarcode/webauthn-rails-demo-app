@@ -284,7 +284,7 @@ GEM
       actionpack (>= 6.1)
       activesupport (>= 6.1)
       sprockets (>= 3.0.0)
-    sqlite3 (2.7.0)
+    sqlite3 (2.7.2)
       mini_portile2 (~> 2.8.0)
     sshkit (1.24.0)
       base64
