@@ -6,7 +6,7 @@ gem 'rails', "~> 8.0.1"
 gem "webauthn", "~> 3.4"
 
 gem 'bootsnap', '~> 1.18', require: false
-gem 'importmap-rails', '~> 2.1'
+gem 'importmap-rails', '~> 2.2'
 gem 'puma', '~> 6.6'
 gem "rollbar", "~> 3.6"
 gem 'sassc-rails', '~> 2.0'
@@ -19,12 +19,12 @@ end
 
 group :development, :test do
   gem 'byebug', '~> 12.0', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'rubocop', '~> 1.78', require: false
+  gem 'rubocop', '~> 1.79', require: false
   gem 'rubocop-rails', '~> 2.32', require: false
 end
 
 group :development do
-  gem "brakeman", '~> 7.0'
+  gem "brakeman", '~> 7.1'
   gem "bundler-audit", '~> 0.9.1'
   gem "rack-mini-profiler", "~> 4.0"
   gem 'web-console', '~> 4.2', '>= 4.2.1'
