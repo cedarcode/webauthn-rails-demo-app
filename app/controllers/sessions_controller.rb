@@ -31,7 +31,7 @@ class SessionsController < ApplicationController
     user = User.find_by(username: session[:current_authentication]["username"])
     raise "user #{session[:current_authentication]["username"]} never initiated sign up" unless user
 
-    credential = user.credentials.find_by(external_id: Base64.strict_encode64(webauthn_credential.raw_id))
+    credential = user.credentials.find_by(external_id: webauthn_credential.id)
 
     begin
       webauthn_credential.verify(
