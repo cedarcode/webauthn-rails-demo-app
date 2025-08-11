@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
       end
     else
       respond_to do |format|
-        format.json { render json: { errors: ["Username doesn't exist"] }, status: :unprocessable_entity }
+        format.json { render json: { errors: ["Username doesn't exist"] }, status: :unprocessable_content }
       end
     end
   end
@@ -46,7 +46,7 @@ class SessionsController < ApplicationController
 
       render json: { status: "ok" }, status: :ok
     rescue WebAuthn::Error => e
-      render json: "Verification failed: #{e.message}", status: :unprocessable_entity
+      render json: "Verification failed: #{e.message}", status: :unprocessable_content
     ensure
       session.delete(:current_authentication)
     end

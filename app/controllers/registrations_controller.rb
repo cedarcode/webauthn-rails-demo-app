@@ -23,7 +23,7 @@ class RegistrationsController < ApplicationController
       end
     else
       respond_to do |format|
-        format.json { render json: { errors: user.errors.full_messages }, status: :unprocessable_entity }
+        format.json { render json: { errors: user.errors.full_messages }, status: :unprocessable_content }
       end
     end
   end
@@ -48,10 +48,10 @@ class RegistrationsController < ApplicationController
 
         render json: { status: "ok" }, status: :ok
       else
-        render json: "Couldn't register your Security Key", status: :unprocessable_entity
+        render json: "Couldn't register your Security Key", status: :unprocessable_content
       end
     rescue WebAuthn::Error => e
-      render json: "Verification failed: #{e.message}", status: :unprocessable_entity
+      render json: "Verification failed: #{e.message}", status: :unprocessable_content
     ensure
       session.delete(:current_registration)
     end

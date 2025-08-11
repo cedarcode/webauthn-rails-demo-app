@@ -15,14 +15,14 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
 
     post registration_url, params: { registration: { username: "alice" }, format: :json }
 
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
     assert_equal ["Username has already been taken"], response.parsed_body["errors"]
   end
 
   test "should return error if registrating blank username" do
     post registration_url, params: { registration: { username: "" }, format: :json }
 
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
     assert_equal ["Username can't be blank"], response.parsed_body["errors"]
   end
 
@@ -62,7 +62,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
       )
     end
 
-    assert_response :unprocessable_entity
+    assert_response :unprocessable_content
     assert_equal "Couldn't register your Security Key", response.body
   end
 
