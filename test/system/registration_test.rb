@@ -1,27 +1,25 @@
 # frozen_string_literal: true
 
 require "application_system_test_case"
-require "webauthn/fake_client"
 
 class RegistrationTest < ApplicationSystemTestCase
-  test "register user" do
-    fake_origin = Rails.configuration.webauthn_origin
-    fake_client = WebAuthn::FakeClient.new(fake_origin, encoding: false)
-    fixed_challenge = SecureRandom.random_bytes(32)
+  def setup
+    @authenticator = add_virtual_authenticator
+  end
 
+  def teardown
+    @authenticator.remove!
+  end
+
+  test "register user" do
     visit new_registration_path
 
-    fake_credentials = fake_client.create(challenge: fixed_challenge, user_verified: true)
-    stub_create(fake_credentials)
-
-    fill_in "registration_username", with: "User1"
+    fill_in "registration_username", with: "user"
     fill_in "Security Key nickname", with: "USB key"
 
-    WebAuthn::PublicKeyCredential::CreationOptions.stub_any_instance :raw_challenge, fixed_challenge do
-      click_on "Register using WebAuthn"
-      # wait for async response
-      assert_button "account_circle"
-    end
+    click_on "Register using WebAuthn"
+    # wait for async response
+    assert_button "account_circle"
 
     assert_current_path "/"
     assert_text 'USB key'

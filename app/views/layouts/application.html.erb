@@ -29,10 +29,6 @@
     <%= stylesheet_link_tag "https://fonts.googleapis.com/icon?family=Material+Icons" %>
 
     <%= javascript_importmap_tags %>
-
-    <% if Rails.env.test? %>
-      <%= javascript_import_module_tag 'stub_credentials' %>
-    <% end %>
   </head>
 
   <body class="mdc-theme--background mdc-typography">
