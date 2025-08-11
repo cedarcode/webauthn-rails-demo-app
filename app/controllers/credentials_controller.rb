@@ -25,7 +25,7 @@ class CredentialsController < ApplicationController
       webauthn_credential.verify(session[:current_registration]["challenge"], user_verification: true)
 
       credential = current_user.credentials.find_or_initialize_by(
-        external_id: Base64.strict_encode64(webauthn_credential.raw_id)
+        external_id: webauthn_credential.id
       )
 
       if credential.update(

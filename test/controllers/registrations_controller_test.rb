@@ -47,7 +47,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
       username: "bob",
       credentials: [
         Credential.new(
-          external_id: Base64.strict_encode64(webauthn_credential.raw_id),
+          external_id: webauthn_credential.id,
           nickname: "Bob's USB Key",
           public_key: webauthn_credential.public_key,
           sign_count: webauthn_credential.sign_count
