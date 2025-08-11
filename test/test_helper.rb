@@ -8,6 +8,13 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
+  def add_virtual_authenticator
+    options = ::Selenium::WebDriver::VirtualAuthenticatorOptions.new
+    options.user_verification = true
+    options.user_verified = true
+    @authenticator = page.driver.browser.add_virtual_authenticator(options)
+  end
+
   def stub_create(fake_credential)
     # Encode binary fields to use in script
     encode(fake_credential, "rawId")
