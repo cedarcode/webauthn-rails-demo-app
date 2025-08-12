@@ -188,6 +188,10 @@ GEM
       prettyprint
     prettyprint (0.2.0)
     prism (1.4.0)
+    propshaft (1.2.1)
+      actionpack (>= 7.0.0)
+      activesupport (>= 7.0.0)
+      rack
     psych (5.2.6)
       date
       stringio
@@ -334,6 +338,7 @@ DEPENDENCIES
   importmap-rails (~> 2.2)
   kamal (~> 2.7)
   minitest-stub_any_instance (~> 1.0)
+  propshaft (~> 1.2)
   puma (~> 6.6)
   rack-mini-profiler (~> 4.0)
   rails (~> 8.0.1)
