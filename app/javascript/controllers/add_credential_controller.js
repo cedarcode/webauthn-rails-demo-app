@@ -1,5 +1,4 @@
 import { Controller } from "@hotwired/stimulus"
-import { showMessage } from "messenger";
 
 export default class extends Controller {
   async create(event) {
@@ -41,10 +40,8 @@ export default class extends Controller {
     }).then(function(response) {
         if (response.ok) {
           window.location.replace("/")
-        } else if (response.status < 500) {
-          response.text().then(showMessage);
         } else {
-          showMessage("Sorry, something wrong happened.");
+          alert("Sorry, something wrong happened.");
         }
       });
   }

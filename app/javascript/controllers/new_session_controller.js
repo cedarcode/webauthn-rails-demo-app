@@ -1,5 +1,4 @@
 import { Controller } from "@hotwired/stimulus"
-import { showMessage } from "messenger";
 
 export default class extends Controller {
   async create() {
@@ -34,14 +33,11 @@ export default class extends Controller {
       },
       credentials: 'same-origin'
     }).then(function(response) {
-      if (response.ok) {
-        window.location.replace("/")
-      } else if (response.status < 500) {
-          response.text().then(showMessage);
-      } else {
-        showMessage("Sorry, something wrong happened.");
-      }
-    });
-
+        if (response.ok) {
+          window.location.replace("/")
+        } else {
+          alert("Sorry, something wrong happened.");
+        }
+      });
   }
 }
