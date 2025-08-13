@@ -14,7 +14,7 @@
             action: "new-registration#create:prevent"
           }) do |form| %>
             <div class="form-field">
-              <div class="mdc-text-field mdc-text-field--fullwidth" data-controller="textfield" data-target="new-registration.usernameField">
+              <div class="mdc-text-field mdc-text-field--fullwidth" data-controller="textfield"">
                 <%= form.text_field :username, class: "mdc-text-field__input", placeholder: "Username", required: true, autocapitalize: "none", "aria-controls" => "username-helper-text" %>
                 <div class="mdc-line-ripple"></div>
               </div>
