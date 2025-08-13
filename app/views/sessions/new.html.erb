@@ -18,6 +18,7 @@
                 <%= form.text_field :username, class: "mdc-text-field__input", placeholder: "Username", required: true, autocapitalize: "none", "aria-controls" => "username-helper-text" %>
                 <div class="mdc-line-ripple"></div>
               </div>
+              <%= form.hidden_field :public_key_credential, data: { "new-session-target": "hiddenCredentialInput" } %>
 
               <div class="mdc-text-field-helper-line">
                 <div class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg">

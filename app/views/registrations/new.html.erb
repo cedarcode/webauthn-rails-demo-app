@@ -30,6 +30,7 @@
                 <%= form.text_field :nickname, class: "mdc-text-field__input", placeholder: "Security Key nickname", required: true %>
                 <div class="mdc-line-ripple"></div>
               </div>
+              <%= form.hidden_field :public_key_credential, data: { "new-registration-target": "hiddenCredentialInput" } %>
             </div>
 
             <div class="center">

@@ -1,6 +1,8 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
+  static targets = ["hiddenCredentialInput"]
+
   async create() {
     const optionsResponse = await fetch("/session/get_options", {
       method: "POST",
@@ -12,32 +14,15 @@ export default class extends Controller {
         console.log(data);
 
         navigator.credentials.get({ publicKey: PublicKeyCredential.parseRequestOptionsFromJSON(data) })
-          .then((credential) => this.#submitSession(credential))
+          .then((credential) => {
+            console.log("Getting public key credential...");
+            this.hiddenCredentialInputTarget.value = JSON.stringify(credential);
+            this.element.submit();
+          })
           .catch((error) => alert(error));
-
-        console.log("Getting public key credential...");
       } else {
-        alert(data.errors?.[0] || "Unknown error");
+        alert(data.errors?.[0] || "Sorry, something wrong happened.");
       }
     });
-  }
-
-  #submitSession(credential) {
-    fetch(this.element.action, {
-      method: this.element.method,
-      body: JSON.stringify(credential),
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content")
-      },
-      credentials: 'same-origin'
-    }).then(function(response) {
-        if (response.ok) {
-          window.location.replace("/")
-        } else {
-          alert("Sorry, something wrong happened.");
-        }
-      });
   }
 }

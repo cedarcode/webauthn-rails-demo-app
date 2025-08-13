@@ -29,7 +29,7 @@ class RegistrationsController < ApplicationController
   end
 
   def create
-    webauthn_credential = WebAuthn::Credential.from_create(params)
+    webauthn_credential = WebAuthn::Credential.from_create(JSON.parse(params[:registration][:public_key_credential]))
 
     user = User.new(session[:current_registration]["user_attributes"])
 
@@ -38,7 +38,7 @@ class RegistrationsController < ApplicationController
 
       user.credentials.build(
         external_id: webauthn_credential.id,
-        nickname: params[:credential_nickname],
+        nickname: params[:registration][:nickname],
         public_key: webauthn_credential.public_key,
         sign_count: webauthn_credential.sign_count
       )
@@ -46,9 +46,9 @@ class RegistrationsController < ApplicationController
       if user.save
         sign_in(user)
 
-        render json: { status: "ok" }, status: :ok
+        redirect_to root_path, notice: "Security Key registered successfully"
       else
-        render json: "Couldn't register your Security Key", status: :unprocessable_content
+        redirect_to new_registration_path, alert: "Couldn't register your Security Key"
       end
     rescue WebAuthn::Error => e
       render json: "Verification failed: #{e.message}", status: :unprocessable_content

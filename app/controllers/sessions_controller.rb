@@ -28,7 +28,7 @@ class SessionsController < ApplicationController
   # rubocop:enable Naming/AccessorMethodName
 
   def create
-    webauthn_credential = WebAuthn::Credential.from_get(params)
+    webauthn_credential = WebAuthn::Credential.from_get(JSON.parse(params[:session][:public_key_credential]))
 
     user = User.find_by(username: session[:current_authentication]["username"])
     raise "user #{session[:current_authentication]["username"]} never initiated sign up" unless user
@@ -46,7 +46,7 @@ class SessionsController < ApplicationController
       credential.update!(sign_count: webauthn_credential.sign_count)
       sign_in(user)
 
-      render json: { status: "ok" }, status: :ok
+      redirect_to root_path, notice: "Security Key authenticated successfully"
     rescue WebAuthn::Error => e
       render json: "Verification failed: #{e.message}", status: :unprocessable_content
     ensure

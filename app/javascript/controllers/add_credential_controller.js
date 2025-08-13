@@ -1,7 +1,9 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  async create(event) {
+  static targets = ["hiddenCredentialInput"]
+
+  async create() {
     const optionsResponse = await fetch("/credentials/create_options", {
       method: "POST",
       body: new FormData(this.element),
@@ -14,35 +16,16 @@ export default class extends Controller {
       console.log(data);
 
       if (optionsResponse.ok) {
-        const credential_nickname = event.target.querySelector("input[name='credential[nickname]']").value || "";
-        const callbackUrl = `/credentials?credential_nickname=${credential_nickname}`
-
         navigator.credentials.create({ publicKey: PublicKeyCredential.parseCreationOptionsFromJSON(data) })
-          .then((credential) => this.#submitCredential(encodeURI(callbackUrl), credential))
+          .then((credential) => {
+            console.log("Creating new public key credential...");
+            this.hiddenCredentialInputTarget.value = JSON.stringify(credential);
+            this.element.submit();
+          })
           .catch((error) => alert(error));
       } else {
-        alert(data.errors?.[0] || "Unknown error");
+        alert(data.errors?.[0] || "Sorry, something wrong happened.");
       }
     });
-    console.log("Creating new public key credential...");
-  }
-
-  #submitCredential(url, credential) {
-    fetch(url, {
-      method: this.element.method,
-      body: JSON.stringify(credential),
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content")
-      },
-      credentials: 'same-origin'
-    }).then(function(response) {
-        if (response.ok) {
-          window.location.replace("/")
-        } else {
-          alert("Sorry, something wrong happened.");
-        }
-      });
   }
  }
