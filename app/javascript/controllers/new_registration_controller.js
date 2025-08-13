@@ -1,43 +1,37 @@
 import { Controller } from "@hotwired/stimulus"
 import { showMessage } from "messenger";
 
-import { MDCTextField } from '@material/textfield';
-
 export default class extends Controller {
-  static targets = ["usernameField"]
+  async create(event) {
+    const optionsResponse = await fetch("/registration/create_options", {
+      method: "POST",
+      body: new FormData(this.element),
+      headers: {
+        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content")
+      }
+    });
 
-  create(event) {
-    var [data, status, xhr] = event.detail;
-    console.log(data);
+    optionsResponse.json().then((data) => {
+      console.log(data);
 
-    // Registration
-    if (data["user"]) {
-      var credential_nickname = event.target.querySelector("input[name='registration[nickname]']").value;
-      var callback_url = `/registration/callback?credential_nickname=${credential_nickname}`
+      if (optionsResponse.ok && data.user) {
+        const credential_nickname = event.target.querySelector("input[name='registration[nickname]']")?.value || "";
+        const registrationUrl = `/registration?credential_nickname=${credential_nickname}`;
 
-      const credentialOptions = PublicKeyCredential.parseCreationOptionsFromJSON(data);
+        navigator.credentials.create({ publicKey: PublicKeyCredential.parseCreationOptionsFromJSON(data) })
+          .then((credential) => this.#submitRegistration(encodeURI(registrationUrl), credential))
+          .catch((error) => alert(error.message || error));
 
-      navigator.credentials.create({ "publicKey": credentialOptions })
-        .then((credential) => this.#submitRegistration(encodeURI(callback_url), credential))
-        .catch(function(error) {
-          showMessage(error);
-        });
-
-      console.log("Creating new public key credential...");
-    }
+        console.log("Creating new public key credential...");
+      } else {
+        alert(data.errors?.[0] || "Unknown error");
+      }
+    });
   }
-
-  error(event) {
-    let response = event.detail[0];
-    let usernameField = new MDCTextField(this.usernameFieldTarget);
-    usernameField.valid = false;
-    usernameField.helperTextContent = response["errors"][0];
-  }
-
 
   #submitRegistration(url, credential) {
     fetch(url, {
-      method: "POST",
+      method: this.element.method,
       body: JSON.stringify(credential),
       headers: {
         "Content-Type": "application/json",

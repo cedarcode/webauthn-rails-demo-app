@@ -5,7 +5,7 @@ require "webauthn/fake_client"
 
 class RegistrationsControllerTest < ActionDispatch::IntegrationTest
   test "should initiate registration successfully" do
-    post registration_url, params: { registration: { username: "alice" }, format: :json }
+    post create_options_registration_url, params: { registration: { username: "alice" }, format: :json }
 
     assert_response :success
   end
@@ -13,14 +13,14 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
   test "should return error if registrating taken username" do
     User.create!(username: "alice")
 
-    post registration_url, params: { registration: { username: "alice" }, format: :json }
+    post create_options_registration_url, params: { registration: { username: "alice" }, format: :json }
 
     assert_response :unprocessable_content
     assert_equal ["Username has already been taken"], response.parsed_body["errors"]
   end
 
   test "should return error if registrating blank username" do
-    post registration_url, params: { registration: { username: "" }, format: :json }
+    post create_options_registration_url, params: { registration: { username: "" }, format: :json }
 
     assert_response :unprocessable_content
     assert_equal ["Username can't be blank"], response.parsed_body["errors"]
@@ -31,7 +31,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     challenge = WebAuthn.configuration.encoder.encode(raw_challenge)
 
     WebAuthn::PublicKeyCredential::CreationOptions.stub_any_instance(:raw_challenge, raw_challenge) do
-      post registration_url, params: { registration: { username: "alice" }, format: :json }
+      post create_options_registration_url, params: { registration: { username: "alice" }, format: :json }
 
       assert_response :success
     end
@@ -57,7 +57,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
 
     assert_no_difference -> { User.count } do
       post(
-        callback_registration_url,
+        registration_url,
         params: { credential_nickname: "USB Key" }.merge(public_key_credential)
       )
     end
@@ -71,7 +71,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     challenge = WebAuthn.configuration.encoder.encode(raw_challenge)
 
     WebAuthn::PublicKeyCredential::CreationOptions.stub_any_instance(:raw_challenge, raw_challenge) do
-      post registration_url, params: { registration: { username: "alice" }, format: :json }
+      post create_options_registration_url, params: { registration: { username: "alice" }, format: :json }
 
       assert_response :success
     end
@@ -84,7 +84,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     assert_difference 'User.count', +1 do
       assert_difference 'Credential.count', +1 do
         post(
-          callback_registration_url,
+          registration_url,
           params: { credential_nickname: "USB Key" }.merge(public_key_credential)
         )
       end

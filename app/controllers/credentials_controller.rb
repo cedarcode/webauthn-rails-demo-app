@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CredentialsController < ApplicationController
-  def create
+  def create_options
     create_options = WebAuthn::Credential.options_for_create(
       user: {
         id: current_user.webauthn_id,
@@ -18,7 +18,7 @@ class CredentialsController < ApplicationController
     end
   end
 
-  def callback
+  def create
     webauthn_credential = WebAuthn::Credential.from_create(params)
 
     begin

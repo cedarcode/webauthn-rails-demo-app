@@ -2,25 +2,35 @@ import { Controller } from "@hotwired/stimulus"
 import { showMessage } from "messenger";
 
 export default class extends Controller {
-  create(event) {
-    var [data, status, xhr] = event.detail;
-    var credential_nickname = event.target.querySelector("input[name='credential[nickname]']").value;
-    var callback_url = `/credentials/callback?credential_nickname=${credential_nickname}`
+  async create(event) {
+    const optionsResponse = await fetch("/credentials/create_options", {
+      method: "POST",
+      body: new FormData(this.element),
+      headers: {
+        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content")
+      }
+    });
 
-    const credentialOptions = PublicKeyCredential.parseCreationOptionsFromJSON(data);
+    optionsResponse.json().then((data) => {
+      console.log(data);
 
-      navigator.credentials.create({ "publicKey": credentialOptions })
-        .then((credential) => this.#submitCredential(encodeURI(callback_url), credential))
-        .catch(function(error) {
-          showMessage(error);
-        });
+      if (optionsResponse.ok) {
+        const credential_nickname = event.target.querySelector("input[name='credential[nickname]']").value || "";
+        const callbackUrl = `/credentials?credential_nickname=${credential_nickname}`
 
-      console.log("Creating new public key credential...");
+        navigator.credentials.create({ publicKey: PublicKeyCredential.parseCreationOptionsFromJSON(data) })
+          .then((credential) => this.#submitCredential(encodeURI(callbackUrl), credential))
+          .catch((error) => alert(error));
+      } else {
+        alert(data.errors?.[0] || "Unknown error");
+      }
+    });
+    console.log("Creating new public key credential...");
   }
 
   #submitCredential(url, credential) {
     fetch(url, {
-      method: "POST",
+      method: this.element.method,
       body: JSON.stringify(credential),
       headers: {
         "Content-Type": "application/json",
@@ -38,4 +48,4 @@ export default class extends Controller {
         }
       });
   }
-}
+ }

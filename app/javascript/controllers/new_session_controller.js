@@ -1,33 +1,31 @@
 import { Controller } from "@hotwired/stimulus"
 import { showMessage } from "messenger";
 
-import { MDCTextField } from '@material/textfield';
-
 export default class extends Controller {
-  static targets = ["usernameField"]
-
-  create(event) {
-    var [data, status, xhr] = event.detail;
-    console.log(data);
-    const credentialOptions = PublicKeyCredential.parseRequestOptionsFromJSON(data);
-
-    navigator.credentials.get({ "publicKey": credentialOptions })
-      .then((credential) => this.#submitSession("/session/callback", credential))
-      .catch((error) => showMessage(error));
-
-    console.log("Getting public key credential...");
-  }
-
-  error(event) {
-    let response = event.detail[0];
-    let usernameField = new MDCTextField(this.usernameFieldTarget);
-    usernameField.valid = false;
-    usernameField.helperTextContent = response["errors"][0];
-  }
-
-  #submitSession(url, credential) {
-    fetch(url, {
+  async create() {
+    const optionsResponse = await fetch("/session/get_options", {
       method: "POST",
+      body: new FormData(this.element),
+    });
+
+    optionsResponse.json().then((data) => {
+      if (optionsResponse.ok) {
+        console.log(data);
+
+        navigator.credentials.get({ publicKey: PublicKeyCredential.parseRequestOptionsFromJSON(data) })
+          .then((credential) => this.#submitSession(credential))
+          .catch((error) => alert(error));
+
+        console.log("Getting public key credential...");
+      } else {
+        alert(data.errors?.[0] || "Unknown error");
+      }
+    });
+  }
+
+  #submitSession(credential) {
+    fetch(this.element.action, {
+      method: this.element.method,
       body: JSON.stringify(credential),
       headers: {
         "Content-Type": "application/json",
