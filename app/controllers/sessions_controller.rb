@@ -28,7 +28,7 @@ class SessionsController < ApplicationController
   # rubocop:enable Naming/AccessorMethodName
 
   def create
-    webauthn_credential = WebAuthn::Credential.from_get(JSON.parse(params[:session][:public_key_credential]))
+    webauthn_credential = WebAuthn::Credential.from_get(JSON.parse(session_params[:public_key_credential]))
 
     user = User.find_by(username: session[:current_authentication]["username"])
     raise "user #{session[:current_authentication]["username"]} never initiated sign up" unless user
@@ -63,6 +63,6 @@ class SessionsController < ApplicationController
   private
 
   def session_params
-    params.require(:session).permit(:username)
+    params.require(:session).permit(:username, :public_key_credential)
   end
 end

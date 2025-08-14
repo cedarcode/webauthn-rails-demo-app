@@ -19,7 +19,7 @@ class CredentialsController < ApplicationController
   end
 
   def create
-    webauthn_credential = WebAuthn::Credential.from_create(JSON.parse(params[:credential][:public_key_credential]))
+    webauthn_credential = WebAuthn::Credential.from_create(JSON.parse(credential_params[:public_key_credential]))
 
     begin
       webauthn_credential.verify(session[:current_registration]["challenge"], user_verification: true)
@@ -29,7 +29,7 @@ class CredentialsController < ApplicationController
       )
 
       if credential.update(
-        nickname: params[:credential][:nickname],
+        nickname: credential_params[:nickname],
         public_key: webauthn_credential.public_key,
         sign_count: webauthn_credential.sign_count
       )
@@ -50,5 +50,9 @@ class CredentialsController < ApplicationController
     end
 
     redirect_to root_path
+  end
+
+  def credential_params
+    params.require(:credential).permit(:public_key_credential, :nickname)
   end
 end

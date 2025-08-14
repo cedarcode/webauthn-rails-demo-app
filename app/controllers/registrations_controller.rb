@@ -5,11 +5,11 @@ class RegistrationsController < ApplicationController
   end
 
   def create_options
-    user = User.new(username: params[:registration][:username])
+    user = User.new(username: registration_params[:username])
 
     create_options = WebAuthn::Credential.options_for_create(
       user: {
-        name: params[:registration][:username],
+        name: registration_params[:username],
         id: user.webauthn_id
       },
       authenticator_selection: { user_verification: "required" }
@@ -29,7 +29,7 @@ class RegistrationsController < ApplicationController
   end
 
   def create
-    webauthn_credential = WebAuthn::Credential.from_create(JSON.parse(params[:registration][:public_key_credential]))
+    webauthn_credential = WebAuthn::Credential.from_create(JSON.parse(registration_params[:public_key_credential]))
 
     user = User.new(session[:current_registration]["user_attributes"])
 
@@ -38,7 +38,7 @@ class RegistrationsController < ApplicationController
 
       user.credentials.build(
         external_id: webauthn_credential.id,
-        nickname: params[:registration][:nickname],
+        nickname: registration_params[:nickname],
         public_key: webauthn_credential.public_key,
         sign_count: webauthn_credential.sign_count
       )
@@ -55,5 +55,9 @@ class RegistrationsController < ApplicationController
     ensure
       session.delete(:current_registration)
     end
+  end
+
+  def registration_params
+    params.require(:registration).permit(:username, :nickname, :public_key_credential)
   end
 end
