@@ -58,12 +58,17 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference -> { User.count } do
       post(
         registration_url,
-        params: { credential_nickname: "USB Key" }.merge(public_key_credential)
+        params: {
+          registration: {
+            nickname: "USB Key",
+            public_key_credential: public_key_credential.to_json
+          }
+        }
       )
     end
 
-    assert_response :unprocessable_content
-    assert_equal "Couldn't register your Security Key", response.body
+    assert_redirected_to new_registration_path
+    assert_equal "Couldn't register your Security Key", flash[:alert]
   end
 
   test "should register successfully" do
@@ -85,11 +90,17 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
       assert_difference 'Credential.count', +1 do
         post(
           registration_url,
-          params: { credential_nickname: "USB Key" }.merge(public_key_credential)
+          params: {
+            registration: {
+              nickname: "USB Key",
+              public_key_credential: public_key_credential.to_json
+            }
+          }
         )
       end
     end
 
-    assert_response :success
+    assert_redirected_to root_path
+    assert_equal "Security Key registered successfully", flash[:notice]
   end
 end
