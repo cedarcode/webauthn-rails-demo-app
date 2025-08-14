@@ -9,20 +9,21 @@ export default class extends Controller {
       body: new FormData(this.element),
     });
 
-    optionsResponse.json().then((data) => {
-      if (optionsResponse.ok) {
-        console.log(data);
+    try {
+      const data = await optionsResponse.json();
+      console.log(data);
 
-        navigator.credentials.get({ publicKey: PublicKeyCredential.parseRequestOptionsFromJSON(data) })
-          .then((credential) => {
-            console.log("Getting public key credential...");
-            this.hiddenCredentialInputTarget.value = JSON.stringify(credential);
-            this.element.submit();
-          })
-          .catch((error) => alert(error));
+      if (optionsResponse.ok) {
+        console.log("Getting public key credential...");
+
+        const credential = await navigator.credentials.get({ publicKey: PublicKeyCredential.parseRequestOptionsFromJSON(data) })
+        this.hiddenCredentialInputTarget.value = JSON.stringify(credential);
+        this.element.submit();
       } else {
         alert(data.errors?.[0] || "Sorry, something wrong happened.");
       }
-    });
+    } catch (error) {
+      alert(error.message || error);
+    }
   }
 }
