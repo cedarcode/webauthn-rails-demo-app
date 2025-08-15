@@ -9,9 +9,9 @@
           scope: :registration,
           url: registration_path,
           data: {
-            controller: "new-registration",
-            action: "new-registration#create:prevent",
-            "new-registration-options-url-value": create_options_registration_path,
+            controller: "webauthn-credential",
+            action: "webauthn-credential#create:prevent",
+            "webauthn-credential-options-url-value": create_options_registration_path,
           }) do |form| %>
             <div class="form-field">
               <div class="mdc-text-field mdc-text-field--fullwidth" data-controller="textfield"">
@@ -30,7 +30,7 @@
                 <%= form.text_field :nickname, class: "mdc-text-field__input", placeholder: "Security Key nickname", required: true %>
                 <div class="mdc-line-ripple"></div>
               </div>
-              <%= form.hidden_field :public_key_credential, data: { "new-registration-target": "hiddenCredentialInput" } %>
+              <%= form.hidden_field :public_key_credential, data: { "webauthn-credential-target": "hiddenCredentialInput" } %>
             </div>
 
             <div class="center">

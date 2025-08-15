@@ -9,16 +9,16 @@
           scope: :session,
           url: session_path,
           data: {
-            controller: "new-session",
-            action: "new-session#create:prevent",
-            "new-session-options-url-value": get_options_session_path,
+            controller: "webauthn-credential",
+            action: "webauthn-credential#get:prevent",
+            "webauthn-credential-options-url-value": get_options_session_path,
           }) do |form| %>
             <div class="form-field">
               <div class="mdc-text-field mdc-text-field--fullwidth" data-controller="textfield">
                 <%= form.text_field :username, class: "mdc-text-field__input", placeholder: "Username", required: true, autocapitalize: "none", "aria-controls" => "username-helper-text" %>
                 <div class="mdc-line-ripple"></div>
               </div>
-              <%= form.hidden_field :public_key_credential, data: { "new-session-target": "hiddenCredentialInput" } %>
+              <%= form.hidden_field :public_key_credential, data: { "webauthn-credential-target": "hiddenCredentialInput" } %>
 
               <div class="mdc-text-field-helper-line">
                 <div class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg">
