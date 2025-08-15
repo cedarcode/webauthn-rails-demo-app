@@ -58,6 +58,6 @@ class RegistrationsController < ApplicationController
   end
 
   def registration_params
-    params.require(:registration).permit(:username, :nickname, :public_key_credential)
+    params.expect(registration: [:username, :nickname, :public_key_credential])
   end
 end

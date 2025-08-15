@@ -53,6 +53,6 @@ class CredentialsController < ApplicationController
   end
 
   def credential_params
-    params.require(:credential).permit(:public_key_credential, :nickname)
+    params.expect(credential: [:public_key_credential, :nickname])
   end
 end

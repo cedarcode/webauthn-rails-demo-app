@@ -63,6 +63,6 @@ class SessionsController < ApplicationController
   private
 
   def session_params
-    params.require(:session).permit(:username, :public_key_credential)
+    params.expect(session: [:username, :public_key_credential])
   end
 end

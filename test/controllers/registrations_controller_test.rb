@@ -5,7 +5,7 @@ require "webauthn/fake_client"
 
 class RegistrationsControllerTest < ActionDispatch::IntegrationTest
   test "should initiate registration successfully" do
-    post create_options_registration_url, params: { registration: { username: "alice" }, format: :json }
+    post create_options_registration_url, params: { registration: { username: "alice" } }, as: :json
 
     assert_response :success
   end
@@ -13,14 +13,14 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
   test "should return error if registrating taken username" do
     User.create!(username: "alice")
 
-    post create_options_registration_url, params: { registration: { username: "alice" }, format: :json }
+    post create_options_registration_url, params: { registration: { username: "alice" } }, as: :json
 
     assert_response :unprocessable_content
     assert_equal ["Username has already been taken"], response.parsed_body["errors"]
   end
 
   test "should return error if registrating blank username" do
-    post create_options_registration_url, params: { registration: { username: "" }, format: :json }
+    post create_options_registration_url, params: { registration: { username: "" } }, as: :json
 
     assert_response :unprocessable_content
     assert_equal ["Username can't be blank"], response.parsed_body["errors"]
@@ -31,7 +31,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     challenge = WebAuthn.configuration.encoder.encode(raw_challenge)
 
     WebAuthn::PublicKeyCredential::CreationOptions.stub_any_instance(:raw_challenge, raw_challenge) do
-      post create_options_registration_url, params: { registration: { username: "alice" }, format: :json }
+      post create_options_registration_url, params: { registration: { username: "alice" } }, as: :json
 
       assert_response :success
     end
@@ -76,7 +76,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     challenge = WebAuthn.configuration.encoder.encode(raw_challenge)
 
     WebAuthn::PublicKeyCredential::CreationOptions.stub_any_instance(:raw_challenge, raw_challenge) do
-      post create_options_registration_url, params: { registration: { username: "alice" }, format: :json }
+      post create_options_registration_url, params: { registration: { username: "alice" } }, as: :json
 
       assert_response :success
     end
