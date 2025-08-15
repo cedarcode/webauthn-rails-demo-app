@@ -5,26 +5,26 @@ export default class extends Controller {
   static values = { optionsUrl: String }
 
   async create() {
-    const optionsResponse = await fetch(this.optionsUrlValue, {
-      method: "POST",
-      body: new FormData(this.element),
-      headers: {
-        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content")
-      }
-    });
-
     try {
-      const data = await optionsResponse.json();
-      console.log(data);
+      const optionsResponse = await fetch(this.optionsUrlValue, {
+        method: "POST",
+        body: new FormData(this.element),
+        headers: {
+          "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content")
+        }
+      });
+
+      const optionsJson = await optionsResponse.json();
+      console.log(optionsJson);
 
       if (optionsResponse.ok) {
         console.log("Creating new public key credential...");
 
-        const credential = await navigator.credentials.create({ publicKey: PublicKeyCredential.parseCreationOptionsFromJSON(data) });
+        const credential = await navigator.credentials.create({ publicKey: PublicKeyCredential.parseCreationOptionsFromJSON(optionsJson) });
         this.hiddenCredentialInputTarget.value = JSON.stringify(credential);
         this.element.submit();
       } else {
-        alert(data.errors?.[0] || "Sorry, something wrong happened.");
+        alert(optionsJson.errors?.[0] || "Sorry, something wrong happened.");
       }
     } catch (error) {
       alert(error.message || error);
@@ -32,26 +32,26 @@ export default class extends Controller {
   }
 
   async get() {
-    const optionsResponse = await fetch(this.optionsUrlValue, {
-      method: "POST",
-      body: new FormData(this.element),
-      headers: {
-        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content")
-      }
-    });
-
     try {
-      const data = await optionsResponse.json();
-      console.log(data);
+      const optionsResponse = await fetch(this.optionsUrlValue, {
+        method: "POST",
+        body: new FormData(this.element),
+        headers: {
+          "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content")
+        }
+      });
+
+      const optionsJson = await optionsResponse.json();
+      console.log(optionsJson);
 
       if (optionsResponse.ok) {
         console.log("Getting public key credential...");
 
-        const credential = await navigator.credentials.get({ publicKey: PublicKeyCredential.parseRequestOptionsFromJSON(data) })
+        const credential = await navigator.credentials.get({ publicKey: PublicKeyCredential.parseRequestOptionsFromJSON(optionsJson) })
         this.hiddenCredentialInputTarget.value = JSON.stringify(credential);
         this.element.submit();
       } else {
-        alert(data.errors?.[0] || "Sorry, something wrong happened.");
+        alert(optionsJson.errors?.[0] || "Sorry, something wrong happened.");
       }
     } catch (error) {
       alert(error.message || error);
