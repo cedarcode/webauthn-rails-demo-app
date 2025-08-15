@@ -28,7 +28,8 @@
       url: credentials_path,
       data: {
         controller: "add-credential",
-        action: "add-credential#create:prevent"
+        action: "add-credential#create:prevent",
+        "add-credential-options-url-value": create_options_credentials_path,
       }) do |form| %>
       <div class="form-field">
         <div class="mdc-text-field mdc-text-field--fullwidth" data-controller="textfield">

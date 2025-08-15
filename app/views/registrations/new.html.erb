@@ -9,9 +9,9 @@
           scope: :registration,
           url: registration_path,
           data: {
-            id: "new-registration",
             controller: "new-registration",
-            action: "new-registration#create:prevent"
+            action: "new-registration#create:prevent",
+            "new-registration-options-url-value": create_options_registration_path,
           }) do |form| %>
             <div class="form-field">
               <div class="mdc-text-field mdc-text-field--fullwidth" data-controller="textfield"">

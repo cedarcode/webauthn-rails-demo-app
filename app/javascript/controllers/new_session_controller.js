@@ -2,11 +2,15 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static targets = ["hiddenCredentialInput"]
+  static values = { optionsUrl: String }
 
   async create() {
-    const optionsResponse = await fetch("/session/get_options", {
+    const optionsResponse = await fetch(this.optionsUrlValue, {
       method: "POST",
       body: new FormData(this.element),
+      headers: {
+        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content")
+      }
     });
 
     try {

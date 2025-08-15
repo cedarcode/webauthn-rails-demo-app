@@ -2,9 +2,11 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static targets = ["hiddenCredentialInput"]
+  static values = { optionsUrl: String }
 
   async create() {
-    const optionsResponse = await fetch("/registration/create_options", {
+    debugger;
+    const optionsResponse = await fetch(this.optionsUrlValue, {
       method: "POST",
       body: new FormData(this.element),
       headers: {
