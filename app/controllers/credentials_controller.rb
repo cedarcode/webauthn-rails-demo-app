@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CredentialsController < ApplicationController
-  def create_options
+  def options
     create_options = WebAuthn::Credential.options_for_create(
       user: {
         id: current_user.webauthn_id,

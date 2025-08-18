@@ -4,8 +4,7 @@ class SessionsController < ApplicationController
   def new
   end
 
-  # rubocop:disable Naming/AccessorMethodName
-  def get_options
+  def options
     user = User.find_by(username: session_params[:username])
 
     if user
@@ -25,7 +24,6 @@ class SessionsController < ApplicationController
       end
     end
   end
-  # rubocop:enable Naming/AccessorMethodName
 
   def create
     webauthn_credential = WebAuthn::Credential.from_get(JSON.parse(session_params[:public_key_credential]))

@@ -8,15 +8,15 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   resource :session, only: [:new, :create, :destroy] do
-    post :get_options, on: :collection
+    post :options, on: :collection
   end
 
   resource :registration, only: [:new, :create] do
-    post :create_options, on: :collection
+    post :options, on: :collection
   end
 
   resources :credentials, only: [:create, :destroy] do
-    post :create_options, on: :collection
+    post :options, on: :collection
   end
 
   root to: "home#index"
