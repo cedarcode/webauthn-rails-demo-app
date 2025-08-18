@@ -246,6 +246,8 @@ GEM
     regexp_parser (2.11.1)
     reline (0.6.2)
       io-console (~> 0.5)
+    requestjs-rails (0.0.13)
+      railties (>= 7.1.0)
     rexml (3.4.1)
     rollbar (3.6.2)
     rubocop (1.79.2)
@@ -342,6 +344,7 @@ DEPENDENCIES
   puma (~> 6.6)
   rack-mini-profiler (~> 4.0)
   rails (~> 8.0.1)
+  requestjs-rails
   rollbar (~> 3.6)
   rubocop (~> 1.79)
   rubocop-rails (~> 2.33)

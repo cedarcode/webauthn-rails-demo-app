@@ -10,9 +10,6 @@ export default class extends Controller {
       const optionsResponse = await fetch(this.optionsUrlValue, {
         method: "POST",
         body: new FormData(this.element),
-        headers: {
-          "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content")
-        }
       });
 
       const optionsJson = await optionsResponse.json();
@@ -37,9 +34,6 @@ export default class extends Controller {
       const optionsResponse = await fetch(this.optionsUrlValue, {
         method: "POST",
         body: new FormData(this.element),
-        headers: {
-          "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]')?.getAttribute("content")
-        }
       });
 
       const optionsJson = await optionsResponse.json();
