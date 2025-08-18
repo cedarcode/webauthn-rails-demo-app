@@ -46,7 +46,7 @@ class SessionsController < ApplicationController
 
       redirect_to root_path, notice: "Security Key authenticated successfully"
     rescue WebAuthn::Error => e
-      render json: "Verification failed: #{e.message}", status: :unprocessable_content
+      render :new, status: :unprocessable_content, alert: "Verification failed: #{e.message}"
     ensure
       session.delete(:current_authentication)
     end

@@ -38,7 +38,7 @@ class CredentialsController < ApplicationController
         redirect_to root_path, alert: "Couldn't register your Security Key"
       end
     rescue WebAuthn::Error => e
-      render json: "Verification failed: #{e.message}", status: :unprocessable_content
+      render "home/index", status: :unprocessable_content, alert: "Verification failed: #{e.message}"
     ensure
       session.delete(:current_registration)
     end
