@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
+import { showMessage } from "messenger";
 
 export default class extends Controller {
   static targets = ["hiddenCredentialInput"]
@@ -24,10 +25,10 @@ export default class extends Controller {
         this.hiddenCredentialInputTarget.value = JSON.stringify(credential);
         this.element.submit();
       } else {
-        alert(optionsJson.errors?.[0] || "Sorry, something wrong happened.");
+        showMessage(optionsJson.errors?.[0] || "Sorry, something wrong happened.");
       }
     } catch (error) {
-      alert(error.message || error);
+      showMessage(error.message || "Sorry, something wrong happened.");
     }
   }
 
@@ -51,10 +52,10 @@ export default class extends Controller {
         this.hiddenCredentialInputTarget.value = JSON.stringify(credential);
         this.element.submit();
       } else {
-        alert(optionsJson.errors?.[0] || "Sorry, something wrong happened.");
+        showMessage(optionsJson.errors?.[0] || "Sorry, something wrong happened.");
       }
     } catch (error) {
-      alert(error.message || error);
+      showMessage(error.message || "Sorry, something wrong happened.");
     }
   }
 }
