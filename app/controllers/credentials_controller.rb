@@ -33,12 +33,15 @@ class CredentialsController < ApplicationController
         public_key: webauthn_credential.public_key,
         sign_count: webauthn_credential.sign_count
       )
-        redirect_to root_path, notice: "Security Key registered successfully"
+        flash[:notice] = "Security Key registered successfully"
+        redirect_to root_path
       else
-        redirect_to root_path, alert: "Couldn't register your Security Key"
+        flash[:alert] = "Couldn't register your Security Key"
+        render "home/index", status: :unprocessable_content
       end
     rescue WebAuthn::Error => e
-      render "home/index", status: :unprocessable_content, alert: "Verification failed: #{e.message}"
+      flash[:alert] = "Verification failed: #{e.message}"
+      render "home/index", status: :unprocessable_content
     ensure
       session.delete(:current_registration)
     end

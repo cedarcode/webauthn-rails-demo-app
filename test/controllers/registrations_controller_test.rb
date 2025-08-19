@@ -67,7 +67,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
       )
     end
 
-    assert_redirected_to new_registration_path
+    assert_response :unprocessable_entity
     assert_equal "Couldn't register your Security Key", flash[:alert]
   end
 
