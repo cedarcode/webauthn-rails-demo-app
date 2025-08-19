@@ -7,22 +7,22 @@ export default class extends Controller {
 
   async create() {
     try {
-      const optionsResponse = await fetch(this.optionsUrlValue, {
+      const response = await fetch(this.optionsUrlValue, {
         method: "POST",
         body: new FormData(this.element),
       });
 
-      const optionsJson = await optionsResponse.json();
-      console.log(optionsJson);
+      const credentialOptionsJson = await response.json();
+      console.log(credentialOptionsJson);
 
-      if (optionsResponse.ok) {
+      if (response.ok) {
         console.log("Creating new public key credential...");
 
-        const credential = await navigator.credentials.create({ publicKey: PublicKeyCredential.parseCreationOptionsFromJSON(optionsJson) });
+        const credential = await navigator.credentials.create({ publicKey: PublicKeyCredential.parseCreationOptionsFromJSON(credentialOptionsJson) });
         this.hiddenCredentialInputTarget.value = JSON.stringify(credential);
         this.element.submit();
       } else {
-        showMessage(optionsJson.errors?.[0] || "Sorry, something wrong happened.");
+        showMessage(credentialOptionsJson.errors?.[0] || "Sorry, something wrong happened.");
       }
     } catch (error) {
       showMessage(error.message || "Sorry, something wrong happened.");
@@ -31,22 +31,22 @@ export default class extends Controller {
 
   async get() {
     try {
-      const optionsResponse = await fetch(this.optionsUrlValue, {
+      const response = await fetch(this.optionsUrlValue, {
         method: "POST",
         body: new FormData(this.element),
       });
 
-      const optionsJson = await optionsResponse.json();
-      console.log(optionsJson);
+      const credentialOptionsJson = await response.json();
+      console.log(credentialOptionsJson);
 
-      if (optionsResponse.ok) {
+      if (response.ok) {
         console.log("Getting public key credential...");
 
-        const credential = await navigator.credentials.get({ publicKey: PublicKeyCredential.parseRequestOptionsFromJSON(optionsJson) })
+        const credential = await navigator.credentials.get({ publicKey: PublicKeyCredential.parseRequestOptionsFromJSON(credentialOptionsJson) })
         this.hiddenCredentialInputTarget.value = JSON.stringify(credential);
         this.element.submit();
       } else {
-        showMessage(optionsJson.errors?.[0] || "Sorry, something wrong happened.");
+        showMessage(credentialOptionsJson.errors?.[0] || "Sorry, something wrong happened.");
       }
     } catch (error) {
       showMessage(error.message || "Sorry, something wrong happened.");
