@@ -9,6 +9,7 @@ gem 'bootsnap', '~> 1.18', require: false
 gem 'importmap-rails', '~> 2.2'
 gem 'propshaft', '~> 1.2'
 gem 'puma', '~> 6.6'
+gem 'requestjs-rails'
 gem "rollbar", "~> 3.6"
 gem 'sqlite3', '>= 1.4'
 gem 'stimulus-rails', '~> 1.3'
