@@ -230,7 +230,7 @@ Rails/I18nLocaleAssignment:
   Enabled: true
 
 Rails/I18nLocaleTexts:
-  Enabled: true
+  Enabled: false
 
 Rails/IgnoredColumnsAssignment:
   Enabled: true

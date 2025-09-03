@@ -8,18 +8,16 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   resource :session, only: [:new, :create, :destroy] do
-    post :callback
+    post :options, on: :collection
   end
 
   resource :registration, only: [:new, :create] do
-    post :callback
+    post :options, on: :collection
   end
 
   resources :credentials, only: [:create, :destroy] do
-    post :callback, on: :collection
+    post :options, on: :collection
   end
 
-  # post "session_callback", to: "sessions#callback"
-  # post "registration_callback", to: "registrations#callback"
   root to: "home#index"
 end
