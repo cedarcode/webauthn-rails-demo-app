@@ -2,6 +2,6 @@
 import "controllers"
 import "messenger"
 import Rails from "@rails/ujs";
+import "@rails/request.js"
 
 Rails.start();
-import "@rails/request.js"
