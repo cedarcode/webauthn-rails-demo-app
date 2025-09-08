@@ -196,7 +196,7 @@ GEM
       date
       stringio
     public_suffix (6.0.1)
-    puma (6.6.1)
+    puma (7.0.1)
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.2.0)
@@ -248,7 +248,7 @@ GEM
       io-console (~> 0.5)
     rexml (3.4.1)
     rollbar (3.6.2)
-    rubocop (1.80.0)
+    rubocop (1.80.2)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -339,7 +339,7 @@ DEPENDENCIES
   kamal (~> 2.7)
   minitest-stub_any_instance (~> 1.0)
   propshaft (~> 1.2)
-  puma (~> 6.6)
+  puma (~> 7.0)
   rack-mini-profiler (~> 4.0)
   rails (~> 8.0.1)
   rollbar (~> 3.6)
