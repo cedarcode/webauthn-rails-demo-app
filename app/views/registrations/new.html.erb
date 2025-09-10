@@ -34,7 +34,7 @@
             </div>
 
             <div class="center">
-              <%= button_tag "Register using WebAuthn", type: "submit", class: "mdc-button mdc-button--raised" %>
+              <%= form.submit "Register using WebAuthn", class: "mdc-button mdc-button--raised", data: { "webauthn-credential-target": "submitButton" } %>
             </div>
         <% end %>
       </div>

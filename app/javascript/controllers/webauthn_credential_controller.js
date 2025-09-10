@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 import { showMessage } from "messenger";
 
 export default class extends Controller {
-  static targets = ["hiddenCredentialInput"]
+  static targets = ["hiddenCredentialInput", "submitButton"]
   static values = { optionsUrl: String }
 
   async create() {
@@ -23,9 +23,11 @@ export default class extends Controller {
         this.element.submit();
       } else {
         showMessage(credentialOptionsJson.errors?.[0] || "Sorry, something wrong happened.");
+        this.submitButtonTarget.disabled = false;
       }
     } catch (error) {
       showMessage(error.message || "Sorry, something wrong happened.");
+      this.submitButtonTarget.disabled = false;
     }
   }
 
@@ -47,9 +49,11 @@ export default class extends Controller {
         this.element.submit();
       } else {
         showMessage(credentialOptionsJson.errors?.[0] || "Sorry, something wrong happened.");
+        this.submitButtonTarget.disabled = false;
       }
     } catch (error) {
       showMessage(error.message || "Sorry, something wrong happened.");
+      this.submitButtonTarget.disabled = false;
     }
   }
 }

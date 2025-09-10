@@ -40,7 +40,7 @@
       </div>
 
       <div class="center">
-        <%= button_tag "Add Security Key", type: "submit", class: "mdc-button mdc-button--unelevated" %>
+        <%= form.submit "Add Security Key", class: "mdc-button mdc-button--unelevated", data: { "webauthn-credential-target": "submitButton" } %>
       </div>
     <% end %>
   </div>
