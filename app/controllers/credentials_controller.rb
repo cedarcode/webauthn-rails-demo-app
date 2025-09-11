@@ -35,7 +35,6 @@ class CredentialsController < ApplicationController
       )
         redirect_to root_path, notice: "Security Key registered successfully"
       else
-        credential.clear_changes_information
         redirect_to root_path, alert: "Couldn't register your Security Key"
       end
     rescue WebAuthn::Error => e
