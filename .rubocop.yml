@@ -5,7 +5,6 @@ inherit_mode:
     - Exclude
 
 AllCops:
-  TargetRubyVersion: 3.2
   DisabledByDefault: true
   Exclude:
     - "bin/*"
