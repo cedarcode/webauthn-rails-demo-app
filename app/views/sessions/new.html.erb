@@ -5,12 +5,21 @@
   <div class="mdc-card__primary-action mdc-ripple-upgraded mdc-ripple-upgraded--foreground-activation" tabindex="0">
     <div class="app-card__primary"><h2 class="app-card__title mdc-typography--headline6">Sign in</h2>
       <div class="app-card__secondary mdc-typography--body2">
-        <%= form_with scope: :session, url: session_path, local: false, id: "new-session", data: { controller: "new-session", action: "ajax:success->new-session#create ajax:error->new-session#error" } do |form| %>
+        <%= form_with(
+          scope: :session,
+          url: session_path,
+          data: {
+            controller: "webauthn-credential",
+            action: "webauthn-credential#get:prevent",
+            "webauthn-credential-options-url-value": options_session_path,
+            "webauthn-credential-submit-url-value": session_path,
+          }) do |form| %>
             <div class="form-field">
-              <div class="mdc-text-field mdc-text-field--fullwidth" data-controller="textfield" data-target="new-session.usernameField">
+              <div class="mdc-text-field mdc-text-field--fullwidth" data-controller="textfield">
                 <%= form.text_field :username, class: "mdc-text-field__input", placeholder: "Username", required: true, autocapitalize: "none", "aria-controls" => "username-helper-text" %>
                 <div class="mdc-line-ripple"></div>
               </div>
+              <%= form.hidden_field :public_key_credential, data: { "webauthn-credential-target": "hiddenCredentialInput" } %>
 
               <div class="mdc-text-field-helper-line">
                 <div class="mdc-text-field-helper-text mdc-text-field-helper-text--validation-msg">
@@ -19,7 +28,7 @@
             </div>
 
             <div class="center">
-              <%= form.submit "Sign in using WebAuthn", class: "mdc-button mdc-button--raised" %>
+              <%= form.submit "Sign in using WebAuthn", class: "mdc-button mdc-button--raised", data: { "webauthn-credential-target": "submitButton" } %>
             </div>
         <% end %>
       </div>
