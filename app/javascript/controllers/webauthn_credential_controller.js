@@ -26,10 +26,9 @@ export default class extends Controller {
           body: new FormData(this.element),
         });
 
-        const { message, redirect_to } = submitResponse;
-        if (message) {
-          showMessage(message);
-        }
+        const submitResponseJson = await submitResponse.json();
+
+        const { redirect_to } = submitResponseJson;
 
         window.location.replace(redirect_to || "/");
       } else {
@@ -63,10 +62,9 @@ export default class extends Controller {
           body: new FormData(this.element),
         });
 
-        const { message, redirect_to } = submitResponse;
-        if (message) {
-          showMessage(message);
-        }
+        const submitResponseJson = await submitResponse.json();
+
+        const { redirect_to } = submitResponseJson;
 
         window.location.replace(redirect_to || "/");
       } else {
