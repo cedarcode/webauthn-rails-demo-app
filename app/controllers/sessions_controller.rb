@@ -44,10 +44,10 @@ class SessionsController < ApplicationController
       credential.update!(sign_count: webauthn_credential.sign_count)
       sign_in(user)
 
-      flash[:notice] = "Security Key authenticated successfully"
-      redirect_to root_path
+      render json: { message: "Security Key authenticated successfully", redirect_to: root_path }, status: :ok
     rescue WebAuthn::Error => e
-      render json: "Verification failed: #{e.message}", status: :unprocessable_content
+      render json: { message: "Verification failed: #{e.message}", redirect_to: session_path },
+             status: :unprocessable_content
     ensure
       session.delete(:current_authentication)
     end

@@ -33,12 +33,14 @@ class CredentialsController < ApplicationController
         public_key: webauthn_credential.public_key,
         sign_count: webauthn_credential.sign_count
       )
-        redirect_to root_path, notice: "Security Key registered successfully"
+        render json: { message: "Security Key registered successfully", redirect_to: root_path }, status: :ok
       else
-        render json: "Couldn't add your Security Key", status: :unprocessable_content
+        render json: { message: "Couldn't add your Security Key", redirect_to: credentials_path },
+               status: :unprocessable_content
       end
     rescue WebAuthn::Error => e
-      render json: "Verification failed: #{e.message}", status: :unprocessable_content
+      render json: { message: "Verification failed: #{e.message}", redirect_to: credentials_path },
+             status: :unprocessable_content
     ensure
       session.delete(:current_registration)
     end

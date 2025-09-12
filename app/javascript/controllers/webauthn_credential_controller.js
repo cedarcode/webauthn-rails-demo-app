@@ -3,7 +3,7 @@ import { showMessage } from "messenger";
 
 export default class extends Controller {
   static targets = ["hiddenCredentialInput", "submitButton"]
-  static values = { optionsUrl: String }
+  static values = { optionsUrl: String, submitUrl: String }
 
   async create() {
     try {
@@ -20,7 +20,18 @@ export default class extends Controller {
 
         const credential = await navigator.credentials.create({ publicKey: PublicKeyCredential.parseCreationOptionsFromJSON(credentialOptionsJson) });
         this.hiddenCredentialInputTarget.value = JSON.stringify(credential);
-        this.element.submit();
+
+        const submitResponse = await fetch(this.submitUrlValue, {
+          method: "POST",
+          body: new FormData(this.element),
+        });
+
+        const { message, redirect_to } = submitResponse;
+        if (message) {
+          showMessage(message);
+        }
+
+        window.location.replace(redirect_to || "/");
       } else {
         showMessage(credentialOptionsJson.errors?.[0] || "Sorry, something wrong happened.");
         this.submitButtonTarget.disabled = false;
@@ -46,7 +57,18 @@ export default class extends Controller {
 
         const credential = await navigator.credentials.get({ publicKey: PublicKeyCredential.parseRequestOptionsFromJSON(credentialOptionsJson) })
         this.hiddenCredentialInputTarget.value = JSON.stringify(credential);
-        this.element.submit();
+
+        const submitResponse = await fetch(this.submitUrlValue, {
+          method: "POST",
+          body: new FormData(this.element),
+        });
+
+        const { message, redirect_to } = submitResponse;
+        if (message) {
+          showMessage(message);
+        }
+
+        window.location.replace(redirect_to || "/");
       } else {
         showMessage(credentialOptionsJson.errors?.[0] || "Sorry, something wrong happened.");
         this.submitButtonTarget.disabled = false;

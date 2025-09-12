@@ -22,7 +22,7 @@
     <% end %>
   </ul>
 
-  <div data-controller="add-credential">
+  <div>
     <%= form_with(
       scope: :credential,
       url: credentials_path,
@@ -30,6 +30,7 @@
         controller: "webauthn-credential",
         action: "webauthn-credential#create:prevent",
         "webauthn-credential-options-url-value": options_credentials_path,
+        "webauthn-credential-submit-url-value": credentials_path,
       }) do |form| %>
       <div class="form-field">
         <div class="mdc-text-field mdc-text-field--fullwidth" data-controller="textfield">
