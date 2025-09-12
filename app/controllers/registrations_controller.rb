@@ -49,12 +49,10 @@ class RegistrationsController < ApplicationController
         flash[:notice] = "Security Key registered successfully"
         redirect_to root_path
       else
-        flash[:alert] = "Couldn't register your Security Key"
-        render :new, status: :unprocessable_content
+        render json: "Couldn't register your Security Key", status: :unprocessable_content
       end
     rescue WebAuthn::Error => e
-      flash[:alert] = "Verification failed: #{e.message}"
-      render :new, status: :unprocessable_content
+      render json: "Verification failed: #{e.message}", status: :unprocessable_content
     ensure
       session.delete(:current_registration)
     end

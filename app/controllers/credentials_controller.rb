@@ -35,7 +35,7 @@ class CredentialsController < ApplicationController
       )
         redirect_to root_path, notice: "Security Key registered successfully"
       else
-        redirect_to root_path, alert: "Couldn't register your Security Key"
+        render json: "Couldn't add your Security Key", status: :unprocessable_content
       end
     rescue WebAuthn::Error => e
       render json: "Verification failed: #{e.message}", status: :unprocessable_content

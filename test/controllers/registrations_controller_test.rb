@@ -67,8 +67,8 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
       )
     end
 
-    assert_response :unprocessable_entity
-    assert_equal "Couldn't register your Security Key", flash[:alert]
+    assert_response :unprocessable_content
+    assert_equal "Couldn't register your Security Key", response.body
   end
 
   test "should register successfully" do
