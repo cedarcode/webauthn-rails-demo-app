@@ -68,7 +68,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :unprocessable_content
-    assert_equal "Couldn't register your Security Key", response.body
+    assert_equal "Couldn't register your Security Key", response.parsed_body["message"]
   end
 
   test "should register successfully" do
@@ -100,7 +100,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
       end
     end
 
-    assert_redirected_to root_path
-    assert_equal "Security Key registered successfully", flash[:notice]
+    assert_response :success
+    assert_equal "Security Key registered successfully", response.parsed_body["message"]
   end
 end
