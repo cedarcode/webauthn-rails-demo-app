@@ -46,7 +46,7 @@ class RegistrationsController < ApplicationController
       if user.save
         sign_in(user)
 
-        render json: { message: "Security Key registered and signed in successfully", redirect_to: root_path },
+        render json: { message: "Security Key registered successfully", redirect_to: root_path },
                status: :ok
       else
         render json: { message: "Couldn't register your Security Key", redirect_to: registration_path },
