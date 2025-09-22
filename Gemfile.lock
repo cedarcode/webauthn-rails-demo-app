@@ -279,7 +279,7 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 4.0)
       websocket (~> 1.0)
-    sqlite3 (2.7.3)
+    sqlite3 (2.7.4)
       mini_portile2 (~> 2.8.0)
     sshkit (1.24.0)
       base64
