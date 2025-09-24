@@ -4,12 +4,12 @@ class RegistrationsController < ApplicationController
   def new
   end
 
-  def create
-    user = User.new(username: params[:registration][:username])
+  def options
+    user = User.new(username: registration_params[:username])
 
     create_options = WebAuthn::Credential.options_for_create(
       user: {
-        name: params[:registration][:username],
+        name: registration_params[:username],
         id: user.webauthn_id
       },
       authenticator_selection: { user_verification: "required" }
@@ -28,8 +28,8 @@ class RegistrationsController < ApplicationController
     end
   end
 
-  def callback
-    webauthn_credential = WebAuthn::Credential.from_create(params)
+  def create
+    webauthn_credential = WebAuthn::Credential.from_create(JSON.parse(registration_params[:public_key_credential]))
 
     user = User.new(session[:current_registration]["user_attributes"])
 
@@ -38,7 +38,7 @@ class RegistrationsController < ApplicationController
 
       user.credentials.build(
         external_id: webauthn_credential.id,
-        nickname: params[:credential_nickname],
+        nickname: registration_params[:nickname],
         public_key: webauthn_credential.public_key,
         sign_count: webauthn_credential.sign_count
       )
@@ -46,14 +46,21 @@ class RegistrationsController < ApplicationController
       if user.save
         sign_in(user)
 
-        render json: { status: "ok" }, status: :ok
+        render json: { message: "Security Key registered successfully", redirect_to: root_path },
+               status: :ok
       else
-        render json: "Couldn't register your Security Key", status: :unprocessable_content
+        render json: { message: "Couldn't register your Security Key", redirect_to: registration_path },
+               status: :unprocessable_content
       end
     rescue WebAuthn::Error => e
-      render json: "Verification failed: #{e.message}", status: :unprocessable_content
+      render json: { message: "Verification failed: #{e.message}", redirect_to: registration_path },
+             status: :unprocessable_content
     ensure
       session.delete(:current_registration)
     end
+  end
+
+  def registration_params
+    params.expect(registration: [:username, :nickname, :public_key_credential])
   end
 end

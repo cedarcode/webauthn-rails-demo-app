@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CredentialsController < ApplicationController
-  def create
+  def options
     create_options = WebAuthn::Credential.options_for_create(
       user: {
         id: current_user.webauthn_id,
@@ -18,8 +18,8 @@ class CredentialsController < ApplicationController
     end
   end
 
-  def callback
-    webauthn_credential = WebAuthn::Credential.from_create(params)
+  def create
+    webauthn_credential = WebAuthn::Credential.from_create(JSON.parse(credential_params[:public_key_credential]))
 
     begin
       webauthn_credential.verify(session[:current_registration]["challenge"], user_verification: true)
@@ -29,16 +29,18 @@ class CredentialsController < ApplicationController
       )
 
       if credential.update(
-        nickname: params[:credential_nickname],
+        nickname: credential_params[:nickname],
         public_key: webauthn_credential.public_key,
         sign_count: webauthn_credential.sign_count
       )
-        render json: { status: "ok" }, status: :ok
+        render json: { message: "Security Key registered successfully", redirect_to: root_path }, status: :ok
       else
-        render json: "Couldn't add your Security Key", status: :unprocessable_content
+        render json: { message: "Couldn't add your Security Key", redirect_to: credentials_path },
+               status: :unprocessable_content
       end
     rescue WebAuthn::Error => e
-      render json: "Verification failed: #{e.message}", status: :unprocessable_content
+      render json: { message: "Verification failed: #{e.message}", redirect_to: credentials_path },
+             status: :unprocessable_content
     ensure
       session.delete(:current_registration)
     end
@@ -50,5 +52,9 @@ class CredentialsController < ApplicationController
     end
 
     redirect_to root_path
+  end
+
+  def credential_params
+    params.expect(credential: [:public_key_credential, :nickname])
   end
 end

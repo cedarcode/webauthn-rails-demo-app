@@ -5,9 +5,17 @@
   <div class="mdc-card__primary-action mdc-ripple-upgraded mdc-ripple-upgraded--foreground-activation" tabindex="0">
     <div class="app-card__primary"><h2 class="app-card__title mdc-typography--headline6">Register</h2>
       <div class="app-card__secondary mdc-typography--body2">
-        <%= form_with scope: :registration, url: registration_path, local: false,  id: "new-registration", data: { controller: "new-registration", action: "ajax:success->new-registration#create ajax:error->new-registration#error" } do |form| %>
+        <%= form_with(
+          scope: :registration,
+          url: registration_path,
+          data: {
+            controller: "webauthn-credential",
+            action: "webauthn-credential#create:prevent",
+            "webauthn-credential-options-url-value": options_registration_path,
+            "webauthn-credential-submit-url-value": registration_path,
+          }) do |form| %>
             <div class="form-field">
-              <div class="mdc-text-field mdc-text-field--fullwidth" data-controller="textfield" data-target="new-registration.usernameField">
+              <div class="mdc-text-field mdc-text-field--fullwidth" data-controller="textfield"">
                 <%= form.text_field :username, class: "mdc-text-field__input", placeholder: "Username", required: true, autocapitalize: "none", "aria-controls" => "username-helper-text" %>
                 <div class="mdc-line-ripple"></div>
               </div>
@@ -23,10 +31,11 @@
                 <%= form.text_field :nickname, class: "mdc-text-field__input", placeholder: "Security Key nickname", required: true %>
                 <div class="mdc-line-ripple"></div>
               </div>
+              <%= form.hidden_field :public_key_credential, data: { "webauthn-credential-target": "hiddenCredentialInput" } %>
             </div>
 
             <div class="center">
-              <%= form.submit "Register using WebAuthn", class: "mdc-button mdc-button--raised" %>
+              <%= form.submit "Register using WebAuthn", class: "mdc-button mdc-button--raised", data: { "webauthn-credential-target": "submitButton" } %>
             </div>
         <% end %>
       </div>
