@@ -7,7 +7,7 @@ gem "webauthn", "~> 3.4"
 
 gem 'bootsnap', '~> 1.18', require: false
 gem 'importmap-rails', '~> 2.2'
-gem 'propshaft', '~> 1.2'
+gem 'propshaft', '~> 1.3'
 gem 'puma', '~> 7.0'
 gem "rollbar", "~> 3.6"
 gem 'sqlite3', '>= 1.4'
@@ -19,7 +19,7 @@ end
 
 group :development, :test do
   gem 'byebug', '~> 12.0', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'rubocop', '~> 1.80', require: false
+  gem 'rubocop', '~> 1.81', require: false
   gem 'rubocop-rails', '~> 2.33', require: false
 end
 
