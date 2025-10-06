@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-gem 'rails', "~> 8.0.1"
+gem 'rails', "~> 8.0.3"
 gem "webauthn", "~> 3.4"
 
 gem 'bootsnap', '~> 1.18', require: false
@@ -33,5 +33,5 @@ end
 group :test do
   gem 'capybara', '~> 3.26'
   gem 'minitest-stub_any_instance', '~> 1.0'
-  gem 'selenium-webdriver', '~> 4.35'
+  gem 'selenium-webdriver', '~> 4.36'
 end
