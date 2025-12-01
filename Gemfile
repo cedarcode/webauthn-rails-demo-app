@@ -14,7 +14,7 @@ gem 'sqlite3', '>= 1.4'
 gem 'stimulus-rails', '~> 1.3'
 
 group :development, :deploy do
-  gem "kamal", '~> 2.8'
+  gem "kamal", '~> 2.9'
 end
 
 group :development, :test do
@@ -25,7 +25,7 @@ end
 
 group :development do
   gem "brakeman", '~> 7.1'
-  gem "bundler-audit", '~> 0.9.1'
+  gem "bundler-audit", '~> 0.9.3'
   gem "rack-mini-profiler", "~> 4.0"
   gem 'web-console', '~> 4.2', '>= 4.2.1'
 end
