@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 gem 'rails', "~> 8.1.1"
 gem "webauthn", "~> 3.4"
 
-gem 'bootsnap', '~> 1.19', require: false
+gem 'bootsnap', '~> 1.20', require: false
 gem 'importmap-rails', '~> 2.2'
 gem 'propshaft', '~> 1.3'
 gem 'puma', '~> 7.1'
