@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 gem 'rails', "~> 8.1.1"
 gem "webauthn", "~> 3.4"
 
-gem 'bootsnap', '~> 1.21', require: false
+gem 'bootsnap', '~> 1.22', require: false
 gem 'importmap-rails', '~> 2.2'
 gem 'propshaft', '~> 1.3'
 gem 'puma', '~> 7.2'
@@ -19,12 +19,12 @@ end
 
 group :development, :test do
   gem 'byebug', '~> 13.0', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'rubocop', '~> 1.82', require: false
+  gem 'rubocop', '~> 1.84', require: false
   gem 'rubocop-rails', '~> 2.34', require: false
 end
 
 group :development do
-  gem "brakeman", '~> 7.1'
+  gem "brakeman", '~> 8.0'
   gem "bundler-audit", '~> 0.9.3'
   gem "rack-mini-profiler", "~> 4.0"
   gem 'web-console', '~> 4.2', '>= 4.2.1'
