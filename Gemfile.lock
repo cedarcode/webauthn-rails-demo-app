@@ -86,7 +86,7 @@ GEM
     bindex (0.8.1)
     bootsnap (1.22.0)
       msgpack (~> 1.2)
-    brakeman (8.0.1)
+    brakeman (8.0.2)
       racc
     builder (3.3.0)
     bundler-audit (0.9.3)
@@ -129,7 +129,7 @@ GEM
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
-    json (2.18.0)
+    json (2.18.1)
     jwt (3.1.2)
       base64
     kamal (2.10.1)
@@ -255,7 +255,7 @@ GEM
       io-console (~> 0.5)
     rexml (3.4.4)
     rollbar (3.7.0)
-    rubocop (1.84.0)
+    rubocop (1.84.1)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
