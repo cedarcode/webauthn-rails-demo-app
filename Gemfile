@@ -19,7 +19,7 @@ end
 
 group :development, :test do
   gem 'byebug', '~> 13.0', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'rubocop', '~> 1.84', require: false
+  gem 'rubocop', '~> 1.85', require: false
   gem 'rubocop-rails', '~> 2.34', require: false
 end
 
@@ -27,7 +27,7 @@ group :development do
   gem "brakeman", '~> 8.0'
   gem "bundler-audit", '~> 0.9.3'
   gem "rack-mini-profiler", "~> 4.0"
-  gem 'web-console', '~> 4.2', '>= 4.2.1'
+  gem 'web-console', '~> 4.3'
 end
 
 group :test do
