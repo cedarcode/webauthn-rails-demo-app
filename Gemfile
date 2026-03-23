@@ -14,7 +14,7 @@ gem 'sqlite3', '>= 1.4'
 gem 'stimulus-rails', '~> 1.3'
 
 group :development, :deploy do
-  gem "kamal", '~> 2.10'
+  gem "kamal", '~> 2.11'
 end
 
 group :development, :test do
