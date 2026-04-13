@@ -8,7 +8,7 @@ gem "webauthn", "~> 3.4"
 gem 'bootsnap', '~> 1.23', require: false
 gem 'importmap-rails', '~> 2.2'
 gem 'propshaft', '~> 1.3'
-gem 'puma', '~> 7.2'
+gem 'puma', '~> 8.0'
 gem "rollbar", "~> 3.7"
 gem 'sqlite3', '>= 1.4'
 gem 'stimulus-rails', '~> 1.3'
@@ -33,5 +33,5 @@ end
 group :test do
   gem 'capybara', '~> 3.26'
   gem 'minitest-stub_any_instance', '~> 1.0'
-  gem 'selenium-webdriver', '~> 4.41'
+  gem 'selenium-webdriver', '~> 4.43'
 end
