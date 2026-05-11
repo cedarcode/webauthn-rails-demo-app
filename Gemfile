@@ -9,7 +9,7 @@ gem 'bootsnap', '~> 1.24', require: false
 gem 'importmap-rails', '~> 2.2'
 gem 'propshaft', '~> 1.3'
 gem 'puma', '~> 8.0'
-gem "rollbar", "~> 3.7"
+gem "rollbar", "~> 3.8"
 gem 'sqlite3', '>= 1.4'
 gem 'stimulus-rails', '~> 1.3'
 
@@ -20,7 +20,7 @@ end
 group :development, :test do
   gem 'byebug', '~> 13.0', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rubocop', '~> 1.86', require: false
-  gem 'rubocop-rails', '~> 2.34', require: false
+  gem 'rubocop-rails', '~> 2.35', require: false
 end
 
 group :development do
