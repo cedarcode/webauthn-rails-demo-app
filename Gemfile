@@ -14,12 +14,12 @@ gem 'sqlite3', '>= 1.4'
 gem 'stimulus-rails', '~> 1.3'
 
 group :development, :deploy do
-  gem "kamal", '~> 2.11'
+  gem "kamal", '~> 2.12'
 end
 
 group :development, :test do
   gem 'byebug', '~> 13.0', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'rubocop', '~> 1.87', require: false
+  gem 'rubocop', '~> 1.88', require: false
   gem 'rubocop-rails', '~> 2.35', require: false
 end
 
@@ -33,5 +33,5 @@ end
 group :test do
   gem 'capybara', '~> 3.26'
   gem 'minitest-stub_any_instance', '~> 1.0'
-  gem 'selenium-webdriver', '~> 4.44'
+  gem 'selenium-webdriver', '~> 4.45'
 end
