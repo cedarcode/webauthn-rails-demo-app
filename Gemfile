@@ -5,7 +5,7 @@ source 'https://rubygems.org'
 gem 'rails', "~> 8.1.1"
 gem "webauthn", "~> 3.4"
 
-gem 'bootsnap', '~> 1.24', require: false
+gem 'bootsnap', '~> 1.25', require: false
 gem 'importmap-rails', '~> 2.2'
 gem 'propshaft', '~> 1.3'
 gem 'puma', '~> 8.0'
@@ -33,5 +33,5 @@ end
 group :test do
   gem 'capybara', '~> 3.26'
   gem 'minitest-stub_any_instance', '~> 1.0'
-  gem 'selenium-webdriver', '~> 4.46'
+  gem 'selenium-webdriver', '~> 4.47'
 end
