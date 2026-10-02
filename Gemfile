@@ -7,6 +7,7 @@ gem "webauthn", "~> 3.4"
 
 gem 'bootsnap', '~> 1.26', require: false
 gem 'importmap-rails', '~> 2.2'
+gem 'json', '< 3' # https://github.com/rails/rails/issues/58685
 gem 'propshaft', '~> 1.3'
 gem 'puma', '~> 8.0'
 gem "rollbar", "~> 3.8"
