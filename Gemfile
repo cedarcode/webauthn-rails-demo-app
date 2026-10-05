@@ -7,7 +7,7 @@ gem "webauthn", "~> 3.4"
 
 gem 'bootsnap', '~> 1.26', require: false
 gem 'importmap-rails', '~> 2.2'
-gem 'json', '< 3' # https://github.com/rails/rails/issues/58685
+gem 'json', '< 4' # https://github.com/rails/rails/issues/58685
 gem 'propshaft', '~> 1.3'
 gem 'puma', '~> 8.0'
 gem "rollbar", "~> 3.8"
@@ -25,7 +25,7 @@ group :development, :test do
 end
 
 group :development do
-  gem "brakeman", '~> 8.0'
+  gem "brakeman", '~> 8.1'
   gem "bundler-audit", '~> 0.9.3'
   gem "rack-mini-profiler", "~> 5.0"
   gem 'web-console', '~> 4.3'
@@ -34,5 +34,5 @@ end
 group :test do
   gem 'capybara', '~> 3.26'
   gem 'minitest-stub_any_instance', '~> 1.0'
-  gem 'selenium-webdriver', '~> 4.49'
+  gem 'selenium-webdriver', '~> 4.50'
 end
