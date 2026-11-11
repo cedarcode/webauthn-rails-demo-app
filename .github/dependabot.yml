@@ -4,6 +4,11 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    ignore:
+      - dependency-name: "rails"
+        update-types:
+          - "version-update:semver-major"
+          - "version-update:semver-minor"
     groups:
       all-gems:
         patterns:
