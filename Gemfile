@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-gem 'rails', "~> 8.1.1"
+gem 'rails', "~> 8.1.4"
 gem "webauthn", "~> 3.4"
 
 gem 'bootsnap', '~> 1.26', require: false
