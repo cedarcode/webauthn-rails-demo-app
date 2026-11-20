@@ -3,13 +3,13 @@
 source 'https://rubygems.org'
 
 gem 'rails', "~> 8.1.4"
-gem "webauthn", "~> 3.4"
+gem "webauthn", "~> 3.5"
 
 gem 'bootsnap', '~> 1.26', require: false
 gem 'importmap-rails', '~> 2.2'
 gem 'json', '< 3' # https://github.com/rails/rails/issues/58685
 gem 'propshaft', '~> 1.3'
-gem 'puma', '~> 8.0'
+gem 'puma', '~> 8.1'
 gem "rollbar", "~> 3.8"
 gem 'sqlite3', '>= 1.4'
 gem 'stimulus-rails', '~> 1.3'
